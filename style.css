@@ -1,0 +1,25 @@
+html, body {
+    margin: 0px;
+    height: 100%;
+}
+
+#desk {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100%;
+}
+
+.area {
+    height: 100%;
+    text-align: center;
+}
+
+#experiments {
+    background-color: rgb(219, 219, 219);    
+    width: 20%;
+}
+
+#graphs {
+    background-color: white;
+    width: 80%;
+}
