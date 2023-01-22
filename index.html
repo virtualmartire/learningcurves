@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
     <link rel="stylesheet" href="./style.css">
+    <script src="./script.js"></script>
     <title>Learning Curves</title>
 </head>
 <body>
@@ -11,12 +12,13 @@
     <div id="desk">
         <div class="area" id="experiments">
             <h2>Experiments</h2>
+            <input type="file" accept="json" multiple onchange="gotFiles(this)">
         </div>
         <div class="area" id="graphs">
             <h2>Graphs</h2>
         </div>
     </div>
 
-    <script src="./script.js"></script>
+    <!-- <script> fillPage(); </script> -->
 </body>
 </html>
