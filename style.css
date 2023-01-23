@@ -6,11 +6,10 @@ html, body {
 #desk {
     display: flex;
     flex-wrap: nowrap;
-    height: 100%;
+    flex-direction: row;
 }
 
 .area {
-    height: 100%;
     text-align: center;
 }
 
@@ -19,7 +18,14 @@ html, body {
     width: 20%;
 }
 
-#graphs {
+#graphs_area {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
     background-color: white;
     width: 80%;
+}
+
+.graph {
+    max-width: 50%;
 }
