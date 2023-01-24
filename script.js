@@ -6,44 +6,94 @@ function gotFiles(input) {
         const reader = new FileReader();
         reader.addEventListener("load", () => {     // because asynchrony
             const json_string = reader.result;
-            const run_name = file.name;
-            localStorage.setItem(run_name, json_string);
-            drawCurves(JSON.parse(json_string));
+            const json_curves = JSON.parse(json_string);
+            const run_name = Object.keys(json_curves)[0];
+            saveRun(run_name, json_string);
+            visualizeData(json_curves);
         });
         reader.readAsText(file);
     });
 
 }
 
-function drawCurves(json_curves) {
+function saveRun(run_name, json_string) {
+    localStorage.setItem(run_name, json_string);
+}
+
+function visualizeData(json_curves) {
+
+    const run_name = Object.keys(json_curves)[0];
+    const metric_name = Object.keys(json_curves[run_name])[0];
+    const metric_data = json_curves[run_name][metric_name];
+    var chart = getChartById(metric_name) || addChart(metric_name);
+
+    drawCurve(run_name, metric_data, chart);
+    chart.update()
+
+}
+
+function getChartById(chart_id) {
+    return Object.values(Chart.instances).filter((c) => c.canvas.id == chart_id).pop()
+}
+
+function addChart(metric_name) {
 
     const new_graph = document.createElement('canvas');
-    const run_name = Object.keys(json_curves)[0];
     const graphs_area = document.getElementById('graphs_area');
-    new_graph.id = run_name;
+    
+    // Add the canvas tag
+    new_graph.id = metric_name;
     new_graph.classList.add("graph");
     graphs_area.appendChild(new_graph);
+    
+    // Create the chart object
+    var chart = new Chart(metric_name, {type: "line",
+                                            data: {
+                                                    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                                                    datasets: []
+                                                },
+                                            options: {
+                                                scales: {
+                                                // yAxes: [{ticks: {min: 6, max:16}}],
+                                                },
+                                                maintainAspectRatio: false
+                                            }
+                                        });
+    
+    return chart;
 
-    var xValues = [50,60,70,80,90,100,110,120,130,140,150];
-    var yValues = [7,8,8,9,9,9,10,11,14,14,15];
+}
 
-    new Chart(run_name, {
-    type: "line",
-    data: {
-        labels: xValues,
-        datasets: [{
-        fill: false,
-        lineTension: 0,
-        backgroundColor: "rgba(0,0,255,1.0)",
-        borderColor: "rgba(0,0,255,0.1)",
-        data: yValues
-        }]
-    },
-    options: {
-        legend: {display: false},
-        scales: {
-        yAxes: [{ticks: {min: 6, max:16}}],
-        }
+function drawCurve(run_name, metric_data, chart) {
+
+    const epochs = metric_data.map(pair => pair[0]);
+    const values = metric_data.map(pair => pair[1]);
+    var chart_datasets = chart.data.datasets;
+    
+    // Update the x-axis
+    if (chart.data.labels.slice(-1)[0] < epochs.slice(-1)[0]) {
+        console.log("oh");
+        chart.data.labels = epochs;
     }
-    });
+
+    // Remove the old dataset
+    removeOldDataset(chart_datasets, run_name);
+
+    // Add the new one
+    chart_datasets.push({label: run_name,
+                        data: values,
+                        fill: false,
+                        tension: 0.1});
+
+}
+
+function removeOldDataset(chart_datasets, run_name) {
+
+    const old_dataset = chart_datasets.filter((dataset) => dataset.label == run_name).pop();
+    const index = chart_datasets.indexOf(old_dataset);
+
+    if (index > -1) { // only splice array when item is found
+        chart_datasets.splice(index, 1); // 2nd parameter means remove one item only
+    }
+
 }
