@@ -12,11 +12,31 @@ function loadExistingData() {
 
             const metric_data = metric_dict[run_name];
 
+            updateExperimentsListHTML(run_name);
             drawCurve(metric_name, run_name, metric_data);
 
         });
 
     });
+
+}
+
+function updateExperimentsListHTML(run_name) {
+
+    const experiments_list = document.getElementById("experiments_list");
+    const existing_runs = Array.from(experiments_list.childNodes).map(x => x.id);
+    const new_run = document.createElement('li');
+    const checkbox = document.createElement('input');
+    
+    if (!existing_runs.includes(run_name)) {
+                
+        new_run.id = run_name;
+        checkbox.type = 'checkbox';
+        experiments_list.appendChild(new_run);
+        new_run.appendChild(checkbox);
+        new_run.innerHTML += " " + run_name;
+    
+    }
 
 }
 

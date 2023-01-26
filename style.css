@@ -20,6 +20,11 @@ html, body {
     width: 20%;
 }
 
+#experiments_list {
+    list-style-type: none;
+    text-align: left;
+}
+
 #graphs_area {
     display: flex;
     flex-wrap: wrap;
