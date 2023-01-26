@@ -13,12 +13,12 @@
     <div id="desk">
         <div class="area" id="experiments_area">
             <h2>Experiments</h2>
-            <input type="file" accept="json" multiple onchange="gotFiles(this)">
+            <input type="file" accept="json" multiple oninput="gotFiles(this)">
         </div>
         <div class="area" id="graphs_area">
         </div>
     </div>
 
-    <!-- <script> fillPage(); </script> -->
+    <script> loadExistingData(); </script>
 </body>
 </html>
