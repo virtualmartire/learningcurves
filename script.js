@@ -1,26 +1,3 @@
-function loadExistingData() {
-    /* The function that fires when the application starts. */
-
-    const metrics_names_array = Object.keys(localStorage);
-
-    metrics_names_array.forEach((metric_name) => {
-
-        const metric_dict = JSON.parse(localStorage.getItem(metric_name));
-        const runs_names_array = Object.keys(metric_dict);
-
-        runs_names_array.forEach((run_name) => {
-
-            const metric_data = metric_dict[run_name];
-
-            updateExperimentsListHTML(run_name);
-            drawCurve(metric_name, run_name, metric_data);
-
-        });
-
-    });
-
-}
-
 function clearDesk() {
     /* Delete all the saved data when the "clear all" button is pressed. */
 
@@ -31,6 +8,44 @@ function clearDesk() {
     experiments_list.replaceChildren();
     localStorage.clear();
 
+}
+
+function gotFiles(input) {
+    /* The function that fires when some files are loaded. */
+
+    const file_list = Array.from(input.files);
+
+    file_list.forEach((file) => {
+        const reader = new FileReader();
+        reader.addEventListener("load", reader => saveAndShowFile(JSON.parse(reader.target.result)));      // because asynchrony
+        reader.readAsText(file);
+    });
+
+}
+
+function saveAndShowFile(input_dict) {
+
+    const runs_names_array = Object.keys(input_dict);
+
+    runs_names_array.forEach(run_name => {
+
+        const run_dict = input_dict[run_name];
+        const metrics_names_array = Object.keys(run_dict);
+
+        saveRun(run_name, run_dict);      // data are stored per-run
+        metrics_names_array.forEach((metric_name) => {
+            const metric_data = run_dict[metric_name];
+            updateExperimentsListHTML(run_name);
+            drawCurve(metric_name, run_name, metric_data);
+        })
+
+    })
+
+}
+
+function saveRun(run_name, run_dict) {
+    // Runs are assumed to be always updated and never taken back to past results
+    localStorage.setItem(run_name, JSON.stringify(run_dict));
 }
 
 function updateExperimentsListHTML(run_name) {
@@ -49,45 +64,6 @@ function updateExperimentsListHTML(run_name) {
         new_run.innerHTML += " " + run_name;
     
     }
-
-}
-
-function gotFiles(input) {
-    /* The function that fires when some files are loaded. */
-
-    const file_list = Array.from(input.files);
-
-    file_list.forEach((file) => {
-        const reader = new FileReader();
-        reader.addEventListener("load", () => {     // because asynchrony
-
-            const json_dict = JSON.parse(reader.result);
-            const run_name = Object.keys(json_dict)[0];     // every file has only one run
-            const metrics_names_array = Object.keys(json_dict[run_name]);
-
-            metrics_names_array.forEach((metric_name) => {
-
-                const metric_data = json_dict[run_name][metric_name];
-
-                saveMetricData(metric_name, run_name, metric_data);    // data are stored per-metric and not per-run
-                updateExperimentsListHTML(run_name);
-                drawCurve(metric_name, run_name, metric_data);
-
-            })
-
-        });
-        reader.readAsText(file);
-    });
-
-}
-
-function saveMetricData(metric_name, run_name, metric_data) {
-    // Of course, runs are always updated and never taken back to past results
-
-    var metric_dict = JSON.parse(localStorage.getItem(metric_name)) || {};
-
-    metric_dict[run_name] = metric_data;
-    localStorage.setItem(metric_name, JSON.stringify(metric_dict));
 
 }
 
