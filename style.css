@@ -21,8 +21,8 @@ html, body {
 }
 
 #experiments_list {
-    list-style-type: none;
     text-align: left;
+    margin-left: 30px;
 }
 
 #graphs_area {

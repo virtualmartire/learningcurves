@@ -13,11 +13,15 @@
     <div id="desk">
         <div class="area" id="experiments_area">
             <h2>Experiments</h2>
-            <ul id="experiments_list">
-            </ul>
-            <input type="file" accept="json" multiple oninput="gotFiles(this)">
+            <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
+            <input type="button" value="Load experiments" onclick="document.getElementById('fileLoader').click()">
+            <p id="experiments_list">
+
+            </p>
+            <button type="button" onclick="clearDesk()">Clear all</button>
         </div>
         <div class="area" id="graphs_area">
+
         </div>
     </div>
 

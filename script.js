@@ -21,11 +21,23 @@ function loadExistingData() {
 
 }
 
+function clearDesk() {
+    /* Delete all the saved data when the "clear all" button is pressed. */
+
+    const graphs_area = document.getElementById('graphs_area');
+    const experiments_list = document.getElementById("experiments_list");
+
+    graphs_area.replaceChildren();
+    experiments_list.replaceChildren();
+    localStorage.clear();
+
+}
+
 function updateExperimentsListHTML(run_name) {
 
     const experiments_list = document.getElementById("experiments_list");
     const existing_runs = Array.from(experiments_list.childNodes).map(x => x.id);
-    const new_run = document.createElement('li');
+    const new_run = document.createElement('div');
     const checkbox = document.createElement('input');
     
     if (!existing_runs.includes(run_name)) {
@@ -58,6 +70,7 @@ function gotFiles(input) {
                 const metric_data = json_dict[run_name][metric_name];
 
                 saveMetricData(metric_name, run_name, metric_data);    // data are stored per-metric and not per-run
+                updateExperimentsListHTML(run_name);
                 drawCurve(metric_name, run_name, metric_data);
 
             })
