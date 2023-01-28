@@ -3,23 +3,37 @@ function updateExperimentsListHTML(run_name) {
     const experiments_list = document.getElementById("experiments_list");
     const existing_runs = Array.from(experiments_list.childNodes).map(x => x.id);
     const new_run = document.createElement('div');
-    const checkbox = document.createElement('input');
+    const del_button = document.createElement('button');
+    const hide_button = document.createElement('button');
     
     if (!existing_runs.includes(run_name)) {
                 
         new_run.id = run_name;
-        checkbox.type = 'checkbox';
+
+        del_button.type = 'button';
+        // del_button.onclick = "deleteRun(run_name)";
+        del_button.setAttribute('onclick', `deleteRun('${run_name}')`);
+        del_button.innerHTML = "del";
+        hide_button.type = 'button';
+        // hide_button.onclick = "hideRun()";
+        hide_button.innerHTML = "hide";
+
         experiments_list.appendChild(new_run);
-        new_run.appendChild(checkbox);
+        new_run.appendChild(del_button);
+        new_run.appendChild(hide_button);
         new_run.innerHTML += " " + run_name;
     
     }
 
 }
 
+function hideRun() {
+
+}
+
 function drawCurve(metric_name, run_name, metric_data) {
 
-    var chart = getChartById(metric_name) || addChartHTML(metric_name);
+    var chart = getChartObjectById(metric_name) || addChartObjectAndHTML(metric_name);
     const epochs = metric_data.map(pair => pair[0]);
     const values = metric_data.map(pair => pair[1]);
     var chart_datasets = chart.data.datasets;
@@ -30,7 +44,7 @@ function drawCurve(metric_name, run_name, metric_data) {
     }
 
     // Remove the old dataset
-    removeOldDataset(chart_datasets, run_name);
+    removeRunFromChart(chart_datasets, run_name);
 
     // Add the new one
     chart_datasets.push({label: run_name,
@@ -42,11 +56,11 @@ function drawCurve(metric_name, run_name, metric_data) {
 
 }
 
-function getChartById(chart_id) {
+function getChartObjectById(chart_id) {
     return Object.values(Chart.instances).filter((c) => c.canvas.id == chart_id).pop()
 }
 
-function addChartHTML(metric_name) {
+function addChartObjectAndHTML(metric_name) {
 
     const new_graph = document.createElement('canvas');
     const graphs_area = document.getElementById('graphs_area');
@@ -74,7 +88,7 @@ function addChartHTML(metric_name) {
 
 }
 
-function removeOldDataset(chart_datasets, run_name) {
+function removeRunFromChart(chart_datasets, run_name) {
 
     const old_dataset = chart_datasets.filter((dataset) => dataset.label == run_name).pop();
     const index = chart_datasets.indexOf(old_dataset);

@@ -20,7 +20,7 @@
         <div class="area" id="experiments_area">
             <h2>Experiments</h2>
             <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
-            <input type="button" value="Load experiments" onclick="document.getElementById('fileLoader').click()">
+            <input type="button" value="Load experiments" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">
             <p id="experiments_list">
 
             </p>
