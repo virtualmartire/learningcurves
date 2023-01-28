@@ -11,12 +11,13 @@ function updateExperimentsListHTML(run_name) {
         new_run.id = run_name;
 
         del_button.type = 'button';
-        // del_button.onclick = "deleteRun(run_name)";
         del_button.setAttribute('onclick', `deleteRun('${run_name}')`);
         del_button.innerHTML = "del";
+
         hide_button.type = 'button';
-        // hide_button.onclick = "hideRun()";
+        hide_button.setAttribute('onclick', `hideRun('${run_name}')`);
         hide_button.innerHTML = "hide";
+        hide_button.id = `${run_name}_hide_button`;
 
         experiments_list.appendChild(new_run);
         new_run.appendChild(del_button);
@@ -27,7 +28,45 @@ function updateExperimentsListHTML(run_name) {
 
 }
 
-function hideRun() {
+function hideRun(run_name) {
+
+    var hide_button = document.getElementById(`${run_name}_hide_button`);
+    var run_exp_list_item = document.getElementById(run_name);
+    const run_dict = JSON.parse( localStorage.getItem(run_name) );
+    const metrics_names_array = Object.keys(run_dict);
+
+    if (hide_button.innerHTML == "hide") {
+
+        // Update the experiment list
+        hide_button.innerHTML = "show";
+        run_exp_list_item.style.color = 'gray';
+
+        // Delete the run on every chart
+        metrics_names_array.forEach(metric_name => {
+
+            var chart = getChartObjectById(metric_name);
+            var chart_datasets = chart.data.datasets;
+
+            removeRunFromChart(chart, run_name);
+            if (chart_datasets.length == 0) {               // delete the entire chart if it remains empty
+                document.getElementById(chart.canvas.id).remove();
+                chart.canvas.id = "trash";
+            }
+            chart.update();
+
+        });
+
+    } else {
+
+        hide_button.innerHTML = "hide";
+        run_exp_list_item.style.color = 'black';
+
+        metrics_names_array.forEach((metric_name) => {
+            const metric_data = run_dict[metric_name];
+            drawCurve(metric_name, run_name, metric_data);
+        });
+
+    }
 
 }
 
@@ -44,7 +83,7 @@ function drawCurve(metric_name, run_name, metric_data) {
     }
 
     // Remove the old dataset
-    removeRunFromChart(chart_datasets, run_name);
+    removeRunFromChart(chart, run_name);
 
     // Add the new one
     chart_datasets.push({label: run_name,
@@ -88,13 +127,16 @@ function addChartObjectAndHTML(metric_name) {
 
 }
 
-function removeRunFromChart(chart_datasets, run_name) {
+function removeRunFromChart(chart, run_name) {
 
+    var chart_datasets = chart.data.datasets;
     const old_dataset = chart_datasets.filter((dataset) => dataset.label == run_name).pop();
     const index = chart_datasets.indexOf(old_dataset);
 
     if (index > -1) { // only splice array when item is found
         chart_datasets.splice(index, 1); // 2nd parameter means remove one item only
     }
+
+    chart.update();
 
 }

@@ -63,7 +63,7 @@ function deleteRun(run_name) {
         var chart = getChartObjectById(metric_name);
         var chart_datasets = chart.data.datasets;
 
-        removeRunFromChart(chart_datasets, run_name);
+        removeRunFromChart(chart, run_name);
 
         // Delete the entire chart if it remains empty
         if (chart_datasets.length == 0) {
@@ -72,8 +72,10 @@ function deleteRun(run_name) {
         }
 
         chart.update();
+
     });
 
     // Delete the run from localStorage
     localStorage.removeItem(run_name);
+
 }
