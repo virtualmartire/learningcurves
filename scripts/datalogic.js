@@ -79,3 +79,28 @@ function deleteRun(run_name) {
     localStorage.removeItem(run_name);
 
 }
+
+function exportDesk() {
+
+    const cached_runs = _.mapValues(localStorage, JSON.parse);
+    var link = document.createElement('a');
+    var date = new Date();
+
+    date = date.toLocaleDateString().replace(/\//g, '_');
+    link.setAttribute('download', `learningcurves_${date}_.json`);
+    link.href = makeTextFile(JSON.stringify(cached_runs));
+    document.body.appendChild(link);
+
+    window.requestAnimationFrame(function () {
+        var event = new MouseEvent('click');
+        link.dispatchEvent(event);
+        document.body.removeChild(link);
+    });
+
+}
+
+function makeTextFile(text) {
+    const data = new Blob([text], {type: 'text/plain'});
+    textFile = window.URL.createObjectURL(data);
+    return textFile;        // returns a URL you can use as a href
+};

@@ -20,11 +20,12 @@
         <div class="area" id="experiments_area">
             <h2>Experiments</h2>
             <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
-            <input type="button" value="Load experiments" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">
+            <button type="button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">Load</button>
             <p id="experiments_list">
 
             </p>
-            <button type="button" onclick="clearDesk()">Clear all</button>
+            <button type="button" onclick="clearDesk()">Clear</button>
+            <button type="button" onclick="exportDesk()">Export</button>
         </div>
         <div class="area" id="graphs_area">
 
