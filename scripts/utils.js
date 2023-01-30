@@ -105,7 +105,8 @@ function addChartObjectAndHTML(metric_name) {
     graphs_area.appendChild(new_graph);
     
     // Create the chart object
-    var chart = new Chart(metric_name, {type: "line",
+    var chart = new Chart(metric_name, {
+                                            type: "line",
                                             data: {
                                                     labels: [1, 2, 3, 4, 5, 6, 7, 8, 9],
                                                     datasets: []
@@ -116,6 +117,11 @@ function addChartObjectAndHTML(metric_name) {
                                                     point:{
                                                         radius: 2
                                                     }
+                                                },
+                                                plugins: {
+                                                    legend: {
+                                                        onClick: () => { console.log('active state!'); }
+                                                    }  
                                                 }
                                             }
                                         });
