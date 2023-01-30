@@ -1,3 +1,8 @@
+const hexadecimal_dict = {
+                            "palette": ["#0863b5", "#e3001f", "#13a538", "#f39100", "#009ee3", "#e50064", "#954a97", "#fec600"],
+                            "counter": 0
+                        }
+
 function updateExperimentsListHTML(run_name) {
 
     const experiments_list = document.getElementById("experiments_list");
@@ -76,6 +81,7 @@ function drawCurve(metric_name, run_name, metric_data) {
     const epochs = metric_data.map(pair => pair[0]);
     const values = metric_data.map(pair => pair[1]);
     var chart_datasets = chart.data.datasets;
+    const color = hexadecimal_dict[run_name];
     
     // Update the x-axis
     if (chart.data.labels.slice(-1)[0] < epochs.slice(-1)[0]) {
@@ -86,9 +92,13 @@ function drawCurve(metric_name, run_name, metric_data) {
     removeRunFromChart(chart, run_name);
 
     // Add the new one
-    chart_datasets.push({label: run_name,
-                        data: values,
-                        fill: false});
+    chart_datasets.push({
+                            label: run_name,
+                            data: values,
+                            fill: false,
+                            borderColor: color,
+                            backgroundColor: color
+                        });
     
     // Re-render the chart
     chart.update();
@@ -116,10 +126,12 @@ function addChartObjectAndHTML(metric_name) {
                                                     datasets: []
                                                 },
                                             options: {
-                                                scales: {
-                                                // yAxes: [{ticks: {min: 6, max:16}}],
-                                                },
-                                                maintainAspectRatio: false
+                                                maintainAspectRatio: false,
+                                                elements: {
+                                                    point:{
+                                                        radius: 2
+                                                    }
+                                                }
                                             }
                                         });
     
@@ -138,5 +150,15 @@ function removeRunFromChart(chart, run_name) {
     }
 
     chart.update();
+
+}
+
+function assignColor(run_name) {
+    /* A function to cycle on the colors palette defined at the top of this file. */
+
+    const palette = hexadecimal_dict.palette;
+
+    hexadecimal_dict[run_name] = palette[hexadecimal_dict.counter % palette.length];
+    hexadecimal_dict.counter++;
 
 }

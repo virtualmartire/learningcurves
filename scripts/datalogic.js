@@ -8,6 +8,7 @@ function clearDesk() {
     experiments_list.replaceChildren();
     localStorage.clear();
     Object.values(Chart.instances).map(chart_obj => chart_obj.canvas.id = "trash");  // to remove all the references
+    hexadecimal_dict.counter = 0;
 
 }
 
@@ -34,6 +35,7 @@ function saveAndShowFile(input_dict) {
         const metrics_names_array = Object.keys(run_dict);
 
         saveRun(run_name, run_dict);      // data are stored per-run
+        assignColor(run_name);
         metrics_names_array.forEach((metric_name) => {
             const metric_data = run_dict[metric_name];
             updateExperimentsListHTML(run_name);
