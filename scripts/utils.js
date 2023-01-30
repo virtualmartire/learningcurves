@@ -1,7 +1,34 @@
-const hexadecimal_dict = {
-                            "palette": ["#0863b5", "#e3001f", "#13a538", "#f39100", "#009ee3", "#e50064", "#954a97", "#fec600"],
-                            "counter": 0
-                        }
+function saveAndShowFile(input_dict) {
+
+    const runs_names_array = Object.keys(input_dict);
+
+    runs_names_array.forEach(run_name => {
+
+        const run_dict = input_dict[run_name];
+        const metrics_names_array = Object.keys(run_dict);
+
+        saveRun(run_name, run_dict);      // data are stored per-run
+        assignColor(run_name);
+        metrics_names_array.forEach((metric_name) => {
+            const metric_data = run_dict[metric_name];
+            updateExperimentsListHTML(run_name);
+            drawCurve(metric_name, run_name, metric_data);
+        })
+
+    })
+
+}
+
+function saveRun(run_name, run_dict) {
+    // Runs are assumed to be always updated and never taken back to past results
+    localStorage.setItem(run_name, JSON.stringify(run_dict));
+}
+
+function makeTextFile(text) {
+    const data = new Blob([text], {type: 'text/plain'});
+    textFile = window.URL.createObjectURL(data);
+    return textFile;        // returns a URL you can use as a href
+}
 
 function updateExperimentsListHTML(run_name) {
 
@@ -29,48 +56,6 @@ function updateExperimentsListHTML(run_name) {
         new_run.appendChild(hide_button);
         new_run.innerHTML += " " + run_name;
     
-    }
-
-}
-
-function hideRun(run_name) {
-
-    var hide_button = document.getElementById(`${run_name}_hide_button`);
-    var run_exp_list_item = document.getElementById(run_name);
-    const run_dict = JSON.parse( localStorage.getItem(run_name) );
-    const metrics_names_array = Object.keys(run_dict);
-
-    if (hide_button.innerHTML == "hide") {
-
-        // Update the experiment list
-        hide_button.innerHTML = "show";
-        run_exp_list_item.style.color = 'gray';
-
-        // Delete the run on every chart
-        metrics_names_array.forEach(metric_name => {
-
-            var chart = getChartObjectById(metric_name);
-            var chart_datasets = chart.data.datasets;
-
-            removeRunFromChart(chart, run_name);
-            if (chart_datasets.length == 0) {               // delete the entire chart if it remains empty
-                document.getElementById(chart.canvas.id).remove();
-                chart.canvas.id = "trash";
-            }
-            chart.update();
-
-        });
-
-    } else {
-
-        hide_button.innerHTML = "hide";
-        run_exp_list_item.style.color = 'black';
-
-        metrics_names_array.forEach((metric_name) => {
-            const metric_data = run_dict[metric_name];
-            drawCurve(metric_name, run_name, metric_data);
-        });
-
     }
 
 }
@@ -154,11 +139,34 @@ function removeRunFromChart(chart, run_name) {
 }
 
 function assignColor(run_name) {
-    /* A function to cycle on the colors palette defined at the top of this file. */
+    /* A function to cycle on the chosen colors palette. */
 
-    const palette = hexadecimal_dict.palette;
+    hexadecimal_dict[run_name] = hexadecimal_dict[run_name] || hexadecimal_dict.palette_to_consume.pop();       // maintain the color if the run already exists
+    if (hexadecimal_dict.palette_to_consume.length == 0) {
+        hexadecimal_dict.palette_to_consume = hexadecimal_dict.original_palette
+    }
 
-    hexadecimal_dict[run_name] = palette[hexadecimal_dict.counter % palette.length];
-    hexadecimal_dict.counter++;
+}
+
+function deleteRunFromEveryChart(run_name) {
+
+    const run_dict = JSON.parse( localStorage.getItem(run_name) );
+    const metrics_names_array = Object.keys(run_dict);
+
+    metrics_names_array.forEach(metric_name => {
+
+        var chart = getChartObjectById(metric_name);
+        var chart_datasets = chart.data.datasets;
+
+        removeRunFromChart(chart, run_name);
+
+        if (chart_datasets.length == 0) {               // delete the entire chart if it remains empty
+            document.getElementById(chart.canvas.id).remove();
+            chart.canvas.id = "trash";
+        }
+
+        chart.update();
+
+    });
 
 }
