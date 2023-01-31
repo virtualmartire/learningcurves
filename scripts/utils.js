@@ -120,7 +120,7 @@ function addChartObjectAndHTML(metric_name) {
                                                 },
                                                 plugins: {
                                                     legend: {
-                                                        onClick: () => { console.log('active state!'); }
+                                                        onClick: null
                                                     }  
                                                 }
                                             }
