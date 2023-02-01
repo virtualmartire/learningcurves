@@ -12,12 +12,12 @@ html, body {
 
 .area {
     text-align: center;
-    height: 100%;
 }
 
 #experiments_area {
     background-color: rgb(219, 219, 219);
     width: 20%;
+    height: 1500px;
 }
 
 #experiments_list {
@@ -29,11 +29,29 @@ html, body {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    align-content: flex-start;
     background-color: white;
     width: 80%;
 }
 
-.graph {
-    max-width: 50%;
-    max-height: 50%;
+.data_div {
+    width: 50%;
+    height: 400px;
+}
+
+.statistics_div {
+    width: 100%;
+    height: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.statistic_title{
+    margin-top: 2px;
+}
+
+.graph_div {
+    width: 100%;
+    height: 75%;
 }

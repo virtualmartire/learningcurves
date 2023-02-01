@@ -96,13 +96,43 @@ function getChartObjectById(chart_id) {
 
 function addChartObjectAndHTML(metric_name) {
 
-    const new_graph = document.createElement('canvas');
     const graphs_area = document.getElementById('graphs_area');
+    const new_data_div = document.createElement('div');
+    new_data_div.className = "data_div";
+    new_data_div.id = `${metric_name}_data_div`;
+
+    // Macro elements
+    const new_statistics_div = document.createElement('div');
+    const new_graph_div = document.createElement('div');
+    new_statistics_div.className = "statistics_div";
+    new_graph_div.className = "graph_div";
     
-    // Add the canvas tag
-    new_graph.id = metric_name;
-    new_graph.classList.add("graph");
-    graphs_area.appendChild(new_graph);
+    // Statistics columns
+    Object.keys(statistics_dict).forEach((statistic_name, index, statistics_list) => {
+
+        const statistic_column = document.createElement('div');
+        const statistic_column_title = document.createElement('h3');
+
+        statistic_column.style.width = `${100/statistics_list.length}%`;
+        statistic_column.className = "statistic_column";
+        statistic_column.id = `${metric_name}_${statistic_name}_column`;
+        statistic_column_title.innerHTML = statistic_name;
+        statistic_column_title.className = "statistic_title";
+
+        statistic_column.appendChild(statistic_column_title);
+        new_statistics_div.appendChild(statistic_column);
+
+    })
+    
+    // Chart HTML
+    const new_graph_canvas = document.createElement('canvas');
+    new_graph_canvas.id = metric_name;
+    new_graph_div.appendChild(new_graph_canvas);
+    
+    // Append children
+    new_data_div.appendChild(new_statistics_div);
+    new_data_div.appendChild(new_graph_div);
+    graphs_area.appendChild(new_data_div);
     
     // Create the chart object
     var chart = new Chart(metric_name, {
@@ -121,7 +151,12 @@ function addChartObjectAndHTML(metric_name) {
                                                 plugins: {
                                                     legend: {
                                                         onClick: null
-                                                    }  
+                                                    }
+                                                },
+                                                layout: {
+                                                    padding: {
+                                                        bottom: 10
+                                                    }
                                                 }
                                             }
                                         });
@@ -167,7 +202,7 @@ function deleteRunFromEveryChart(run_name) {
         removeRunFromChart(chart, run_name);
 
         if (chart_datasets.length == 0) {               // delete the entire chart if it remains empty
-            document.getElementById(chart.canvas.id).remove();
+            document.getElementById(`${metric_name}_data_div`).remove();
             chart.canvas.id = "trash";
         }
 
