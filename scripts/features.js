@@ -3,7 +3,10 @@ const hexadecimal_dict = {
                             "palette_to_consume": ["#fec600", "#954a97", "#e50064", "#009ee3", "#f39100", "#13a538", "#e3001f", "#0863b5"]
                         }
 
-const statistics_dict = {"MAX": null, "MIN": null}
+const statistics_dict = {
+                            "MAX": a => Math.max(...a),
+                            "MIN": a => Math.min(...a)
+                        }
 
 function gotFiles(input) {
     /* The function that fires when some files are loaded. */
@@ -20,8 +23,11 @@ function gotFiles(input) {
 
 function deleteRun(run_name) {
 
-    // Delete the item on the experiment list
+    // Delete the item from the experiments list
     document.getElementById(run_name).remove();
+
+    // Delete all run statistics
+    deleteAllRunStatistics(run_name);
 
     // Delete the run from every chart
     deleteRunFromEveryChart(run_name);
@@ -47,6 +53,9 @@ function hideRun(run_name) {
         // Update the experiment list
         hide_button.innerHTML = "show";
         run_exp_list_item.style.color = 'gray';
+
+        // Delete all run statistics
+        deleteAllRunStatistics(run_name);
 
         // Delete the run from every chart
         deleteRunFromEveryChart(run_name);

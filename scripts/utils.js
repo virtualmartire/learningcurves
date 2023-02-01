@@ -84,6 +84,19 @@ function drawCurve(metric_name, run_name, metric_data) {
                             borderColor: color,
                             backgroundColor: color
                         });
+
+    // Compute and add the statistics
+    Object.keys(statistics_dict).forEach(statistic_name => {
+
+        const statistic_column = document.getElementById(`${metric_name}_${statistic_name}_column`);
+        const statistic_value = document.createElement('div');
+
+        statistic_value.innerHTML = statistics_dict[statistic_name](values);
+        statistic_value.style.color = color;
+        statistic_value.classList.add(`${run_name}_statistics`);
+        statistic_column.appendChild(statistic_value);
+
+    });
     
     // Re-render the chart
     chart.update();
@@ -122,7 +135,7 @@ function addChartObjectAndHTML(metric_name) {
         statistic_column.appendChild(statistic_column_title);
         new_statistics_div.appendChild(statistic_column);
 
-    })
+    });
     
     // Chart HTML
     const new_graph_canvas = document.createElement('canvas');
@@ -209,5 +222,13 @@ function deleteRunFromEveryChart(run_name) {
         chart.update();
 
     });
+
+}
+
+function deleteAllRunStatistics(run_name) {
+
+    const run_statistics = document.querySelectorAll(`.${run_name}_statistics`);
+
+    run_statistics.forEach(node => node.remove());
 
 }
