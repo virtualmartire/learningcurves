@@ -15,7 +15,9 @@ function saveAndShowFile(input_dict) {
             drawCurve(metric_name, run_name, metric_data);
         })
 
-    })
+    });
+
+    resetDataDivHeight();
 
 }
 
@@ -230,5 +232,21 @@ function deleteAllRunStatistics(run_name) {
     const run_statistics = document.querySelectorAll(`.${run_name}_statistics`);
 
     run_statistics.forEach(node => node.remove());
+
+}
+
+function resetDataDivHeight() {
+
+    const statistics_div_list = document.querySelectorAll('.statistics_div');
+
+    // Reset the heights to their natural value
+    statistics_div_list.forEach(div => {div.style.height = "";});
+
+    // Compute and set the artificial ones
+    for (let i=0; i<(statistics_div_list.length-1); i=i+2) {
+        max_height = Math.max(statistics_div_list[i].offsetHeight, statistics_div_list[i+1].offsetHeight);
+        statistics_div_list[i].style.height = `${max_height}px`;
+        statistics_div_list[i+1].style.height = `${max_height}px`;
+    };
 
 }

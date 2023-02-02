@@ -35,9 +35,10 @@ function deleteRun(run_name) {
     // Delete the run from localStorage
     localStorage.removeItem(run_name);
 
-    // Restore the now-free color
+    // Restore the now-free color and reset the height of all the statistics div
     hexadecimal_dict.palette_to_consume.push(hexadecimal_dict[run_name]);
     delete hexadecimal_dict[run_name];
+    resetDataDivHeight();
 
 }
 
@@ -71,6 +72,8 @@ function hideRun(run_name) {
         });
 
     };
+
+    resetDataDivHeight();
 
 }
 
