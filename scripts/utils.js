@@ -69,6 +69,12 @@ function drawCurve(metric_name, run_name, metric_data) {
     const values = metric_data.map(pair => pair[1]);
     var chart_datasets = chart.data.datasets;
     const color = hexadecimal_dict[run_name];
+    const statistic_run_name = document.createElement('div');
+
+    // Add the run name to the statistics div
+    statistic_run_name.innerHTML = run_name;
+    statistic_run_name.classList.add(`${run_name}_statistics`);
+    document.getElementById(`${metric_name}_run_name_column`).appendChild(statistic_run_name);
     
     // Update the x-axis
     if (chart.data.labels.slice(-1)[0] < epochs.slice(-1)[0]) {
@@ -96,6 +102,7 @@ function drawCurve(metric_name, run_name, metric_data) {
         statistic_value.innerHTML = statistics_dict[statistic_name](values);
         statistic_value.style.color = color;
         statistic_value.classList.add(`${run_name}_statistics`);
+        statistic_value.classList.add(`statistic_value`);
         statistic_column.appendChild(statistic_value);
 
     });
@@ -123,6 +130,16 @@ function addChartObjectAndHTML(metric_name) {
     new_graph_div.className = "graph_div";
     
     // Statistics columns
+    const new_run_names_container = document.createElement('div');
+    const new_statistics_container = document.createElement('div');
+    new_run_names_container.style.width = "20%";
+    new_statistics_container.style.width = "80%";
+    new_run_names_container.classList.add("statistic_column");
+    new_run_names_container.classList.add("statistic_run_names");
+    new_statistics_container.classList.add("statistics_container");
+    new_run_names_container.id = `${metric_name}_run_name_column`;
+    new_statistics_div.appendChild(new_run_names_container);
+    new_statistics_div.appendChild(new_statistics_container);
     Object.keys(statistics_dict).forEach((statistic_name, index, statistics_list) => {
 
         const statistic_column = document.createElement('div');
@@ -135,7 +152,7 @@ function addChartObjectAndHTML(metric_name) {
         statistic_column_title.className = "statistic_title";
 
         statistic_column.appendChild(statistic_column_title);
-        new_statistics_div.appendChild(statistic_column);
+        new_statistics_container.appendChild(statistic_column);
 
     });
     
@@ -165,7 +182,12 @@ function addChartObjectAndHTML(metric_name) {
                                                 },
                                                 plugins: {
                                                     legend: {
-                                                        onClick: null
+                                                        onClick: null,
+                                                        display: false
+                                                    },
+                                                    title: {
+                                                        display: true,
+                                                        text: metric_name
                                                     }
                                                 },
                                                 layout: {
@@ -175,6 +197,13 @@ function addChartObjectAndHTML(metric_name) {
                                                 }
                                             }
                                         });
+
+    // Adjust the run names columns (here for synchro...)
+    const a_statistic_title = document.querySelector('.statistic_title');
+    const title_style = getComputedStyle(a_statistic_title);
+    new_run_names_container.style.marginTop = `${parseInt(title_style.marginTop.slice(0, -2)) +
+                                            parseInt(title_style.height.slice(0, -2)) +
+                                            parseInt(title_style.marginBottom.slice(0, -2))}px`;
     
     return chart;
 
