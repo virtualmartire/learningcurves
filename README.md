@@ -2,5 +2,5 @@
 A privacy preserving, ultralight ML visualization tool.
 
 ## todos
-- "switch to derivatives" button
+- mobile design
 - homepage to start the app

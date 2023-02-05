@@ -64,16 +64,22 @@ function updateExperimentsListHTML(run_name) {
 
 function drawCurve(metric_name, run_name, metric_data) {
 
-    var chart = getChartObjectById(metric_name) || addChartObjectAndHTML(metric_name);
+    const chart = getChartObjectById(metric_name) || addChartObjectAndHTML(metric_name);
     const epochs = metric_data.map(pair => pair[0]);
-    const values = metric_data.map(pair => pair[1]);
-    var chart_datasets = chart.data.datasets;
+    const switch_button = document.getElementById(`${metric_name}_switch_button`);
+    const original_values = metric_data.map(pair => pair[1]);
+    const chart_datasets = chart.data.datasets;
     const color = hexadecimal_dict[run_name];
     const statistic_run_name = document.createElement('div');
+
+    // Remove the old dataset and its statistics
+    removeRunFromChart(chart, run_name);
+    document.querySelectorAll(`.${run_name}_statistics_${metric_name}`).forEach(node => node.remove());
 
     // Add the run name to the statistics div
     statistic_run_name.innerHTML = run_name;
     statistic_run_name.classList.add(`${run_name}_statistics`);
+    statistic_run_name.classList.add(`${run_name}_statistics_${metric_name}`);
     document.getElementById(`${metric_name}_run_name_column`).appendChild(statistic_run_name);
     
     // Update the x-axis
@@ -81,8 +87,8 @@ function drawCurve(metric_name, run_name, metric_data) {
         chart.data.labels = epochs;
     }
 
-    // Remove the old dataset
-    removeRunFromChart(chart, run_name);
+    // Set the values array based on the state of the chart ('derivatives' or 'real values')
+    const values = switch_button.innerHTML == 'derivatives' ? original_values : computeDerivatives(original_values);
 
     // Add the new one
     chart_datasets.push({
@@ -102,6 +108,7 @@ function drawCurve(metric_name, run_name, metric_data) {
         statistic_value.innerHTML = statistics_dict[statistic_name](values);
         statistic_value.style.color = color;
         statistic_value.classList.add(`${run_name}_statistics`);
+        statistic_value.classList.add(`${run_name}_statistics_${metric_name}`);
         statistic_value.classList.add(`statistic_value`);
         statistic_column.appendChild(statistic_value);
 
@@ -130,31 +137,44 @@ function addChartObjectAndHTML(metric_name) {
     new_graph_div.className = "graph_div";
     
     // Statistics columns
+    //// Create one container for the runs names and one for all the statistics columns
     const new_run_names_container = document.createElement('div');
     const new_statistics_container = document.createElement('div');
     new_run_names_container.style.width = "20%";
     new_statistics_container.style.width = "80%";
+    //// Set the runs names column
+    const h3_button_container = document.createElement('h3');
+    const derivatives_button = document.createElement('button');
+    h3_button_container.style.textAlign = 'center';
+    derivatives_button.type = 'button';
+    derivatives_button.innerHTML = "derivatives";
+    derivatives_button.setAttribute('onclick', `derivativesValuesSwitch('${metric_name}')`);
+    derivatives_button.id = `${metric_name}_switch_button`;
+    h3_button_container.appendChild(derivatives_button);
+    new_run_names_container.appendChild(h3_button_container);
     new_run_names_container.classList.add("statistic_column");
     new_run_names_container.classList.add("statistic_run_names");
-    new_statistics_container.classList.add("statistics_container");
     new_run_names_container.id = `${metric_name}_run_name_column`;
     new_statistics_div.appendChild(new_run_names_container);
-    new_statistics_div.appendChild(new_statistics_container);
-    Object.keys(statistics_dict).forEach((statistic_name, index, statistics_list) => {
-
+    //// Set the statistics columns
+    const statistics_names_list = Object.keys(statistics_dict);
+    statistics_names_list.forEach(statistic_name => {
+        
         const statistic_column = document.createElement('div');
         const statistic_column_title = document.createElement('h3');
-
-        statistic_column.style.width = `${100/statistics_list.length}%`;
+        
+        statistic_column.style.width = `${100/statistics_names_list.length}%`;
         statistic_column.className = "statistic_column";
         statistic_column.id = `${metric_name}_${statistic_name}_column`;
         statistic_column_title.innerHTML = statistic_name;
         statistic_column_title.className = "statistic_title";
-
+        
         statistic_column.appendChild(statistic_column_title);
         new_statistics_container.appendChild(statistic_column);
-
+        
     });
+    new_statistics_container.classList.add("statistics_container");
+    new_statistics_div.appendChild(new_statistics_container);
     
     // Chart HTML
     const new_graph_canvas = document.createElement('canvas');
@@ -197,13 +217,6 @@ function addChartObjectAndHTML(metric_name) {
                                                 }
                                             }
                                         });
-
-    // Adjust the run names columns (here for synchro...)
-    const a_statistic_title = document.querySelector('.statistic_title');
-    const title_style = getComputedStyle(a_statistic_title);
-    new_run_names_container.style.marginTop = `${parseInt(title_style.marginTop.slice(0, -2)) +
-                                            parseInt(title_style.height.slice(0, -2)) +
-                                            parseInt(title_style.marginBottom.slice(0, -2))}px`;
     
     return chart;
 
@@ -277,5 +290,67 @@ function resetDataDivHeight() {
         statistics_div_list[i].style.height = `${max_height}px`;
         statistics_div_list[i+1].style.height = `${max_height}px`;
     };
+
+}
+
+function derivativesValuesSwitch(metric_name) {
+
+    const chart = getChartObjectById(metric_name);
+    const datasets = chart.data.datasets;
+    const switch_button = document.getElementById(`${metric_name}_switch_button`);
+    
+    if (switch_button.innerHTML == "derivatives") {
+
+        switch_button.innerHTML = "values";
+
+        // Re-draw all the curves
+        const cached_runs = _.mapValues(localStorage, JSON.parse);
+        const runs_names_array = Object.keys(cached_runs);
+
+        runs_names_array.forEach(run_name => {
+    
+            const run_dict = cached_runs[run_name];
+            const metrics_names_array = Object.keys(run_dict);
+    
+            metrics_names_array.forEach((current_metric_name) => {
+                if (current_metric_name == metric_name) {
+                    const metric_data = run_dict[current_metric_name];
+                    drawCurve(current_metric_name, run_name, metric_data);
+                }
+            });
+    
+        });    
+
+    } else {
+
+        switch_button.innerHTML = "derivatives";
+
+        const cached_runs = _.mapValues(localStorage, JSON.parse);
+        const runs_names_array = Object.keys(cached_runs);
+
+        runs_names_array.forEach(run_name => {
+            const run_dict = cached_runs[run_name];
+            const metrics_names_array = Object.keys(run_dict);
+            metrics_names_array.forEach((current_metric_name) => {
+                if (current_metric_name == metric_name) {
+                    const metric_data = run_dict[current_metric_name];
+                    drawCurve(current_metric_name, run_name, metric_data);
+                }
+            });
+        });    
+
+    };
+
+}
+
+function computeDerivatives(values) {
+
+    const derivatives = [null];
+
+    for (let i = 1; i < values.length; i++) {
+        derivatives.push(values[i] - values[i-1]);
+    };
+
+    return derivatives
 
 }
