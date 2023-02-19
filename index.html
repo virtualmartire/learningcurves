@@ -4,7 +4,9 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./css/general.css">
+    <link rel="stylesheet" href="./css/charts.css">
+    <link rel="stylesheet" href="./css/exp_list.css">
 
     <script src="./scripts/features.js"></script>
     <script src="./scripts/utils.js"></script>
@@ -18,19 +20,26 @@
 <body>
     
     <div id="desk">
-        <div class="area" id="experiments_area">
-            <h3><u>EXPERIMENTS</u></h3>
-            <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
-            <button type="button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">Load</button>
-            <p id="experiments_list">
 
-            </p>
-            <button type="button" onclick="clearDesk()">Clear</button>
-            <button type="button" onclick="exportDesk()">Export</button>
+        <div id="mySidenav" class="sidenav">
+            <div class="area" id="experiments_area">
+                <button type="button" onclick="closeNav()">Close</button>
+                <h3><u>EXPERIMENTS</u></h3>
+                <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
+                <button type="button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">Load</button>
+                <p id="experiments_list">
+                </p>
+                <button type="button" onclick="clearDesk()">Clear</button>
+                <button type="button" onclick="exportDesk()">Export</button>
+            </div>
         </div>
+        <div style="text-align:center;">
+            <button type="button" onclick="openNav()">Menu</button>
+        </div>
+
         <div class="area" id="graphs_area">
-
         </div>
+
     </div>
 
     <script>
