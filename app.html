@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <link rel="stylesheet" href="./css/general.css">
+    <link rel="stylesheet" href="./css/charts.css">
+    <link rel="stylesheet" href="./css/exp_list.css">
+
+    <script src="./scripts/features.js"></script>
+    <script src="./scripts/utils.js"></script>
+    <script src="./scripts/variables.js"></script>
+    <script src="./scripts/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+
+    <title>learningcurves - app</title>
+
+</head>
+<body>
+    
+    <div id="desk">
+
+        <div id="mySidenav" class="sidenav">
+            <div class="area" id="experiments_area">
+                <button type="button" onclick="closeNav()">close</button>
+                <h3><u>EXPERIMENTS</u></h3>
+                <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
+                <button type="button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">load</button>
+                <p id="experiments_list">
+
+                </p>
+                <p>
+                    <div>
+                        <button type="button" onclick="clearDesk()">clear</button>
+                        <button type="button" onclick="exportDesk()">export</button>
+                    </div>
+                    <div>
+                        <form action="index.html">
+                            <input type="submit" value="home"/>
+                        </form>
+                    </div>
+                </p>
+            </div>
+        </div>
+        <div style="text-align:center;">
+            <button type="button" onclick="openNav()">menu</button>
+        </div>
+
+        <div class="area" id="graphs_area">
+        </div>
+
+    </div>
+
+    <script>
+        const hexadecimal_dict = {"original_palette": [...colors_palette], "palette_to_consume": [...colors_palette]}
+        const cached_runs = _.mapValues(localStorage, JSON.parse);       // because localStorage is the dict containing all the runs
+        saveAndShowFile(cached_runs);
+    </script>
+    
+</body>
+</html>
