@@ -102,3 +102,51 @@ function exportDesk() {
     });
 
 }
+
+function derivativesValuesSwitch(metric_name) {
+
+    const switch_button = document.getElementById(`${metric_name}_switch_button`);
+    
+    if (switch_button.innerHTML == "derivatives") {
+
+        switch_button.innerHTML = "values";
+
+        // Re-draw all the curves
+        const cached_runs = _.mapValues(localStorage, JSON.parse);
+        const runs_names_array = Object.keys(cached_runs);
+
+        runs_names_array.forEach(run_name => {
+    
+            const run_dict = cached_runs[run_name];
+            const metrics_names_array = Object.keys(run_dict);
+    
+            metrics_names_array.forEach((current_metric_name) => {
+                if (current_metric_name == metric_name) {
+                    const metric_data = run_dict[current_metric_name];
+                    drawCurve(current_metric_name, run_name, metric_data);
+                }
+            });
+    
+        });    
+
+    } else {
+
+        switch_button.innerHTML = "derivatives";
+
+        const cached_runs = _.mapValues(localStorage, JSON.parse);
+        const runs_names_array = Object.keys(cached_runs);
+
+        runs_names_array.forEach(run_name => {
+            const run_dict = cached_runs[run_name];
+            const metrics_names_array = Object.keys(run_dict);
+            metrics_names_array.forEach((current_metric_name) => {
+                if (current_metric_name == metric_name) {
+                    const metric_data = run_dict[current_metric_name];
+                    drawCurve(current_metric_name, run_name, metric_data);
+                }
+            });
+        });    
+
+    };
+
+}
