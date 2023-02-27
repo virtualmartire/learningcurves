@@ -22,17 +22,18 @@ function gotFiles(input) {
 }
 
 function deleteRun(run_name) {
+    /* The action triggered by the del buttons. */
 
     // Delete the item from the experiments list
-    document.getElementById(run_name).remove();
-
-    // Delete all run statistics
-    deleteAllRunStatistics(run_name);
+    document.getElementById(`${run_name}_experiment_li`).remove();
 
     // Delete the run from every chart
     deleteRunFromEveryChart(run_name);
 
-    // Delete the run from localStorage
+    // Delete all run statistics
+    document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.remove());
+
+    // Delete the run from localStorage (this has to be the final step)
     localStorage.removeItem(run_name);
 
     // Restore the now-free color and reset the height of all the statistics div
@@ -43,11 +44,11 @@ function deleteRun(run_name) {
 }
 
 function hideRun(run_name) {
+    /* The action triggered by the hide buttons. */
 
-    var hide_button = document.getElementById(`${run_name}_hide_button`);
-    var run_exp_list_item = document.getElementById(run_name);
+    const hide_button = document.getElementById(`${run_name}_hide_button`);
+    const run_exp_list_item = document.getElementById(`${run_name}_experiment_li`);
     const run_dict = JSON.parse( localStorage.getItem(run_name) );
-    const metrics_names_array = Object.keys(run_dict);
 
     if (hide_button.innerHTML == "hide") {
 
@@ -55,20 +56,33 @@ function hideRun(run_name) {
         hide_button.innerHTML = "show";
         run_exp_list_item.style.color = 'gray';
 
-        // Delete all run statistics
-        deleteAllRunStatistics(run_name);
+        // Hide all run statistics
+        document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.display = 'none');
 
-        // Delete the run from every chart
-        deleteRunFromEveryChart(run_name);
+        // Hide the run from every chart
+        Object.keys(run_dict).forEach(metric_name => {
+            const chart = getChartObjectById(metric_name);
+            const run_datasets = chart.data.datasets.filter((dataset) => dataset.label == run_name);
+            run_datasets.forEach(dataset => {
+                dataset.hidden = true;
+            });
+            chart.update();
+        });
 
     } else {
 
         hide_button.innerHTML = "hide";
         run_exp_list_item.style.color = 'black';
 
-        metrics_names_array.forEach((metric_name) => {
-            const metric_data = run_dict[metric_name];
-            drawCurve(metric_name, run_name, metric_data);
+        document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.display = 'block');
+
+        Object.keys(run_dict).forEach(metric_name => {
+            const chart = getChartObjectById(metric_name);
+            const run_datasets = chart.data.datasets.filter((dataset) => dataset.label == run_name);
+            run_datasets.forEach(dataset => {
+                dataset.hidden = !(chart.math_version == dataset.math_version);
+            });
+            chart.update();
         });
 
     };
@@ -85,9 +99,10 @@ function clearDesk() {
 }
 
 function exportDesk() {
+    /* The action triggered by the export button. */
 
     const cached_runs = _.mapValues(localStorage, JSON.parse);
-    var link = document.createElement('a');
+    const link = document.createElement('a');
     var date = new Date();
 
     date = date.toLocaleDateString().replace(/\//g, '_');
@@ -96,7 +111,7 @@ function exportDesk() {
     document.body.appendChild(link);
 
     window.requestAnimationFrame(function () {
-        var event = new MouseEvent('click');
+        const event = new MouseEvent('click');
         link.dispatchEvent(event);
         document.body.removeChild(link);
     });

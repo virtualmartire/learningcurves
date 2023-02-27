@@ -15,9 +15,9 @@ function saveAndShowFile(input_dict) {
 
             updateExperimentsListHTML(run_name);
 
-            addValueAndDerivativesToChart(metric_name, run_name, metric_data);      // it creates the chart and the data-div HTML if needed
+            addValueAndDerivativesToChart(metric_name, run_name, metric_data);     // it creates the chart object and the data-div HTML if needed
             getChartObjectById(metric_name).update();
-            
+
             addStatisticsDivs(metric_name, run_name);
             computeAndAddStatistics(metric_name, run_name);
 
@@ -37,15 +37,15 @@ function saveRunToLocalStorage(run_name, run_dict) {
 function updateExperimentsListHTML(run_name) {
 
     const experiments_list = document.getElementById("experiments_list");
-    const existing_runs = Array.from(experiments_list.childNodes).map(x => x.id);
+    const existing_runs_ids = Array.from(experiments_list.childNodes).map(x => x.id);
     
-    if (!existing_runs.includes(run_name)) {
+    if (!existing_runs_ids.includes(`${run_name}_experiment_li`)) {
 
         const new_run = document.createElement('div');
         const del_button = document.createElement('button');
         const hide_button = document.createElement('button');
                 
-        new_run.id = run_name;
+        new_run.id = `${run_name}_experiment_li`;
 
         del_button.type = 'button';
         del_button.setAttribute('onclick', `deleteRun('${run_name}')`);
@@ -74,7 +74,7 @@ function addValueAndDerivativesToChart(metric_name, run_name, metric_data) {
     const color = hexadecimal_dict[run_name];
     
     // Remove the old datasets (in case this is an overwriting)
-    removeRunFromChart(metric_name, run_name);
+    removeRunDatasetsFromChartObj(metric_name, run_name);
     
     // Update the x-axis
     if (chart.data.labels.slice(-1)[0] < epochs_array.slice(-1)[0]) {
@@ -89,7 +89,7 @@ function addValueAndDerivativesToChart(metric_name, run_name, metric_data) {
                             borderColor: color,
                             backgroundColor: color,
                             math_version: "values",
-                            hidden: !chart.math_version.values
+                            hidden: !(chart.math_version == "values")
                         });
     chart_datasets.push({
                             label: run_name,
@@ -98,7 +98,7 @@ function addValueAndDerivativesToChart(metric_name, run_name, metric_data) {
                             borderColor: color,
                             backgroundColor: color,
                             math_version: "derivatives",
-                            hidden: !chart.math_version.derivatives
+                            hidden: !(chart.math_version == "derivatives")
                         });
 
 }
@@ -209,13 +209,13 @@ function addChartObjectAndHTML(metric_name) {
                                                 }
                                             }
                                         });
-    chart.math_version = {"values": true, "derivatives": false};
+    chart.math_version = "values";
     
     return chart;
 
 }
 
-function removeRunFromChart(metric_name, run_name) {
+function removeRunDatasetsFromChartObj(metric_name, run_name) {
 
     const chart_datasets = getChartObjectById(metric_name).data.datasets;
     const old_datasets = chart_datasets.filter((dataset) => dataset.label == run_name);
@@ -295,16 +295,14 @@ function resetDataDivHeight() {
 function deleteRunFromEveryChart(run_name) {
 
     const run_dict = JSON.parse( localStorage.getItem(run_name) );
-    const metrics_names_array = Object.keys(run_dict);
 
-    metrics_names_array.forEach(metric_name => {
+    Object.keys(run_dict).forEach(metric_name => {
 
-        var chart = getChartObjectById(metric_name);
-        var chart_datasets = chart.data.datasets;
+        const chart = getChartObjectById(metric_name);
 
-        removeRunFromChart(chart, run_name);
+        removeRunDatasetsFromChartObj(metric_name, run_name);
 
-        if (chart_datasets.length == 0) {               // delete the entire chart if it remains empty
+        if (chart.data.datasets.length == 0) {               // delete the entire chart if it remains empty
             document.getElementById(`${metric_name}_data_div`).remove();
             chart.canvas.id = "trash";
         }
@@ -312,14 +310,6 @@ function deleteRunFromEveryChart(run_name) {
         chart.update();
 
     });
-
-}
-
-function deleteAllRunStatistics(run_name) {
-
-    const run_statistics = document.querySelectorAll(`.${run_name}_statistics`);
-
-    run_statistics.forEach(node => node.remove());
 
 }
 
