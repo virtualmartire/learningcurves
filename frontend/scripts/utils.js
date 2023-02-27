@@ -265,13 +265,14 @@ function addStatisticsDivs(metric_name, run_name) {
 }
 
 function computeAndAddStatistics(metric_name, run_name) {
+    /* Compute and write the statistics of the displayed curve of _run_name_ in the _metric_name_ chart_. */
 
     Object.keys(statistics_dict).forEach(statistic_name => {
         const statistic_value_cell = document.getElementById(`${run_name}_statistics_${metric_name}_${statistic_name}`);
-        const chart_datasets = getChartObjectById(metric_name).data.datasets;
-        const displayed_dataset = chart_datasets.filter(dataset => (dataset.label == run_name && !dataset.hidden)).pop();
-        const curve = displayed_dataset.data;
-        statistic_value_cell.innerHTML = statistics_dict[statistic_name](curve);
+        const displayed_curve = getChartObjectById(metric_name).data.datasets.filter(
+                                            dataset => (dataset.label == run_name && !dataset.hidden)
+                                    ).pop().data;
+        statistic_value_cell.innerHTML = statistics_dict[statistic_name](displayed_curve);
     });
 
 }

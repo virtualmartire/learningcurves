@@ -119,49 +119,28 @@ function exportDesk() {
 }
 
 function derivativesValuesSwitch(metric_name) {
+    /* The action triggered when a derivatives/values button is pressed. */
 
     const switch_button = document.getElementById(`${metric_name}_switch_button`);
-    
-    if (switch_button.innerHTML == "derivatives") {
+    const chart = getChartObjectById(metric_name);
 
-        switch_button.innerHTML = "values";
+    // Change the cart mode
+    chart.math_version = (switch_button.innerHTML == "derivatives") ? "derivatives": "values";
 
-        // Re-draw all the curves
-        const cached_runs = _.mapValues(localStorage, JSON.parse);
-        const runs_names_array = Object.keys(cached_runs);
+    // Change the button aspect
+    switch_button.innerHTML = (switch_button.innerHTML == "derivatives") ? "values" : "derivatives";
 
-        runs_names_array.forEach(run_name => {
-    
-            const run_dict = cached_runs[run_name];
-            const metrics_names_array = Object.keys(run_dict);
-    
-            metrics_names_array.forEach((current_metric_name) => {
-                if (current_metric_name == metric_name) {
-                    const metric_data = run_dict[current_metric_name];
-                    drawCurve(current_metric_name, run_name, metric_data);
-                }
-            });
-    
-        });    
+    // Switch the curves visibility and update the chart
+    chart.data.datasets.forEach(dataset => {
+        const hide_button = document.getElementById(`${dataset.label}_hide_button`);
+        if (hide_button.innerHTML == "hide") {      // if the run is visible
+            dataset.hidden = !(dataset.math_version == chart.math_version);
+        };
+    });
+    chart.update();
 
-    } else {
-
-        switch_button.innerHTML = "derivatives";
-
-        const cached_runs = _.mapValues(localStorage, JSON.parse);
-        const runs_names_array = Object.keys(cached_runs);
-
-        runs_names_array.forEach(run_name => {
-            const run_dict = cached_runs[run_name];
-            const metrics_names_array = Object.keys(run_dict);
-            metrics_names_array.forEach((current_metric_name) => {
-                if (current_metric_name == metric_name) {
-                    const metric_data = run_dict[current_metric_name];
-                    drawCurve(current_metric_name, run_name, metric_data);
-                }
-            });
-        });    
-
-    };
+    // Compute and add the new statistics (this has to be the final step)
+    chart.data.datasets.filter(dataset => !dataset.hidden)
+        .forEach(dataset => computeAndAddStatistics(metric_name, dataset.label));
 
 }
