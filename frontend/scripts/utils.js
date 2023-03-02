@@ -68,8 +68,8 @@ function updateExperimentsListHTML(run_name) {
 function addValueAndDerivativesToChart(metric_name, run_name, metric_data) {
 
     const chart = getChartObjectById(metric_name) || addChartObjectAndHTML(metric_name);
-    const epochs_array = metric_data.map(pair => pair[0]);
-    const values_array = metric_data.map(pair => pair[1]);
+    const values_array = metric_data;
+    const epochs_array = _.range(1, metric_data.length+1);
     const chart_datasets = chart.data.datasets;
     const color = hexadecimal_dict[run_name];
     
