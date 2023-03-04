@@ -272,7 +272,7 @@ function computeAndAddStatistics(metric_name, run_name) {
         const displayed_curve = getChartObjectById(metric_name).data.datasets.filter(
                                             dataset => (dataset.label == run_name && !dataset.hidden)
                                     ).pop().data;
-        statistic_value_cell.innerHTML = statistics_dict[statistic_name](displayed_curve);
+        statistic_value_cell.innerHTML = statistics_dict[statistic_name](displayed_curve).toFixed(2);
     });
 
 }
