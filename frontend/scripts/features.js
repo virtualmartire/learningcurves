@@ -144,3 +144,15 @@ function derivativesValuesSwitch(metric_name) {
         .forEach(dataset => computeAndAddStatistics(metric_name, dataset.label));
 
 }
+
+function halfYAxis(metric_name) {
+    const chart = getChartObjectById(metric_name);
+    chart.options.scales.y.max = chart.scales.y._range.max / 2;
+    chart.update();
+}
+
+function doubleYAxis(metric_name) {
+    const chart = getChartObjectById(metric_name);
+    chart.options.scales.y.max = chart.scales.y._range.max * 2;
+    chart.update();
+}

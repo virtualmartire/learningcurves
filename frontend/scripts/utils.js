@@ -170,12 +170,22 @@ function addChartObjectAndHTML(metric_name) {
     
     // Chart HTML
     const new_graph_canvas = document.createElement('canvas');
+    const new_y_buttons_div = document.createElement('div');
+    const new_y_half_button = document.createElement('button');
+    const new_y_double_button = document.createElement('button');
     new_graph_canvas.id = metric_name;
+    new_y_half_button.innerHTML = "half y";
+    new_y_half_button.setAttribute('onclick', `halfYAxis('${metric_name}')`);
+    new_y_double_button.innerHTML = "double y";
+    new_y_double_button.setAttribute('onclick', `doubleYAxis('${metric_name}')`);
+    new_y_buttons_div.appendChild(new_y_half_button);
+    new_y_buttons_div.appendChild(new_y_double_button);
     new_graph_div.appendChild(new_graph_canvas);
     
     // Append children
     new_data_div.appendChild(new_statistics_div);
     new_data_div.appendChild(new_graph_div);
+    new_data_div.appendChild(new_y_buttons_div);
     graphs_area.appendChild(new_data_div);
     
     // Create the chart object
