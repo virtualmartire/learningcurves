@@ -171,15 +171,23 @@ function addChartObjectAndHTML(metric_name) {
     // Chart HTML
     const new_graph_canvas = document.createElement('canvas');
     const new_y_buttons_div = document.createElement('div');
-    const new_y_half_button = document.createElement('button');
-    const new_y_double_button = document.createElement('button');
+    const new_y_half_max_button = document.createElement('button');
+    const new_y_double_max_button = document.createElement('button');
+    const new_y_half_min_button = document.createElement('button');
+    const new_y_double_min_button = document.createElement('button');
     new_graph_canvas.id = metric_name;
-    new_y_half_button.innerHTML = "half y";
-    new_y_half_button.setAttribute('onclick', `halfYAxis('${metric_name}')`);
-    new_y_double_button.innerHTML = "double y";
-    new_y_double_button.setAttribute('onclick', `doubleYAxis('${metric_name}')`);
-    new_y_buttons_div.appendChild(new_y_half_button);
-    new_y_buttons_div.appendChild(new_y_double_button);
+    new_y_half_max_button.innerHTML = "half y max";
+    new_y_half_max_button.setAttribute('onclick', `halfYMax('${metric_name}')`);
+    new_y_double_max_button.innerHTML = "double y max";
+    new_y_double_max_button.setAttribute('onclick', `doubleYMax('${metric_name}')`);
+    new_y_half_min_button.innerHTML = "half y min";
+    new_y_half_min_button.setAttribute('onclick', `halfYMin('${metric_name}')`);
+    new_y_double_min_button.innerHTML = "double y min";
+    new_y_double_min_button.setAttribute('onclick', `doubleYMin('${metric_name}')`);
+    new_y_buttons_div.appendChild(new_y_half_max_button);
+    new_y_buttons_div.appendChild(new_y_double_max_button);
+    new_y_buttons_div.appendChild(new_y_half_min_button);
+    new_y_buttons_div.appendChild(new_y_double_min_button);
     new_graph_div.appendChild(new_graph_canvas);
     
     // Append children
