@@ -23,17 +23,28 @@
 
         <div id="mySidenav" class="sidenav">
             <div class="area" id="experiments_area">
+
                 <button type="button" onclick="closeNav()">close</button>
+
                 <h3><u>EXPERIMENTS</u></h3>
+
                 <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
                 <button type="button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">load</button>
                 <p id="experiments_list">
-
+                    <!-- Here go the experiments list items -->
                 </p>
                 <p>
                     <div>
                         <button type="button" onclick="clearDesk()">clear</button>
                         <button type="button" onclick="exportDesk()">export</button>
+                    </div>
+                </p>
+
+                <p>
+                    <div>
+                        <form action="data_format.html">
+                            <input type="submit" value="instructions"/>
+                        </form>
                     </div>
                     <div>
                         <form action="index.html">
@@ -41,13 +52,16 @@
                         </form>
                     </div>
                 </p>
+
             </div>
         </div>
+
         <div style="text-align:center;">
             <button type="button" onclick="openNav()">menu</button>
         </div>
 
         <div class="area" id="graphs_area">
+            <!-- Here go the charts -->
         </div>
 
     </div>

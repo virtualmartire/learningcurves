@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <link rel="stylesheet" href="./css/general.css">
+
+    <title>LearningCurves - Instructions</title>
+
+</head>
+<body>
+    
+    <h1 style="text-align: center;">
+        Instructions for the data format
+    </h1>
+
+    <p class="text_wall">
+        Experiments data have to be in the <b>json</b> format and collected in <b>an inner dictionary</b> having the <b>performances names 
+        as keys</b> and the <b>performances values written in a list associated to the relative key</b>. This dictionary has then to be 
+        wrapped in <b>an outer dictionary</b> that has the <b>runs names as keys</b> and the <b>aforesaid inner dictionaries as 
+        corresponding values</b>.
+    </p>
+
+    <p class="text_wall">
+        <b>Example:</b> for the recordings of a RUN_1 and a RUN_2 keeping track of a metric_a, a metric_b and a metric_c, the resulting 
+        json file has to be
+    </p>
+    <p class="text_wall" style="text-align: left;">
+        {<br>
+        &emsp;"RUN_1": {<br>
+        &emsp;&emsp;"metric_a": [metric_a_of_run_1_at_epoch_1, metric_a_of_run_1_at_epoch_2, ...],<br>
+        &emsp;&emsp;"metric_b": [metric_b_of_run_1_at_epoch_1, metric_b_of_run_1_at_epoch_2, ...],<br>
+        &emsp;&emsp;"metric_c": [metric_c_of_run_1_at_epoch_1, metric_c_of_run_1_at_epoch_2, ...],<br>
+        &emsp;},<br>
+        &emsp;"RUN_2": {<br>
+        &emsp;&emsp;"metric_a": [metric_a_of_run_2_at_epoch_1, metric_a_of_run_2_at_epoch_2, ...],<br>
+        &emsp;&emsp;"metric_b": [metric_b_of_run_2_at_epoch_1, metric_b_of_run_2_at_epoch_2, ...],<br>
+        &emsp;&emsp;"metric_c": [metric_c_of_run_2_at_epoch_1, metric_c_of_run_2_at_epoch_2, ...],<br>
+        &emsp;},<br>
+        }
+    </p>
+
+    <p>
+        <form action="app.html" style="text-align: center;">
+            <input type="submit" value="back"/>
+        </form>
+    </p>
+
+</body>
+</html>

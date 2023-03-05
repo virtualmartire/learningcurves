@@ -6,3 +6,16 @@ body {
     text-align: center;
     width: 100%;
 }
+
+.text_wall {
+    text-align:justify;
+    padding-left: 300px;
+    padding-right: 300px;
+}
+
+@media screen and (max-width: 650px) {
+    .text_wall {
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+}
