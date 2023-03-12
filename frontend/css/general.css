@@ -1,5 +1,28 @@
 body {
+    margin: 0px;
+}
+
+#menu_bar {
+    text-align:center;
+    overflow: hidden;
+    background-color: white;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    margin: 0px;
+    width: 100%; /* Full width */
+    box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.15); /* https://www.cssmatic.com/box-shadow */
+}
+
+#menu_button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+#desk {
     margin: 8px;
+    margin-top: 47px;
 }
 
 .area {
