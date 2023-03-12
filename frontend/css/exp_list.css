@@ -1,9 +1,9 @@
-#mySidenav {
+#mySidenav.area {
     height: 100%; /* 100% Full-height */
     width: 250px; /* change this with JavaScript */
     background-color: rgb(219, 219, 219);
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 8px;
+    padding: 0px;
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
@@ -22,7 +22,7 @@
 
 @media screen and (max-width: 650px) {
 
-    #mySidenav {
+    #mySidenav.area {
         width: 0px;
         position: fixed; /* Stay in place */
         z-index: 1; /* Stay on top */

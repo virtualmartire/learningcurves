@@ -3,14 +3,6 @@ body {
 }
 
 #menu_bar {
-    text-align:center;
-    overflow: hidden;
-    background-color: white;
-    position: fixed; /* Set the navbar to fixed position */
-    top: 0; /* Position the navbar at the top of the page */
-    margin: 0px;
-    width: 100%; /* Full width */
-    box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.15); /* https://www.cssmatic.com/box-shadow */
     display: none;
 }
 
@@ -45,16 +37,18 @@ body {
     }
 
     #menu_bar {
-        width: 0px;
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Stay on top */
-        top: 0; /* Stay at the top */
-        left: 0;
+        text-align:center;
+        overflow: hidden;
+        background-color: white;
+        position: fixed; /* Set the navbar to fixed position */
+        top: 0; /* Position the navbar at the top of the page */
+        margin: 0px;
+        width: 100%; /* Full width */
+        box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.15); /* https://www.cssmatic.com/box-shadow */
         display: block;
     }
-
+    
     #desk {
-        margin: 8px;
         margin-top: 47px;
     }
 
