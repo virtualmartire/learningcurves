@@ -1,14 +1,9 @@
-#mySidenav.area {
-    height: 100%; /* 100% Full-height */
-    width: 250px; /* change this with JavaScript */
-    background-color: rgb(219, 219, 219);
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding: 0px;
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-}
-
 #experiments_area {
-    height: 1500px;
+    width: var(--exp-area-width);
+    background-color: rgb(219, 219, 219);
+    position: fixed; /* Stay in place */
+    height: 100%;
+    overflow: auto;
 }
 
 #experiments_list {
@@ -22,12 +17,11 @@
 
 @media screen and (max-width: 650px) {
 
-    #mySidenav.area {
-        width: 0px;
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Stay on top */
+    #experiments_area {
+        width: 0px;  /* change this with JavaScript */
         top: 0; /* Stay at the top */
-        left: 0;
+        transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+        padding: 0px;   /* start with 0 padding in order to be invisible */
     }
 
     #close_menu_button {

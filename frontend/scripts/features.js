@@ -1,13 +1,13 @@
 function openNav() {
     /* Open the side menu */
-    document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("mySidenav").style.padding = "8px";
+    document.getElementById("experiments_area").style.width = "250px";
+    document.getElementById("experiments_area").style.padding = "8px";
 }
 
 function closeNav() {
     /* Close the side menu */
-    document.getElementById("mySidenav").style.width = "0px";
-    document.getElementById("mySidenav").style.padding = "0px";
+    document.getElementById("experiments_area").style.width = "0px";
+    document.getElementById("experiments_area").style.padding = "0px";
 }
 
 function gotFiles(input) {

@@ -4,6 +4,8 @@
     flex-direction: row;
     align-content: flex-start;
     background-color: white;
+    width: 100%;
+    margin-left: var(--exp-area-width);
 }
 
 .data_div {
@@ -39,7 +41,12 @@
 }
 
 @media screen and (max-width: 650px) {
+
     .data_div {
         width: 100%;
+    }
+
+    #graphs_area {
+        margin-left: 0px;
     }
 }

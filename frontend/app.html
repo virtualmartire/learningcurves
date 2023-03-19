@@ -3,7 +3,6 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
     <link rel="stylesheet" href="./css/general.css">
     <link rel="stylesheet" href="./css/charts.css">
     <link rel="stylesheet" href="./css/exp_list.css">
@@ -25,41 +24,35 @@
     
     <div id="desk">
 
-        <div id="mySidenav" class="area">
-            <div id="experiments_area">
+        <div id="experiments_area" class="area">
 
-                <div id="close_menu_button">
-                    <button type="button" onclick="closeNav()">close</button>
-                </div>
-
-                <h3><u>EXPERIMENTS</u></h3>
-
-                <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
-                <button type="button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">load</button>
-                <p id="experiments_list">
-                    <!-- Here go the experiments list items -->
-                </p>
-                <p>
-                    <div>
-                        <button type="button" onclick="clearDesk()">clear</button>
-                        <button type="button" onclick="exportDesk()">export</button>
-                    </div>
-                </p>
-
-                <p>
-                    <div>
-                        <form action="data_format.html">
-                            <input type="submit" value="instructions"/>
-                        </form>
-                    </div>
-                    <div>
-                        <form action="index.html">
-                            <input type="submit" value="home"/>
-                        </form>
-                    </div>
-                </p>
-
+            <div id="close_menu_button">
+                <button type="button" onclick="closeNav()">close</button>
             </div>
+
+            <h3><u>EXPERIMENTS</u></h3>
+
+            <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
+            <button type="button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">load</button>
+            
+            <div id="experiments_list">
+                <!-- Here go the experiments list items -->
+            </div>
+
+            <div>
+                    <button type="button" onclick="clearDesk()">clear</button>
+                    <button type="button" onclick="exportDesk()">export</button>
+            </div>
+
+            <br />
+
+            <div>
+                <form action="data_format.html"><input type="submit" value="instructions"/></form>
+            </div>
+            <div>
+                <form action="index.html"><input type="submit" value="home"/></form>
+            </div>
+
         </div>
 
         <div id="graphs_area" class="area">
