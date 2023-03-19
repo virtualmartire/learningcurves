@@ -132,8 +132,6 @@ function addChartObjectAndHTML(metric_name) {
     //// Create one container for the runs names and one for all the statistics columns
     const new_run_names_container = document.createElement('div');
     const new_statistics_container = document.createElement('div');
-    new_run_names_container.style.width = "20%";
-    new_statistics_container.style.width = "80%";
     //// Set the runs names column
     const h3_button_container = document.createElement('h3');
     const derivatives_button = document.createElement('button');
