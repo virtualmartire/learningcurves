@@ -1,13 +1,11 @@
 function openNav() {
     /* Open the side menu */
-    document.getElementById("experiments_area").style.width = "250px";
-    document.getElementById("experiments_area").style.padding = "8px";
+    document.getElementById("experiments_area").style.width = "300px";
 }
 
 function closeNav() {
     /* Close the side menu */
     document.getElementById("experiments_area").style.width = "0px";
-    document.getElementById("experiments_area").style.padding = "0px";
 }
 
 function gotFiles(input) {

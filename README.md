@@ -3,7 +3,6 @@ A privacy preserving, ultralight ML visualization tool.
 
 ## todos
 - colored names in the experiments list
-- side-bar automatic width
 - stats-columns width
 - rectangle zoom for PC
 - pinch-to-zoom for mobile

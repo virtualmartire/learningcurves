@@ -1,5 +1,5 @@
 :root {
-    --exp-area-width: 250px;
+    --exp-area-width: 300px; /* to change also in the js */
 }
 
 body {
