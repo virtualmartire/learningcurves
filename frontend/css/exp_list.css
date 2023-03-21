@@ -15,6 +15,10 @@
     display: none;
 }
 
+.hide_buttons {
+    width: 43px;
+}
+
 @media screen and (max-width: 650px) {
 
     #experiments_area {

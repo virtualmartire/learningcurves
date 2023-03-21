@@ -55,6 +55,7 @@ function updateExperimentsListHTML(run_name) {
         hide_button.setAttribute('onclick', `hideRun('${run_name}')`);
         hide_button.innerHTML = "hide";
         hide_button.id = `${run_name}_hide_button`;
+        hide_button.classList.add("hide_buttons");
 
         experiments_list.appendChild(new_run);
         new_run.appendChild(del_button);
@@ -140,6 +141,7 @@ function addChartObjectAndHTML(metric_name) {
     derivatives_button.innerHTML = "derivatives";
     derivatives_button.setAttribute('onclick', `derivativesValuesSwitch('${metric_name}')`);
     derivatives_button.id = `${metric_name}_switch_button`;
+    derivatives_button.classList.add("derivatives_buttons");
     h3_button_container.appendChild(derivatives_button);
     new_run_names_container.appendChild(h3_button_container);
     new_run_names_container.classList.add("statistic_column");
