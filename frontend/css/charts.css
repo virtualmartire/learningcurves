@@ -21,7 +21,9 @@
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
-    padding: var(--data-div-padding);
+    padding-top: var(--data-div-padding);
+    padding-left: var(--data-div-padding);
+    padding-right: var(--data-div-padding);
 }
 
 .statistics_rows {
@@ -47,7 +49,14 @@
 
 .graph_div {
     height: 300px;
-    padding: var(--data-div-padding);
+    padding-left: var(--data-div-padding);
+    padding-right: var(--data-div-padding);
+}
+
+.y_buttons_divs {
+    padding-left: var(--data-div-padding);
+    padding-right: var(--data-div-padding);
+    padding-bottom: var(--data-div-padding);
 }
 
 @media screen and (max-width: 650px) {

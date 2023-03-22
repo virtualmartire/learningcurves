@@ -192,6 +192,7 @@ function addChartObjectAndHTML(metric_name) {
     new_y_buttons_div.appendChild(new_y_double_max_button);
     new_y_buttons_div.appendChild(new_y_half_min_button);
     new_y_buttons_div.appendChild(new_y_double_min_button);
+    new_y_buttons_div.classList.add("y_buttons_divs");
     new_graph_div.appendChild(new_graph_canvas);
     
     // Append children
