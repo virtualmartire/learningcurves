@@ -44,6 +44,7 @@ function updateExperimentsListHTML(run_name) {
         const new_run = document.createElement('div');
         const del_button = document.createElement('button');
         const hide_button = document.createElement('button');
+        const run_name_span = document.createElement('span');
                 
         new_run.id = `${run_name}_experiment_li`;
 
@@ -57,10 +58,13 @@ function updateExperimentsListHTML(run_name) {
         hide_button.id = `${run_name}_hide_button`;
         hide_button.classList.add("hide_buttons");
 
-        experiments_list.appendChild(new_run);
+        run_name_span.innerHTML += " " + run_name;
+        run_name_span.style.backgroundColor = hexadecimal_dict[run_name]['background'];
+
         new_run.appendChild(del_button);
         new_run.appendChild(hide_button);
-        new_run.innerHTML += " " + run_name;
+        new_run.appendChild(run_name_span);
+        experiments_list.appendChild(new_run);
     
     };
 
@@ -72,7 +76,7 @@ function addValueAndDerivativesToChart(metric_name, run_name, metric_data) {
     const values_array = metric_data;
     const epochs_array = _.range(1, metric_data.length+1);
     const chart_datasets = chart.data.datasets;
-    const color = hexadecimal_dict[run_name];
+    const color = hexadecimal_dict[run_name]['face'];
     
     // Remove the old datasets (in case this is an overwriting)
     removeRunDatasetsFromChartObj(metric_name, run_name);
@@ -263,8 +267,10 @@ function addStatisticsDivs(metric_name, run_name) {
     const statistic_run_name = document.createElement('div');
 
     statistic_run_name.innerHTML = run_name;
+    statistic_run_name.style.backgroundColor = hexadecimal_dict[run_name]['background'];
     statistic_run_name.classList.add(`${run_name}_statistics`);
     statistic_run_name.classList.add(`${run_name}_statistics_${metric_name}`);
+    statistic_run_name.classList.add("statistics_rows");
     document.getElementById(`${metric_name}_run_name_column`).appendChild(statistic_run_name);
 
     Object.keys(statistics_dict).forEach(statistic_name => {
@@ -274,8 +280,10 @@ function addStatisticsDivs(metric_name, run_name) {
         statistic_value.classList.add("statistic_value");
         statistic_value.classList.add(`${run_name}_statistics`);
         statistic_value.classList.add(`${run_name}_statistics_${metric_name}`);
+        statistic_value.classList.add("statistics_rows");
         statistic_value.id = `${run_name}_statistics_${metric_name}_${statistic_name}`;
-        statistic_value.style.color = hexadecimal_dict[run_name];
+        statistic_value.style.color = hexadecimal_dict[run_name]['face'];
+        statistic_value.style.backgroundColor = hexadecimal_dict[run_name]['background'];
         document.getElementById(`${metric_name}_${statistic_name}_column`).appendChild(statistic_value);
 
     });

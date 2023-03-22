@@ -24,6 +24,10 @@
     padding: var(--data-div-padding);
 }
 
+.statistics_rows {
+    background-color: rgba(currentcolor, 0.8) !important;
+}
+
 .statistic_run_names {
     text-align: left;
     min-width: 200px;
