@@ -60,6 +60,7 @@ function updateExperimentsListHTML(run_name) {
 
         run_name_span.innerHTML += " " + run_name;
         run_name_span.style.backgroundColor = hexadecimal_dict[run_name]['background'];
+        run_name_span.id = `${run_name}_experiment_li_span`;
 
         new_run.appendChild(del_button);
         new_run.appendChild(hide_button);

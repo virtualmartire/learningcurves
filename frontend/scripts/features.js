@@ -47,14 +47,15 @@ function hideRun(run_name) {
     /* The action triggered by the hide buttons. */
 
     const hide_button = document.getElementById(`${run_name}_hide_button`);
-    const run_exp_list_item = document.getElementById(`${run_name}_experiment_li`);
+    const run_name_span = document.getElementById(`${run_name}_experiment_li_span`);
     const run_dict = JSON.parse( localStorage.getItem(run_name) );
 
     if (hide_button.innerHTML == "hide") {
 
         // Update the experiment list
         hide_button.innerHTML = "show";
-        run_exp_list_item.style.color = 'gray';
+        run_name_span.style.color = 'gray';
+        run_name_span.style.backgroundColor = null;
 
         // Hide all run statistics
         document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.display = 'none');
@@ -72,7 +73,8 @@ function hideRun(run_name) {
     } else {
 
         hide_button.innerHTML = "hide";
-        run_exp_list_item.style.color = 'black';
+        run_name_span.style.color = 'black';
+        run_name_span.style.backgroundColor = hexadecimal_dict[run_name]['background'];
 
         document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.display = 'block');
 
