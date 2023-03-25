@@ -2,9 +2,9 @@
 A privacy preserving, ultralight ML visualization tool.
 
 ## todos
-- sample data loadble from the instructions page
-- rectangle zoom for PC
+- drag and drop for loading
 - pinch-to-zoom for mobile
+- rectangle zoom for PC
 - google analytics
 - outy design
 - SEO

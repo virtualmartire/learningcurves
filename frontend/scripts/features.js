@@ -172,3 +172,20 @@ function doubleYMin(metric_name) {
     chart.options.scales.y.min = chart.scales.y._range.min * 2;
     chart.update();
 }
+
+async function loadExamples() {
+
+    // Clear the desk
+    Object.keys(localStorage).forEach( run_name => {localStorage.removeItem(run_name);} );
+
+    // Write the sample data on localStorage
+    const sample_data = await fetch('./sample_data.json');
+    const sample_data_json = await sample_data.json();
+    Object.keys(sample_data_json).forEach(run_name => {
+        saveRunToLocalStorage(run_name, sample_data_json[run_name]);
+    });
+
+    // Load app.html
+    window.location.href = "app.html";
+
+}
