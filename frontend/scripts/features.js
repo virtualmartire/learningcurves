@@ -189,3 +189,41 @@ async function loadExamples() {
     window.location.href = "app.html";
 
 }
+
+function dropHandler(ev) {
+
+    // Prevent default behavior (Prevent file from being opened)
+    ev.preventDefault();
+
+    // Read the file(s)
+    if (ev.dataTransfer.items) {
+        // Use DataTransferItemList interface to access the file(s)
+        [...ev.dataTransfer.items].forEach((item, i) => {
+            // If dropped items aren't files, reject them
+            if (item.kind === "file") {
+                const file = item.getAsFile();
+                const reader = new FileReader();
+                reader.addEventListener("load", reader => saveAndShowFile(JSON.parse(reader.target.result)));      // because asynchrony
+                reader.readAsText(file);
+            }
+        });
+    } else {
+        // Use DataTransfer interface to access the file(s)
+        [...ev.dataTransfer.files].forEach((file, i) => {
+            const reader = new FileReader();
+            reader.addEventListener("load", reader => saveAndShowFile(JSON.parse(reader.target.result)));      // because asynchrony
+            reader.readAsText(file);
+        });
+    }
+
+    // Mod the style
+    document.getElementById("drop_cartel").style.display = 'none';
+
+}
+
+function dragOverHandler(ev) {    
+    // Prevent default behavior (Prevent file from being opened)
+    ev.preventDefault();
+    // Mod the style
+    document.getElementById("drop_cartel").style.display = 'block';
+}

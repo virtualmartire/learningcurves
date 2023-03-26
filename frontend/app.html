@@ -28,7 +28,7 @@
     
     <div id="desk">
 
-        <div id="experiments_area" class="area">
+        <div id="experiments_area" class="area" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
 
             <div>
                 <button id="close_menu_button" type="button" onclick="closeNav()">close</button>
@@ -56,6 +56,10 @@
             <div>
                 <form action="index.html"><input type="submit" value="home"/></form>
             </div>
+
+            <br />
+
+            <h1 id="drop_cartel" style="display: none;"><u>DROP!</u></h1>
 
         </div>
 
