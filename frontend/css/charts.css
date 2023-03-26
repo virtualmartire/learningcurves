@@ -54,6 +54,7 @@
 }
 
 .y_buttons_divs {
+    display: none;
     padding-left: var(--data-div-padding);
     padding-right: var(--data-div-padding);
     padding-bottom: var(--data-div-padding);
@@ -68,4 +69,9 @@
     #graphs_area {
         margin-left: 0px;
     }
+
+    .y_buttons_divs {
+        display: inline;
+    }
+
 }
