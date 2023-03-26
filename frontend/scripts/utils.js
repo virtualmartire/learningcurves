@@ -140,14 +140,19 @@ function addChartObjectAndHTML(metric_name) {
     const new_statistics_container = document.createElement('div');
     //// Set the runs names column
     const h3_button_container = document.createElement('h3');
-    const derivatives_button = document.createElement('button');
     h3_button_container.style.textAlign = 'center';
+    const derivatives_button = document.createElement('button');
     derivatives_button.type = 'button';
     derivatives_button.innerHTML = "derivatives";
     derivatives_button.setAttribute('onclick', `derivativesValuesSwitch('${metric_name}')`);
     derivatives_button.id = `${metric_name}_switch_button`;
     derivatives_button.classList.add("derivatives_buttons");
+    const reset_zoom_button = document.createElement('button');
+    reset_zoom_button.type = 'button';
+    reset_zoom_button.innerHTML = "reset zoom";
+    reset_zoom_button.setAttribute('onclick', `getChartObjectById('${metric_name}').resetZoom();`);
     h3_button_container.appendChild(derivatives_button);
+    h3_button_container.appendChild(reset_zoom_button);
     new_run_names_container.appendChild(h3_button_container);
     new_run_names_container.classList.add("statistic_column");
     new_run_names_container.classList.add("statistic_run_names");
@@ -224,6 +229,14 @@ function addChartObjectAndHTML(metric_name) {
                                                     title: {
                                                         display: true,
                                                         text: metric_name
+                                                    },
+                                                    zoom: {
+                                                        zoom: {
+                                                            drag: {
+                                                                enabled: true,
+                                                                backgroundColor: 'rgba(150,150,150,0.3)'
+                                                            }
+                                                        }
                                                     }
                                                 },
                                                 layout: {
