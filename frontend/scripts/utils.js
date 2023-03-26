@@ -235,6 +235,9 @@ function addChartObjectAndHTML(metric_name) {
                                                             drag: {
                                                                 enabled: true,
                                                                 backgroundColor: 'rgba(150,150,150,0.3)'
+                                                            },
+                                                            pinch: {
+                                                                enabled: true
                                                             }
                                                         }
                                                     }
