@@ -13,10 +13,6 @@
     width: 50%;
 }
 
-.derivatives_buttons {
-    width: 73px;
-}
-
 .statistics_div {
     display: flex;
     flex-wrap: nowrap;
@@ -49,13 +45,6 @@
     padding-right: var(--data-div-padding);
 }
 
-.y_buttons_divs {
-    display: none;
-    padding-left: var(--data-div-padding);
-    padding-right: var(--data-div-padding);
-    padding-bottom: var(--data-div-padding);
-}
-
 @media screen and (max-width: 650px) {
 
     .data_div {
@@ -64,10 +53,6 @@
 
     #graphs_area {
         margin-left: 0px;
-    }
-
-    .y_buttons_divs {
-        display: inline;
     }
 
 }

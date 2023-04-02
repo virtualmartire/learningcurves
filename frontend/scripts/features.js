@@ -120,56 +120,15 @@ function exportDesk() {
 
 }
 
-function derivativesValuesSwitch(metric_name) {
-    /* The action triggered when a derivatives/values button is pressed. */
-
-    const switch_button = document.getElementById(`${metric_name}_switch_button`);
-    const chart = getChartObjectById(metric_name);
-
-    // Change the cart mode
-    chart.math_version = (switch_button.innerHTML == "derivatives") ? "derivatives": "values";
-
-    // Change the button aspect
-    switch_button.innerHTML = (switch_button.innerHTML == "derivatives") ? "values" : "derivatives";
-
-    // Switch the curves visibility, restore the default zoom and update the chart
-    chart.data.datasets.forEach(dataset => {
-        const hide_button = document.getElementById(`${dataset.label}_hide_button`);
-        if (hide_button.innerHTML == "hide") {      // if the run is visible
-            dataset.hidden = !(dataset.math_version == chart.math_version);
-        };
-    });
-    delete chart.options.scales.y.max;
-    delete chart.options.scales.y.min;
-    chart.update();
-
-    // Compute and add the new statistics (this has to be the final step)
-    chart.data.datasets.filter(dataset => !dataset.hidden)
-        .forEach(dataset => computeAndAddStatistics(metric_name, dataset.label));
-
-}
-
 function halfYMax(metric_name) {
     const chart = getChartObjectById(metric_name);
     chart.options.scales.y.max = chart.scales.y._range.max / 2;
     chart.update();
 }
 
-function doubleYMax(metric_name) {
+function resetChartZoom(metric_name) {
     const chart = getChartObjectById(metric_name);
-    chart.options.scales.y.max = chart.scales.y._range.max * 2;
-    chart.update();
-}
-
-function halfYMin(metric_name) {
-    const chart = getChartObjectById(metric_name);
-    chart.options.scales.y.min = chart.scales.y._range.min / 2;
-    chart.update();
-}
-
-function doubleYMin(metric_name) {
-    const chart = getChartObjectById(metric_name);
-    chart.options.scales.y.min = chart.scales.y._range.min * 2;
+    delete chart.options.scales;
     chart.update();
 }
 

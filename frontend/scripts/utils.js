@@ -15,7 +15,7 @@ function saveAndShowFile(input_dict) {
 
             updateExperimentsListHTML(run_name);
 
-            addValueAndDerivativesToChart(metric_name, run_name, metric_data);     // it creates the chart object and the data-div HTML if needed
+            addValuesToChart(metric_name, run_name, metric_data);     // it creates the chart object and the data-div HTML if needed
             getChartObjectById(metric_name).update();
 
             addStatisticsDivs(metric_name, run_name);
@@ -71,7 +71,7 @@ function updateExperimentsListHTML(run_name) {
 
 }
 
-function addValueAndDerivativesToChart(metric_name, run_name, metric_data) {
+function addValuesToChart(metric_name, run_name, metric_data) {
 
     const chart = getChartObjectById(metric_name) || addChartObjectAndHTML(metric_name);
     const values_array = metric_data;
@@ -94,27 +94,9 @@ function addValueAndDerivativesToChart(metric_name, run_name, metric_data) {
                             fill: false,
                             borderColor: color,
                             backgroundColor: color,
-                            math_version: "values",
-                            hidden: !(chart.math_version == "values")
-                        });
-    chart_datasets.push({
-                            label: run_name,
-                            data: computeDerivatives(values_array),
-                            fill: false,
-                            borderColor: color,
-                            backgroundColor: color,
-                            math_version: "derivatives",
-                            hidden: !(chart.math_version == "derivatives")
+                            math_version: "values"
                         });
 
-}
-
-function computeDerivatives(values) {
-    const derivatives = [null];
-    for (let i = 1; i < values.length; i++) {
-        derivatives.push(values[i] - values[i-1]);
-    };
-    return derivatives
 }
 
 function getChartObjectById(chart_id) {
@@ -124,14 +106,15 @@ function getChartObjectById(chart_id) {
 function addChartObjectAndHTML(metric_name) {
 
     const graphs_area = document.getElementById('graphs_area');
+
     const new_data_div = document.createElement('div');
     new_data_div.className = "data_div";
     new_data_div.id = `${metric_name}_data_div`;
 
     // Macro elements
     const new_statistics_div = document.createElement('div');
-    const new_graph_div = document.createElement('div');
     new_statistics_div.className = "statistics_div";
+    const new_graph_div = document.createElement('div');
     new_graph_div.className = "graph_div";
     
     // Statistics columns
@@ -141,17 +124,15 @@ function addChartObjectAndHTML(metric_name) {
     //// Set the runs names column
     const h3_button_container = document.createElement('h3');
     h3_button_container.style.textAlign = 'center';
-    const derivatives_button = document.createElement('button');
-    derivatives_button.type = 'button';
-    derivatives_button.innerHTML = "derivatives";
-    derivatives_button.setAttribute('onclick', `derivativesValuesSwitch('${metric_name}')`);
-    derivatives_button.id = `${metric_name}_switch_button`;
-    derivatives_button.classList.add("derivatives_buttons");
+    const new_y_half_max_button = document.createElement('button');
+    new_y_half_max_button.type = 'button';
+    new_y_half_max_button.innerHTML = "half y max";
+    new_y_half_max_button.setAttribute('onclick', `halfYMax('${metric_name}')`);
     const reset_zoom_button = document.createElement('button');
     reset_zoom_button.type = 'button';
     reset_zoom_button.innerHTML = "reset zoom";
-    reset_zoom_button.setAttribute('onclick', `getChartObjectById('${metric_name}').resetZoom();`);
-    h3_button_container.appendChild(derivatives_button);
+    reset_zoom_button.setAttribute('onclick', `resetChartZoom('${metric_name}')`);
+    h3_button_container.appendChild(new_y_half_max_button);
     h3_button_container.appendChild(reset_zoom_button);
     new_run_names_container.appendChild(h3_button_container);
     new_run_names_container.classList.add("statistic_column");
@@ -180,31 +161,12 @@ function addChartObjectAndHTML(metric_name) {
     
     // Chart HTML
     const new_graph_canvas = document.createElement('canvas');
-    const new_y_buttons_div = document.createElement('div');
-    const new_y_half_max_button = document.createElement('button');
-    const new_y_double_max_button = document.createElement('button');
-    const new_y_half_min_button = document.createElement('button');
-    const new_y_double_min_button = document.createElement('button');
     new_graph_canvas.id = metric_name;
-    new_y_half_max_button.innerHTML = "half y max";
-    new_y_half_max_button.setAttribute('onclick', `halfYMax('${metric_name}')`);
-    new_y_double_max_button.innerHTML = "double y max";
-    new_y_double_max_button.setAttribute('onclick', `doubleYMax('${metric_name}')`);
-    new_y_half_min_button.innerHTML = "half y min";
-    new_y_half_min_button.setAttribute('onclick', `halfYMin('${metric_name}')`);
-    new_y_double_min_button.innerHTML = "double y min";
-    new_y_double_min_button.setAttribute('onclick', `doubleYMin('${metric_name}')`);
-    new_y_buttons_div.appendChild(new_y_half_max_button);
-    new_y_buttons_div.appendChild(new_y_double_max_button);
-    new_y_buttons_div.appendChild(new_y_half_min_button);
-    new_y_buttons_div.appendChild(new_y_double_min_button);
-    new_y_buttons_div.classList.add("y_buttons_divs");
     new_graph_div.appendChild(new_graph_canvas);
     
     // Append children
     new_data_div.appendChild(new_statistics_div);
     new_data_div.appendChild(new_graph_div);
-    new_data_div.appendChild(new_y_buttons_div);
     graphs_area.appendChild(new_data_div);
     
     // Create the chart object
@@ -246,7 +208,6 @@ function addChartObjectAndHTML(metric_name) {
                                                 }
                                             }
                                         });
-    chart.math_version = "values";
     
     return chart;
 
@@ -356,7 +317,10 @@ function deleteRunFromEveryChart(run_name) {
 }
 
 function makeTextFile(text) {
+    // Utils for the export function
+
     const data = new Blob([text], {type: 'text/plain'});
     textFile = window.URL.createObjectURL(data);
     return textFile;        // returns a URL you can use as a href
+
 }
