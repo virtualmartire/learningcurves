@@ -70,7 +70,7 @@ function hideRun(run_name) {
             chart.update();
         });
 
-    } else {
+    } else {    // if hide_button.innerHTML == "show"
 
         hide_button.innerHTML = "hide";
         run_name_span.style.color = 'black';
@@ -82,7 +82,7 @@ function hideRun(run_name) {
             const chart = getChartObjectById(metric_name);
             const run_datasets = chart.data.datasets.filter((dataset) => dataset.label == run_name);
             run_datasets.forEach(dataset => {
-                dataset.hidden = !(chart.math_version == dataset.math_version);
+                dataset.hidden = false;
             });
             chart.update();
         });
