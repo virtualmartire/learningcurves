@@ -128,12 +128,12 @@ function addChartObjectAndHTML(metric_name) {
     new_y_half_max_button.type = 'button';
     new_y_half_max_button.innerHTML = "half y max";
     new_y_half_max_button.setAttribute('onclick', `halfYMax('${metric_name}')`);
-    const reset_zoom_button = document.createElement('button');
-    reset_zoom_button.type = 'button';
-    reset_zoom_button.innerHTML = "reset zoom";
-    reset_zoom_button.setAttribute('onclick', `resetChartZoom('${metric_name}')`);
+    const zoom_back_button = document.createElement('button');
+    zoom_back_button.type = 'button';
+    zoom_back_button.innerHTML = "zoom back";
+    zoom_back_button.setAttribute('onclick', `zoomBack('${metric_name}')`);
     h3_button_container.appendChild(new_y_half_max_button);
-    h3_button_container.appendChild(reset_zoom_button);
+    h3_button_container.appendChild(zoom_back_button);
     new_run_names_container.appendChild(h3_button_container);
     new_run_names_container.classList.add("statistic_column");
     new_run_names_container.classList.add("statistic_run_names");
@@ -197,6 +197,10 @@ function addChartObjectAndHTML(metric_name) {
                                                             drag: {
                                                                 enabled: true,
                                                                 backgroundColor: 'rgba(150,150,150,0.3)'
+                                                            },
+                                                            onZoomStart: () => {
+                                                                // Save the current zoom levels
+                                                                zoom_history.push(extractChartRanges(getChartObjectById(metric_name)));
                                                             }
                                                         }
                                                     }
@@ -322,5 +326,16 @@ function makeTextFile(text) {
     const data = new Blob([text], {type: 'text/plain'});
     textFile = window.URL.createObjectURL(data);
     return textFile;        // returns a URL you can use as a href
+
+}
+
+function extractChartRanges(chart) {
+
+    return {
+        "y_max": chart.scales.y._range.max,
+        "y_min": chart.scales.y._range.min,
+        "x_max": chart.scales.x._range.max,
+        "x_min": chart.scales.x._range.min
+    }
 
 }
