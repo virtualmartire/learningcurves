@@ -128,7 +128,7 @@ function halfYMax(metric_name) {
     const chart = getChartObjectById(metric_name);
 
     // Save the current zoom levels
-    zoom_history.push(extractChartRanges(chart));
+    zoom_history[metric_name].push(extractChartRanges(chart));
 
     // Zoom
     chart.options.scales.y.max = chart.scales.y._range.max / 2;
@@ -139,7 +139,7 @@ function halfYMax(metric_name) {
 function zoomBack(metric_name) {
 
     const chart = getChartObjectById(metric_name);
-    const zoom_levels = zoom_history.pop();
+    const zoom_levels = zoom_history[metric_name].pop();
 
     chart.options.scales.y.max = zoom_levels['y_max'];
     chart.options.scales.y.min = zoom_levels['y_min'];

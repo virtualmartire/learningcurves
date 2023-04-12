@@ -12,4 +12,4 @@ const statistics_dict = {
     "min": a => Math.min(...a)
 };
 
-const zoom_history = [];
+const zoom_history = {};

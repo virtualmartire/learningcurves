@@ -132,6 +132,7 @@ function addChartObjectAndHTML(metric_name) {
     zoom_back_button.type = 'button';
     zoom_back_button.innerHTML = "zoom back";
     zoom_back_button.setAttribute('onclick', `zoomBack('${metric_name}')`);
+    zoom_history[metric_name] = [];
     h3_button_container.appendChild(new_y_half_max_button);
     h3_button_container.appendChild(zoom_back_button);
     new_run_names_container.appendChild(h3_button_container);
@@ -200,7 +201,7 @@ function addChartObjectAndHTML(metric_name) {
                                                             },
                                                             onZoomStart: () => {
                                                                 // Save the current zoom levels
-                                                                zoom_history.push(extractChartRanges(getChartObjectById(metric_name)));
+                                                                zoom_history[metric_name].push(extractChartRanges(getChartObjectById(metric_name)));
                                                             }
                                                         }
                                                     }
