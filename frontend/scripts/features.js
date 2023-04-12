@@ -103,13 +103,16 @@ function clearDesk() {
 function exportDesk() {
     /* The action triggered by the export button. */
 
-    const cached_runs = _.mapValues(localStorage, JSON.parse);
+    const visible_runs_names = Array.from(document.querySelectorAll('.hide_buttons'))
+                                .filter(node => node.innerHTML == 'hide')
+                                .map(node => node.id.slice(0, -12));
+    const visible_runs = _.pick(_.mapValues(localStorage, JSON.parse), visible_runs_names);
     const link = document.createElement('a');
     var date = new Date();
 
     date = date.toLocaleDateString().replace(/\//g, '_');
     link.setAttribute('download', `learningcurves_${date}_.json`);
-    link.href = makeTextFile(JSON.stringify(cached_runs));
+    link.href = makeTextFile(JSON.stringify(visible_runs));
     document.body.appendChild(link);
 
     window.requestAnimationFrame(function () {
