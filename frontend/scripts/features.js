@@ -65,8 +65,10 @@ function switchHideShow(run_name) {
 function showOnlyThisRun(run_name) {
     /* The action triggered when a hide button is double clicked. */
 
-    _.pull(Object.keys(localStorage), run_name)
-    .forEach( other_run_name => {hideRun(other_run_name);} );
+    Object.keys(localStorage).forEach(general_run_name => {
+        if (general_run_name == run_name) {showRun(general_run_name)}
+        else {hideRun(general_run_name)}
+    })
 
 }
 
