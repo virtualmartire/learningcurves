@@ -43,53 +43,30 @@ function deleteRun(run_name) {
 
 }
 
-function hideRun(run_name) {
+function switchHideShow(run_name) {
     /* The action triggered by the hide buttons. */
 
     const hide_button = document.getElementById(`${run_name}_hide_button`);
-    const run_name_span = document.getElementById(`${run_name}_experiment_li_span`);
-    const run_dict = JSON.parse( localStorage.getItem(run_name) );
 
     if (hide_button.innerHTML == "hide") {
 
-        // Update the experiment list
-        hide_button.innerHTML = "show";
-        run_name_span.style.color = 'gray';
-        run_name_span.style.backgroundColor = null;
-
-        // Hide all run statistics
-        document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.display = 'none');
-
-        // Hide the run from every chart
-        Object.keys(run_dict).forEach(metric_name => {
-            const chart = getChartObjectById(metric_name);
-            const run_datasets = chart.data.datasets.filter((dataset) => dataset.label == run_name);
-            run_datasets.forEach(dataset => {
-                dataset.hidden = true;
-            });
-            chart.update();
-        });
+        hideRun(run_name);
 
     } else {    // if hide_button.innerHTML == "show"
 
-        hide_button.innerHTML = "hide";
-        run_name_span.style.color = 'black';
-        run_name_span.style.backgroundColor = hexadecimal_dict[run_name]['background'];
-
-        document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.display = 'block');
-
-        Object.keys(run_dict).forEach(metric_name => {
-            const chart = getChartObjectById(metric_name);
-            const run_datasets = chart.data.datasets.filter((dataset) => dataset.label == run_name);
-            run_datasets.forEach(dataset => {
-                dataset.hidden = false;
-            });
-            chart.update();
-        });
+        showRun(run_name);
 
     };
 
     resetDataDivHeight();
+
+}
+
+function showOnlyThisRun(run_name) {
+    /* The action triggered when a hide button is double clicked. */
+
+    _.pull(Object.keys(localStorage), run_name)
+    .forEach( other_run_name => {hideRun(other_run_name);} );
 
 }
 
@@ -153,7 +130,7 @@ function zoomBack(metric_name) {
 async function loadExamples() {
 
     // Clear the desk
-    Object.keys(localStorage).forEach( run_name => {localStorage.removeItem(run_name);} );
+    localStorage.clear();
 
     // Write the sample data on localStorage
     const sample_data = await fetch('./sample_data.json');

@@ -53,7 +53,8 @@ function updateExperimentsListHTML(run_name) {
         del_button.innerHTML = "del";
 
         hide_button.type = 'button';
-        hide_button.setAttribute('onclick', `hideRun('${run_name}')`);
+        hide_button.setAttribute('onclick', `switchHideShow('${run_name}')`);
+        hide_button.setAttribute('ondblclick', `showOnlyThisRun('${run_name}')`);
         hide_button.innerHTML = "hide";
         hide_button.id = `${run_name}_hide_button`;
         hide_button.classList.add("hide_buttons");
@@ -338,5 +339,62 @@ function extractChartRanges(chart) {
         "x_max": chart.scales.x._range.max,
         "x_min": chart.scales.x._range.min
     }
+
+}
+
+function hideRun(run_name) {
+
+    const hide_button = document.getElementById(`${run_name}_hide_button`);
+    const run_name_span = document.getElementById(`${run_name}_experiment_li_span`);
+    const run_dict = JSON.parse( localStorage.getItem(run_name) );
+
+    // Update the experiment list
+    hide_button.innerHTML = "show";
+    run_name_span.style.color = 'gray';
+    run_name_span.style.backgroundColor = null;
+
+    // Hide all run statistics
+    document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.display = 'none');
+
+    // Hide the run from every chart
+    Object.keys(run_dict).forEach(metric_name => {
+
+        const chart = getChartObjectById(metric_name);
+
+        try {
+            chart.data.datasets.filter((dataset) => dataset.label == run_name)[0].hidden = true;
+        } catch (error) {
+            console.error(error);
+        }
+        chart.update();
+
+    });
+
+}
+
+function showRun(run_name) {
+
+    const hide_button = document.getElementById(`${run_name}_hide_button`);
+    const run_name_span = document.getElementById(`${run_name}_experiment_li_span`);
+    const run_dict = JSON.parse( localStorage.getItem(run_name) );
+
+    hide_button.innerHTML = "hide";
+    run_name_span.style.color = 'black';
+    run_name_span.style.backgroundColor = hexadecimal_dict[run_name]['background'];
+
+    document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.display = 'block');
+
+    Object.keys(run_dict).forEach(metric_name => {
+
+        const chart = getChartObjectById(metric_name);
+
+        try {
+            chart.data.datasets.filter((dataset) => dataset.label == run_name)[0].hidden = false;
+        } catch (error) {
+            console.error(error);
+        }
+        chart.update();
+        
+    });
 
 }
