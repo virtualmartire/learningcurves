@@ -1,0 +1,19 @@
+COLORI GENERALI:
+Nero: #131514
+Bianco: #FFFFFF
+Verde Call to action/Pulsanti: #8ED2B6
+Grigio Scuro/SIdebar: #A1B0C6
+Grigio medio/Sfondo grafici pari: #E9EBF7
+Grigio chiaro/Sfondo grafici dispari: #F5F7FF
+
+COLORI GRAFICI:
+Marroncino: #C49C6D
+Azzurrino: #A7CEEF
+Rosino: #EEA7EF
+Giallino: #EFDFA7
+Rossino: #EFA7A7
+Verdino: #BAEFA7
+Violettino: #BEA7EF
+Azzurrino2: #A7EFEB
+Arancino: #FFC887
+Marroncino2: #C9A3A4

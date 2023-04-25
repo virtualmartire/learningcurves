@@ -17,9 +17,6 @@
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
-    padding-top: var(--data-div-padding);
-    padding-left: var(--data-div-padding);
-    padding-right: var(--data-div-padding);
 }
 
 .statistic_run_names {
@@ -41,8 +38,8 @@
 
 .graph_div {
     height: 300px;
-    padding-left: var(--data-div-padding);
-    padding-right: var(--data-div-padding);
+    padding-left: var(--graph-div-side-padding);
+    padding-right: var(--graph-div-side-padding);
 }
 
 @media screen and (max-width: 650px) {

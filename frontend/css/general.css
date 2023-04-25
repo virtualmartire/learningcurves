@@ -1,12 +1,21 @@
 :root {
     --exp-area-width: 325px;    /* change this also in the js */
-    --data-div-padding: 8px;
+    --graph-div-side-padding: 5%;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url("./Inter-VariableFont_slnt,wght.ttf") format('truetype');
+    font-style: normal;
+    font-weight: 300 800;
 }
 
 body {
     margin: 0px;
     width: 100%;
     height: 100%;
+    font-family: "Inter";
+    color: "#131514";
 }
 
 #menu_bar {

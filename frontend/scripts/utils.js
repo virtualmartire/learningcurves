@@ -60,7 +60,7 @@ function updateExperimentsListHTML(run_name) {
         hide_button.classList.add("hide_buttons");
 
         run_name_span.innerHTML += " " + run_name;
-        run_name_span.style.backgroundColor = hexadecimal_dict[run_name]['background'];
+        run_name_span.style.backgroundColor = hexadecimal_dict[run_name];
         run_name_span.id = `${run_name}_experiment_li_span`;
 
         new_run.appendChild(del_button);
@@ -74,11 +74,11 @@ function updateExperimentsListHTML(run_name) {
 
 function addValuesToChart(metric_name, run_name, metric_data) {
 
-    const chart = getChartObjectById(metric_name) || addChartObjectAndHTML(metric_name);
+    const chart = getChartObjectById(metric_name) || buildDataDiv(metric_name);
     const values_array = metric_data;
     const epochs_array = _.range(1, metric_data.length+1);
     const chart_datasets = chart.data.datasets;
-    const color = hexadecimal_dict[run_name]['face'];
+    const color = hexadecimal_dict[run_name];
     
     // Remove the old datasets (in case this is an overwriting)
     removeRunDatasetsFromChartObj(metric_name, run_name);
@@ -104,7 +104,7 @@ function getChartObjectById(chart_id) {
     return Object.values(Chart.instances).filter((c) => c.canvas.id == chart_id).pop()
 }
 
-function addChartObjectAndHTML(metric_name) {
+function buildDataDiv(metric_name) {
 
     const graphs_area = document.getElementById('graphs_area');
 
@@ -113,11 +113,115 @@ function addChartObjectAndHTML(metric_name) {
     new_data_div.id = `${metric_name}_data_div`;
 
     // Macro elements
+    const new_title = document.createElement('h2');
+    new_title.innerHTML = metric_name;
+    const new_statistics_div = buildStatisticDiv(metric_name);
+    const new_graph_div = buildGraphDiv(metric_name);
+        
+    // Append children
+    new_data_div.appendChild(new_title);
+    new_data_div.appendChild(new_graph_div);
+    new_data_div.appendChild(new_statistics_div);
+    graphs_area.appendChild(new_data_div);
+
+    // Assign the background color based on the position on page
+    const position = Array.from(document.querySelectorAll('.data_div'))
+                    .map(node => node.id)
+                    .indexOf(`${metric_name}_data_div`);
+    new_data_div.style.backgroundColor = (Math.ceil(position/2) % 2) == 0 ? "#F5F7FF" : "#E9EBF7";
+    
+    // Create the chart object
+    var chart = new Chart(metric_name, {
+                                            type: "line",
+                                            data: {
+                                                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                                                datasets: []
+                                            },
+                                            options: {
+                                                maintainAspectRatio: false,
+                                                elements: {
+                                                    point:{
+                                                        radius: 2
+                                                    }
+                                                },
+                                                plugins: {
+                                                    legend: {
+                                                        onClick: null,
+                                                        display: false
+                                                    },
+                                                    zoom: {
+                                                        zoom: {
+                                                            drag: {
+                                                                enabled: true,
+                                                                backgroundColor: 'rgba(150,150,150,0.3)'
+                                                            },
+                                                            onZoomStart: () => {
+                                                                // Save the current zoom levels
+                                                                zoom_history[metric_name].push(extractChartRanges(getChartObjectById(metric_name)));
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                layout: {
+                                                    padding: {
+                                                        bottom: 10
+                                                    }
+                                                },
+                                                scales: {
+                                                    x: {
+                                                        ticks: {
+                                                            font: {
+                                                                family: "Inter"
+                                                            },
+                                                            color: "#131514",
+                                                            padding: 10
+                                                        },
+                                                        grid: {
+                                                            borderDash: [0.25, 4],
+                                                            color: "#131514",
+                                                            tickLength: 0
+                                                        }
+                                                    },
+                                                    y: {
+                                                        ticks: {
+                                                            font: {
+                                                                family: "Inter"
+                                                            },
+                                                            color: "#131514",
+                                                            padding: 10
+                                                        },
+                                                        grid: {
+                                                            borderDash: [0.25, 4],
+                                                            color: "#131514",
+                                                            tickLength: 0
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
+    
+    return chart;
+
+}
+
+function buildGraphDiv(metric_name) {
+
+    const new_graph_div = document.createElement('div');
+    const new_graph_canvas = document.createElement('canvas');
+
+    new_graph_div.className = "graph_div";
+    new_graph_canvas.id = metric_name;
+    new_graph_div.appendChild(new_graph_canvas);
+
+    return new_graph_div
+
+}
+
+function buildStatisticDiv(metric_name) {
+
     const new_statistics_div = document.createElement('div');
     new_statistics_div.className = "statistics_div";
-    const new_graph_div = document.createElement('div');
-    new_graph_div.className = "graph_div";
-    
+
     // Statistics columns
     //// Create one container for the runs names and one for all the statistics columns
     const new_run_names_container = document.createElement('div');
@@ -160,62 +264,8 @@ function addChartObjectAndHTML(metric_name) {
     });
     new_statistics_container.classList.add("statistics_container");
     new_statistics_div.appendChild(new_statistics_container);
-    
-    // Chart HTML
-    const new_graph_canvas = document.createElement('canvas');
-    new_graph_canvas.id = metric_name;
-    new_graph_div.appendChild(new_graph_canvas);
-    
-    // Append children
-    new_data_div.appendChild(new_statistics_div);
-    new_data_div.appendChild(new_graph_div);
-    graphs_area.appendChild(new_data_div);
-    
-    // Create the chart object
-    var chart = new Chart(metric_name, {
-                                            type: "line",
-                                            data: {
-                                                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                                                datasets: []
-                                            },
-                                            options: {
-                                                maintainAspectRatio: false,
-                                                elements: {
-                                                    point:{
-                                                        radius: 2
-                                                    }
-                                                },
-                                                plugins: {
-                                                    legend: {
-                                                        onClick: null,
-                                                        display: false
-                                                    },
-                                                    title: {
-                                                        display: true,
-                                                        text: metric_name
-                                                    },
-                                                    zoom: {
-                                                        zoom: {
-                                                            drag: {
-                                                                enabled: true,
-                                                                backgroundColor: 'rgba(150,150,150,0.3)'
-                                                            },
-                                                            onZoomStart: () => {
-                                                                // Save the current zoom levels
-                                                                zoom_history[metric_name].push(extractChartRanges(getChartObjectById(metric_name)));
-                                                            }
-                                                        }
-                                                    }
-                                                },
-                                                layout: {
-                                                    padding: {
-                                                        bottom: 10
-                                                    }
-                                                }
-                                            }
-                                        });
-    
-    return chart;
+
+    return new_statistics_div
 
 }
 
@@ -249,7 +299,7 @@ function addStatisticsDivs(metric_name, run_name) {
     const statistic_run_name = document.createElement('div');
 
     statistic_run_name.innerHTML = run_name;
-    statistic_run_name.style.backgroundColor = hexadecimal_dict[run_name]['background'];
+    statistic_run_name.style.backgroundColor = hexadecimal_dict[run_name];
     statistic_run_name.classList.add(`${run_name}_statistics`);
     statistic_run_name.classList.add(`${run_name}_statistics_${metric_name}`);
     statistic_run_name.classList.add("statistics_rows");
@@ -264,8 +314,7 @@ function addStatisticsDivs(metric_name, run_name) {
         statistic_value.classList.add(`${run_name}_statistics_${metric_name}`);
         statistic_value.classList.add("statistics_rows");
         statistic_value.id = `${run_name}_statistics_${metric_name}_${statistic_name}`;
-        statistic_value.style.color = hexadecimal_dict[run_name]['face'];
-        statistic_value.style.backgroundColor = hexadecimal_dict[run_name]['background'];
+        statistic_value.style.backgroundColor = hexadecimal_dict[run_name];
         document.getElementById(`${metric_name}_${statistic_name}_column`).appendChild(statistic_value);
 
     });
