@@ -1,6 +1,6 @@
 :root {
     --exp-area-width: 325px;    /* change this also in the js */
-    --graph-div-side-padding: 5%;
+    --graph-div-side-padding: 4%;
 }
 
 @font-face {

@@ -25,7 +25,9 @@ function saveAndShowFile(input_dict) {
 
     });
 
-    resetDataDivHeight();
+    setTimeout(() => {      // in order to catch the right heights
+        resetDataDivHeight();
+    }, 300);
 
 }
 
@@ -115,12 +117,14 @@ function buildDataDiv(metric_name) {
     // Macro elements
     const new_title = document.createElement('h2');
     new_title.innerHTML = metric_name;
-    const new_statistics_div = buildStatisticDiv(metric_name);
     const new_graph_div = buildGraphDiv(metric_name);
+    const new_hr = document.createElement('hr');
+    const new_statistics_div = buildStatisticDiv(metric_name);
         
     // Append children
     new_data_div.appendChild(new_title);
     new_data_div.appendChild(new_graph_div);
+    new_data_div.appendChild(new_hr);
     new_data_div.appendChild(new_statistics_div);
     graphs_area.appendChild(new_data_div);
 
@@ -336,16 +340,16 @@ function computeAndAddStatistics(metric_name, run_name) {
 
 function resetDataDivHeight() {
 
-    const statistics_div_list = document.querySelectorAll('.statistics_div');
+    const data_div_list = document.querySelectorAll('.data_div');
 
     // Reset the heights to their natural value
-    statistics_div_list.forEach(div => {div.style.height = "";});
+    data_div_list.forEach(div => {div.style.height = "";});
 
     // Compute and set the artificial ones
-    for (let i=0; i<(statistics_div_list.length-1); i=i+2) {
-        max_height = Math.max(statistics_div_list[i].offsetHeight, statistics_div_list[i+1].offsetHeight);
-        statistics_div_list[i].style.height = `${max_height}px`;
-        statistics_div_list[i+1].style.height = `${max_height}px`;
+    for (let i=0; i<(data_div_list.length-1); i=i+2) {
+        max_height = Math.max(data_div_list[i].offsetHeight, data_div_list[i+1].offsetHeight);
+        data_div_list[i].style.height = `${max_height}px`;
+        data_div_list[i+1].style.height = `${max_height}px`;
     };
 
 }
