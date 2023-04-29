@@ -119,13 +119,13 @@ function buildDataDiv(metric_name) {
     new_title.innerHTML = metric_name;
     const new_graph_div = buildGraphDiv(metric_name);
     const new_hr = document.createElement('hr');
-    const new_statistics_div = buildStatisticDiv(metric_name);
+    const new_statistics_and_options_div = buildStatisticAndOptionsDiv(metric_name);
         
     // Append children
     new_data_div.appendChild(new_title);
     new_data_div.appendChild(new_graph_div);
     new_data_div.appendChild(new_hr);
-    new_data_div.appendChild(new_statistics_div);
+    new_data_div.appendChild(new_statistics_and_options_div);
     graphs_area.appendChild(new_data_div);
 
     // Assign the background color based on the position on page
@@ -221,56 +221,79 @@ function buildGraphDiv(metric_name) {
 
 }
 
-function buildStatisticDiv(metric_name) {
+function buildStatisticAndOptionsDiv(metric_name) {
 
-    const new_statistics_div = document.createElement('div');
-    new_statistics_div.className = "statistics_div";
+    const statistics_and_options_div = document.createElement('div');
+    statistics_and_options_div.className = "statistics_and_options_div";
 
-    // Statistics columns
-    //// Create one container for the runs names and one for all the statistics columns
-    const new_run_names_container = document.createElement('div');
-    const new_statistics_container = document.createElement('div');
-    //// Set the runs names column
-    const h3_button_container = document.createElement('h3');
-    h3_button_container.style.textAlign = 'center';
-    const new_y_half_max_button = document.createElement('button');
-    new_y_half_max_button.type = 'button';
-    new_y_half_max_button.innerHTML = "half y max";
-    new_y_half_max_button.setAttribute('onclick', `halfYMax('${metric_name}')`);
+    // Statistics table: one column for the runs names and one column for the statistics columns
+    const statistics_table = document.createElement('div');
+    statistics_table.classList.add("statistics_table");
+    //// Runs names column
+    const runs_names_column = document.createElement('div');
+    const runs_names_column_title = document.createElement('h5');
+    runs_names_column_title.innerHTML = "Experiments";
+    runs_names_column_title.classList.add("runs_names_title");
+    runs_names_column.appendChild(runs_names_column_title);
+    runs_names_column.classList.add("statistic_column");
+    runs_names_column.classList.add("runs_names_column");
+    runs_names_column.id = `${metric_name}_run_name_column`;
+    statistics_table.appendChild(runs_names_column);
+    //// Statistics columns
+    const statistics_columns_container = document.createElement('div');
+    statistics_columns_container.classList.add("statistics_columns_container");
+    Object.keys(statistics_dict).forEach(statistic_name => {
+        
+        const statistic_column = document.createElement('div');
+        const statistic_column_title = document.createElement('h5');
+        
+        statistic_column.style.width = `${100/Object.keys(statistics_dict).length}%`;
+        statistic_column.className = "statistic_column";
+        statistic_column.id = `${metric_name}_${statistic_name}_column`;
+        statistic_column_title.innerHTML = statistic_name;
+        statistic_column_title.classList.add("statistic_title");
+        
+        statistic_column.appendChild(statistic_column_title);
+        statistics_columns_container.appendChild(statistic_column);
+        
+    });
+    statistics_table.appendChild(statistics_columns_container);
+
+    // Zoom buttons
+    const zoom_options_div = document.createElement('div');
+    //// Title
+    const zoom_options_title = document.createElement('h5');
+    zoom_options_title.innerHTML = "Zoom options";
+    //// Buttons
+    const buttons_div = document.createElement('div');
+    const [y_half_max_button, zoom_back_button] = buildZoomButtons(metric_name);
+    buttons_div.appendChild(y_half_max_button);
+    buttons_div.appendChild(zoom_back_button);
+    ////
+    zoom_options_div.appendChild(zoom_options_title);
+    zoom_options_div.appendChild(buttons_div);
+
+    statistics_and_options_div.appendChild(statistics_table);
+    statistics_and_options_div.appendChild(zoom_options_div);
+
+    return statistics_and_options_div
+
+}
+
+function buildZoomButtons(metric_name) {
+
+    const y_half_max_button = document.createElement('button');
     const zoom_back_button = document.createElement('button');
+
+    y_half_max_button.type = 'button';
+    y_half_max_button.innerHTML = "half y max";
+    y_half_max_button.setAttribute('onclick', `halfYMax('${metric_name}')`);
     zoom_back_button.type = 'button';
     zoom_back_button.innerHTML = "zoom back";
     zoom_back_button.setAttribute('onclick', `zoomBack('${metric_name}')`);
     zoom_history[metric_name] = [];
-    h3_button_container.appendChild(new_y_half_max_button);
-    h3_button_container.appendChild(zoom_back_button);
-    new_run_names_container.appendChild(h3_button_container);
-    new_run_names_container.classList.add("statistic_column");
-    new_run_names_container.classList.add("statistic_run_names");
-    new_run_names_container.id = `${metric_name}_run_name_column`;
-    new_statistics_div.appendChild(new_run_names_container);
-    //// Set the statistics columns
-    const statistics_names_list = Object.keys(statistics_dict);
-    statistics_names_list.forEach(statistic_name => {
-        
-        const statistic_column = document.createElement('div');
-        const statistic_column_title = document.createElement('h3');
-        
-        statistic_column.style.width = `${100/statistics_names_list.length}%`;
-        statistic_column.className = "statistic_column";
-        statistic_column.id = `${metric_name}_${statistic_name}_column`;
-        statistic_column_title.innerHTML = statistic_name;
-        statistic_column_title.className = "statistic_title";
-        
-        statistic_column.appendChild(statistic_column_title);
-        new_statistics_container.appendChild(statistic_column);
-        
-    });
-    new_statistics_container.classList.add("statistics_container");
-    new_statistics_div.appendChild(new_statistics_container);
 
-    return new_statistics_div
-
+    return [y_half_max_button, zoom_back_button]
 }
 
 function removeRunDatasetsFromChartObj(metric_name, run_name) {
@@ -306,7 +329,8 @@ function addStatisticsDivs(metric_name, run_name) {
     statistic_run_name.style.backgroundColor = hexadecimal_dict[run_name];
     statistic_run_name.classList.add(`${run_name}_statistics`);
     statistic_run_name.classList.add(`${run_name}_statistics_${metric_name}`);
-    statistic_run_name.classList.add("statistics_rows");
+    statistic_run_name.classList.add("statistic_row");
+    statistic_run_name.classList.add("statistic_run_name");
     document.getElementById(`${metric_name}_run_name_column`).appendChild(statistic_run_name);
 
     Object.keys(statistics_dict).forEach(statistic_name => {
@@ -316,7 +340,7 @@ function addStatisticsDivs(metric_name, run_name) {
         statistic_value.classList.add("statistic_value");
         statistic_value.classList.add(`${run_name}_statistics`);
         statistic_value.classList.add(`${run_name}_statistics_${metric_name}`);
-        statistic_value.classList.add("statistics_rows");
+        statistic_value.classList.add("statistic_row");
         statistic_value.id = `${run_name}_statistics_${metric_name}_${statistic_name}`;
         statistic_value.style.backgroundColor = hexadecimal_dict[run_name];
         document.getElementById(`${metric_name}_${statistic_name}_column`).appendChild(statistic_value);
@@ -433,7 +457,7 @@ function showRun(run_name) {
 
     hide_button.innerHTML = "hide";
     run_name_span.style.color = 'black';
-    run_name_span.style.backgroundColor = hexadecimal_dict[run_name]['background'];
+    run_name_span.style.backgroundColor = hexadecimal_dict[run_name];
 
     document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.display = 'block');
 
