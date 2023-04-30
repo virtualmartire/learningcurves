@@ -69,6 +69,26 @@
                     padding-right: 12px;
                 }
 
+        .zoom_options_div {
+            width: 30%;
+        }
+
+            .zoom_options_buttons {
+                width: 32px;
+                height: 32px;
+                position: relative;
+                border: none;
+                margin: 4px;
+                padding: 4px;
+                background: #A1B0C6;
+                border-radius: 0px;
+                transition: background .3s;
+            }
+                            
+            .zoom_options_buttons:active {
+                top: .08em;
+            }
+
 @media screen and (max-width: 650px) {
 
     .data_div {

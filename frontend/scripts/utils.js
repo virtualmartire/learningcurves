@@ -261,6 +261,7 @@ function buildStatisticAndOptionsDiv(metric_name) {
 
     // Zoom buttons
     const zoom_options_div = document.createElement('div');
+    zoom_options_div.classList.add("zoom_options_div");
     //// Title
     const zoom_options_title = document.createElement('h5');
     zoom_options_title.innerHTML = "Zoom options";
@@ -286,11 +287,15 @@ function buildZoomButtons(metric_name) {
     const zoom_back_button = document.createElement('button');
 
     y_half_max_button.type = 'button';
-    y_half_max_button.innerHTML = "half y max";
+    y_half_max_button.title = "half y max";
     y_half_max_button.setAttribute('onclick', `halfYMax('${metric_name}')`);
+    y_half_max_button.classList.add("zoom_options_buttons");
+    y_half_max_button.classList.add("y_max_buttons");
     zoom_back_button.type = 'button';
-    zoom_back_button.innerHTML = "zoom back";
+    zoom_back_button.title = "zoom back";
     zoom_back_button.setAttribute('onclick', `zoomBack('${metric_name}')`);
+    zoom_back_button.classList.add("zoom_options_buttons");
+    zoom_back_button.classList.add("zoom_back_buttons");
     zoom_history[metric_name] = [];
 
     return [y_half_max_button, zoom_back_button]

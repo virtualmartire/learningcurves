@@ -1,6 +1,6 @@
 #experiments_area {
     width: var(--exp-area-width);
-    background-color: rgb(219, 219, 219);
+    background-color: #A1B0C6;
     position: fixed; /* Stay in place */
     height: 100%;
     overflow: auto;
