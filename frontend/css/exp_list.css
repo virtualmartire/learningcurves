@@ -4,6 +4,7 @@
     position: fixed; /* Stay in place */
     height: 100%;
     overflow: auto;
+    border-right: 4.5px solid #131514;
 }
 
 #experiments_list {

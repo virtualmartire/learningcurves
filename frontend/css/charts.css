@@ -11,6 +11,7 @@
 .data_div {
     box-sizing: border-box;
     width: 50%;
+    border: 1.5px solid #131514;
 }
 
     .graph_div {
@@ -74,11 +75,10 @@
         }
 
             .zoom_options_buttons {
-                width: 32px;
-                height: 32px;
+                width: var(--zoom-buttons-side);
+                height: var(--zoom-buttons-side);
                 position: relative;
                 border: none;
-                margin: 4px;
                 padding: 4px;
                 background: #A1B0C6;
                 border-radius: 0px;
@@ -88,6 +88,14 @@
             .zoom_options_buttons:active {
                 top: .08em;
             }
+
+                .y_max_buttons {
+                    margin-right: calc(var(--zoom-buttons-spacing) / 2);
+                }
+                
+                .zoom_back_buttons {
+                    margin-left: calc(var(--zoom-buttons-spacing) / 2);
+                }
 
 @media screen and (max-width: 650px) {
 

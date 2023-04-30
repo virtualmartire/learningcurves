@@ -25,9 +25,10 @@ function saveAndShowFile(input_dict) {
 
     });
 
-    setTimeout(() => {      // in order to catch the right heights
+    setTimeout(() => {      // in order to catch the right dimensions
         resetDataDivHeight();
-    }, 300);
+        resetDataDivBorders();
+    }, 200);
 
 }
 
@@ -284,18 +285,26 @@ function buildStatisticAndOptionsDiv(metric_name) {
 function buildZoomButtons(metric_name) {
 
     const y_half_max_button = document.createElement('button');
+    const y_half_icon = document.createElement('img');
     const zoom_back_button = document.createElement('button');
+    const zoom_back_icon = document.createElement('img');
 
     y_half_max_button.type = 'button';
     y_half_max_button.title = "half y max";
     y_half_max_button.setAttribute('onclick', `halfYMax('${metric_name}')`);
     y_half_max_button.classList.add("zoom_options_buttons");
     y_half_max_button.classList.add("y_max_buttons");
+    y_half_icon.src = "assets/buttons/Icon-Ymax.svg";
+    y_half_max_button.appendChild(y_half_icon);
+
     zoom_back_button.type = 'button';
     zoom_back_button.title = "zoom back";
     zoom_back_button.setAttribute('onclick', `zoomBack('${metric_name}')`);
     zoom_back_button.classList.add("zoom_options_buttons");
     zoom_back_button.classList.add("zoom_back_buttons");
+    zoom_back_icon.src = "assets/buttons/Icon-Reset-Zoom.svg";
+    zoom_back_button.appendChild(zoom_back_icon);
+
     zoom_history[metric_name] = [];
 
     return [y_half_max_button, zoom_back_button]
@@ -478,5 +487,20 @@ function showRun(run_name) {
         chart.update();
         
     });
+
+}
+
+function resetDataDivBorders() {
+
+    const data_div_list = document.querySelectorAll('.data_div');
+
+    // Reset the borders to their natural value
+    data_div_list.forEach(div => {div.style.border = "1.5px solid #131514";});
+
+    // Adjust the first two and the last two
+    data_div_list[0].style.borderTop = "none";
+    data_div_list[1].style.borderTop = "none";
+    data_div_list[data_div_list.length-1].style.borderBottom = "none";
+    data_div_list[data_div_list.length-2].style.borderBottom = "none";
 
 }
