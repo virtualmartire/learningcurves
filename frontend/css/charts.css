@@ -11,7 +11,7 @@
 .data_div {
     box-sizing: border-box;
     width: 50%;
-    border: 1.5px solid #131514;
+    border: var(--standard-black--border) solid #131514;
 }
 
     .graph_div {

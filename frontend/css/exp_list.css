@@ -7,18 +7,37 @@
     border-right: 4.5px solid #131514;
 }
 
-#experiments_list {
-    text-align: left;
-    padding: 15px;
-}
+    #logo_div {
+        background-color: #F5F7FF;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-left: 60px;
+        padding-right: 60px;
+        border-bottom: var(--standard-black--border) solid #131514;
+    }
 
-#close_menu_button {
-    display: none;
-}
+        a {
+            color: #131514;
+            font-weight: bold;
+            text-decoration: none   ;
+        }
 
-.hide_buttons {
-    width: 43px;
-}
+    #experiments_div {
+        border-top: var(--standard-black--border) solid #131514;
+    }
+
+        #experiments_list {
+            text-align: left;
+            padding: 15px;
+        }
+
+        #close_menu_button {
+            display: none;
+        }
+
+        .hide_buttons {
+            width: 43px;
+        }
 
 @media screen and (max-width: 650px) {
 

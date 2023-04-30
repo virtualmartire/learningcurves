@@ -3,6 +3,7 @@
     --graph-div-side-padding: 4%;
     --zoom-buttons-side: 40px;
     --zoom-buttons-spacing: 8px;
+    --standard-black--border: 1.5px;    /* change this also in the js, resetDataDivBorders function */
 }
 
 @font-face {
