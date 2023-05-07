@@ -5,25 +5,44 @@
     height: 100%;
     overflow: auto;
     border-right: 4.5px solid #131514;
+    box-sizing: border-box; /* include borders in the element's width and height */
 }
 
-    #logo_div {
+    #logo_and_info_div {
         background-color: #F5F7FF;
-        padding-top: 30px;
-        padding-bottom: 30px;
-        padding-left: 60px;
-        padding-right: 60px;
-        border-bottom: var(--standard-black--border) solid #131514;
+        border-bottom: var(--standard-black-border) solid #131514;
+        box-sizing: border-box;
+        display: flex;              /* display, flex-direction and justify-content properties to vertically center the content */
+        flex-direction: column;
+        justify-content: center;
+        height: 160px;
+        position: absolute;
+        top: 0;
+        width: 100%;
     }
+
+        #logo_div {
+            height: 50px;    /* to adjust the size of the logo */
+        }
+
+            #logo_img {
+                height: 100%;
+            }
 
         a {
             color: #131514;
             font-weight: bold;
-            text-decoration: none   ;
+            text-decoration: none;
         }
 
     #experiments_div {
-        border-top: var(--standard-black--border) solid #131514;
+        border-top: var(--standard-black-border) solid #131514;
+        border-bottom: var(--standard-black-border) solid #131514;
+        box-sizing: border-box;
+        position: absolute;
+        top: 160px;
+        bottom: 160px;
+        width: 100%;
     }
 
         #experiments_list {
@@ -38,6 +57,18 @@
         .hide_buttons {
             width: 43px;
         }
+
+    #load_button_div {
+        border-top: var(--standard-black-border) solid #131514;
+        box-sizing: border-box;
+        height: 160px;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 
 @media screen and (max-width: 650px) {
 

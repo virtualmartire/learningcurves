@@ -1,9 +1,9 @@
 :root {
-    --exp-area-width: 20%;    /* change this also in the js */
+    --exp-area-width: 288px;            /* change this also in the js, openNav function */
     --graph-div-side-padding: 4%;
     --zoom-buttons-side: 40px;
     --zoom-buttons-spacing: 8px;
-    --standard-black--border: 1.5px;    /* change this also in the js, resetDataDivBorders function */
+    --standard-black-border: 1.5px;    /* change this also in the js, resetDataDivBorders function */
 }
 
 @font-face {

@@ -34,12 +34,12 @@
                 <button id="close_menu_button" type="button" onclick="closeNav()">close</button>
             </div>
 
-            <div id="logo_div">
-                <div>
-                    <img src="assets/logos/Logo-Nero.svg">
+            <div id="logo_and_info_div">
+                <div id="logo_div">
+                    <img id="logo_img" src="assets/logos/Logo-Nero.svg">
                 </div>
                 <br />
-                <div>
+                <div id="info_div">
                     <a href="data_format.html">Instructions</a>
                     <a href="http://www.stefanomartire.it">Contacts</a>
                 </div>
@@ -47,10 +47,7 @@
 
             <div id="experiments_div">
 
-                <h3><u>EXPERIMENTS</u></h3>
-
-                <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
-                <button type="button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">load</button>
+                <h2>Experiments</h2>
                 
                 <div id="experiments_list">
                     <!-- Here go the experiments list items -->
@@ -63,14 +60,13 @@
 
                 <br />
 
-                <div>
-                    <form action="index.html"><input type="submit" value="home"/></form>
-                </div>
-
-                <br />
-
                 <h1 id="drop_cartel" style="display: none;"><u>DROP!</u></h1>
 
+            </div>
+
+            <div id="load_button_div">
+                <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
+                <button type="button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">load</button>
             </div>
 
         </div>

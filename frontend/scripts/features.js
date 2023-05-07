@@ -1,6 +1,6 @@
 function openNav() {
     /* Open the side menu */
-    document.getElementById("experiments_area").style.width = "325px";
+    document.getElementById("experiments_area").style.width = "288px";
 }
 
 function closeNav() {
