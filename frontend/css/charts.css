@@ -37,8 +37,8 @@
         }
 
             .statistic_row {
-                padding-top: 4px;
-                padding-bottom: 4px;
+                padding-top: var(--colored-div-vertical-padding);
+                padding-bottom: var(--colored-div-vertical-padding);
             }
 
             .runs_names_column {
@@ -47,7 +47,7 @@
             }
 
                 .runs_names_title {
-                    padding-left: 12px;
+                    padding-left: var(--colored-div-left-padding);
                 }
 
                 .statistic_run_name {

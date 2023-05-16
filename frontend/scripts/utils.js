@@ -44,16 +44,20 @@ function updateExperimentsListHTML(run_name) {
     
     if (!existing_runs_ids.includes(`${run_name}_experiment_li`)) {
 
-        const new_run = document.createElement('div');
-        const del_button = document.createElement('button');
-        const hide_button = document.createElement('button');
+        const new_run_div = document.createElement('div');
         const run_name_span = document.createElement('span');
+        const buttons_div = document.createElement('div');
+        const hide_button = document.createElement('button');
+        const del_button = document.createElement('button');
                 
-        new_run.id = `${run_name}_experiment_li`;
+        new_run_div.id = `${run_name}_experiment_li`;
+        new_run_div.style.backgroundColor = hexadecimal_dict[run_name];
+        new_run_div.classList.add("exp_list_run_divs");
 
-        del_button.type = 'button';
-        del_button.setAttribute('onclick', `deleteRun('${run_name}')`);
-        del_button.innerHTML = "del";
+        run_name_span.innerHTML += " " + run_name;
+        run_name_span.id = `${run_name}_experiment_li_span`;
+
+        buttons_div.classList.add("hideshow_del_button_div");
 
         hide_button.type = 'button';
         hide_button.setAttribute('onclick', `switchHideShow('${run_name}')`);
@@ -62,16 +66,19 @@ function updateExperimentsListHTML(run_name) {
         hide_button.id = `${run_name}_hide_button`;
         hide_button.classList.add("hide_buttons");
 
-        run_name_span.innerHTML += " " + run_name;
-        run_name_span.style.backgroundColor = hexadecimal_dict[run_name];
-        run_name_span.id = `${run_name}_experiment_li_span`;
+        del_button.type = 'button';
+        del_button.setAttribute('onclick', `deleteRun('${run_name}')`);
+        del_button.innerHTML = "del";
+        del_button.classList.add("del_buttons");
 
-        new_run.appendChild(del_button);
-        new_run.appendChild(hide_button);
-        new_run.appendChild(run_name_span);
-        experiments_list.appendChild(new_run);
+        buttons_div.appendChild(hide_button);
+        buttons_div.appendChild(del_button);
+
+        new_run_div.appendChild(run_name_span);
+        new_run_div.appendChild(buttons_div);
+        experiments_list.appendChild(new_run_div);
     
-    };
+    };          // else only the charts will change
 
 }
 
@@ -436,13 +443,13 @@ function extractChartRanges(chart) {
 function hideRun(run_name) {
 
     const hide_button = document.getElementById(`${run_name}_hide_button`);
-    const run_name_span = document.getElementById(`${run_name}_experiment_li_span`);
+    const run_name_div = document.getElementById(`${run_name}_experiment_li`);
     const run_dict = JSON.parse( localStorage.getItem(run_name) );
 
     // Update the experiment list
     hide_button.innerHTML = "show";
-    run_name_span.style.color = 'gray';
-    run_name_span.style.backgroundColor = null;
+    run_name_div.style.color = 'gray';
+    run_name_div.style.backgroundColor = null;
 
     // Hide all run statistics
     document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.display = 'none');
@@ -466,12 +473,12 @@ function hideRun(run_name) {
 function showRun(run_name) {
 
     const hide_button = document.getElementById(`${run_name}_hide_button`);
-    const run_name_span = document.getElementById(`${run_name}_experiment_li_span`);
+    const run_name_div = document.getElementById(`${run_name}_experiment_li`);
     const run_dict = JSON.parse( localStorage.getItem(run_name) );
 
     hide_button.innerHTML = "hide";
-    run_name_span.style.color = 'black';
-    run_name_span.style.backgroundColor = hexadecimal_dict[run_name];
+    run_name_div.style.color = 'black';
+    run_name_div.style.backgroundColor = hexadecimal_dict[run_name];
 
     document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.display = 'block');
 

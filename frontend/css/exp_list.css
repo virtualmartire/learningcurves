@@ -43,12 +43,31 @@
         top: 160px;
         bottom: 160px;
         width: 100%;
+        padding-left: 30px;
+        padding-right: 30px;
     }
 
         #experiments_list {
             text-align: left;
-            padding: 15px;
         }
+
+            .exp_list_run_divs {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: var(--colored-div-vertical-padding);
+                padding-bottom: var(--colored-div-vertical-padding);
+                padding-left: var(--colored-div-left-padding);
+            }
+
+                .hideshow_del_button_div {
+                    display: flex;      /* ChatGPT */
+                }
+
+                    .del_buttons {
+                        margin-left: 10px;    /* Add some spacing between the buttons */
+                        margin-right: 10px;
+                    }
 
         #close_menu_button {
             display: none;
