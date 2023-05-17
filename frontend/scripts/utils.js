@@ -48,7 +48,9 @@ function updateExperimentsListHTML(run_name) {
         const run_name_span = document.createElement('span');
         const buttons_div = document.createElement('div');
         const hide_button = document.createElement('button');
+        const hide_icon = document.createElement('img');
         const del_button = document.createElement('button');
+        const del_icon = document.createElement('img');
                 
         new_run_div.id = `${run_name}_experiment_li`;
         new_run_div.style.backgroundColor = hexadecimal_dict[run_name];
@@ -60,16 +62,25 @@ function updateExperimentsListHTML(run_name) {
         buttons_div.classList.add("hideshow_del_button_div");
 
         hide_button.type = 'button';
+        hide_button.title = 'hide run';
         hide_button.setAttribute('onclick', `switchHideShow('${run_name}')`);
         hide_button.setAttribute('ondblclick', `showOnlyThisRun('${run_name}')`);
-        hide_button.innerHTML = "hide";
         hide_button.id = `${run_name}_hide_button`;
         hide_button.classList.add("hide_buttons");
+        hide_button.classList.add("hideshow_del_buttons");
+        hide_icon.src = "assets/buttons/Icon-Eye-On.svg";
+        hide_icon.id = `${run_name}_hide_icon`;
+        hide_icon.classList.add("hideshow_del_icons");
+        hide_button.appendChild(hide_icon);
 
         del_button.type = 'button';
+        del_button.title = "delete run";
         del_button.setAttribute('onclick', `deleteRun('${run_name}')`);
-        del_button.innerHTML = "del";
         del_button.classList.add("del_buttons");
+        del_button.classList.add("hideshow_del_buttons");
+        del_icon.src = "assets/buttons/Icon-Cancel.svg";
+        del_icon.classList.add("hideshow_del_icons");
+        del_button.appendChild(del_icon);
 
         buttons_div.appendChild(hide_button);
         buttons_div.appendChild(del_button);
@@ -292,7 +303,7 @@ function buildStatisticAndOptionsDiv(metric_name) {
 function buildZoomButtons(metric_name) {
 
     const y_half_max_button = document.createElement('button');
-    const y_half_icon = document.createElement('img');
+    const y_half_max_icon = document.createElement('img');
     const zoom_back_button = document.createElement('button');
     const zoom_back_icon = document.createElement('img');
 
@@ -301,8 +312,8 @@ function buildZoomButtons(metric_name) {
     y_half_max_button.setAttribute('onclick', `halfYMax('${metric_name}')`);
     y_half_max_button.classList.add("zoom_options_buttons");
     y_half_max_button.classList.add("y_max_buttons");
-    y_half_icon.src = "assets/buttons/Icon-Ymax.svg";
-    y_half_max_button.appendChild(y_half_icon);
+    y_half_max_icon.src = "assets/buttons/Icon-Ymax.svg";
+    y_half_max_button.appendChild(y_half_max_icon);
 
     zoom_back_button.type = 'button';
     zoom_back_button.title = "zoom back";
@@ -442,14 +453,13 @@ function extractChartRanges(chart) {
 
 function hideRun(run_name) {
 
-    const hide_button = document.getElementById(`${run_name}_hide_button`);
+    const hide_icon = document.getElementById(`${run_name}_hide_icon`);
     const run_name_div = document.getElementById(`${run_name}_experiment_li`);
     const run_dict = JSON.parse( localStorage.getItem(run_name) );
 
     // Update the experiment list
-    hide_button.innerHTML = "show";
-    run_name_div.style.color = 'gray';
-    run_name_div.style.backgroundColor = null;
+    hide_icon.src = "assets/buttons/Icon-Eye-Off.svg";
+    run_name_div.style.backgroundColor = 'rgba(0,0,0,0)';
 
     // Hide all run statistics
     document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.display = 'none');
@@ -472,12 +482,12 @@ function hideRun(run_name) {
 
 function showRun(run_name) {
 
-    const hide_button = document.getElementById(`${run_name}_hide_button`);
+    const hide_icon = document.getElementById(`${run_name}_hide_icon`);
     const run_name_div = document.getElementById(`${run_name}_experiment_li`);
     const run_dict = JSON.parse( localStorage.getItem(run_name) );
 
-    hide_button.innerHTML = "hide";
-    run_name_div.style.color = 'black';
+    // Update the experiment list
+    hide_icon.src = "assets/buttons/Icon-Eye-On.svg";
     run_name_div.style.backgroundColor = hexadecimal_dict[run_name];
 
     document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.display = 'block');

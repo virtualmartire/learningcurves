@@ -46,13 +46,13 @@ function deleteRun(run_name) {
 function switchHideShow(run_name) {
     /* The action triggered by the hide buttons. */
 
-    const hide_button = document.getElementById(`${run_name}_hide_button`);
-
-    if (hide_button.innerHTML == "hide") {
+    const run_name_div = document.getElementById(`${run_name}_experiment_li`);
+    
+    if (run_name_div.style.backgroundColor != 'rgba(0, 0, 0, 0)') {
 
         hideRun(run_name);
 
-    } else {    // if hide_button.innerHTML == "show"
+    } else {    // if the run is already hidden
 
         showRun(run_name);
 

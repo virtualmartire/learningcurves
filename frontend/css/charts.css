@@ -83,6 +83,7 @@
                 background: #A1B0C6;
                 border-radius: 0px;
                 transition: background .3s;
+                cursor: pointer;
             }
                             
             .zoom_options_buttons:active {
