@@ -22,6 +22,16 @@ body {
     font-family: "Inter";
     color: "#131514";
     font-size: 14px;
+    font-weight: 400;
+}
+
+h2 {
+    font-weight: 700;
+}
+
+h5 {        /* the titles of the statistics tables */
+    font-size: 14px;
+    font-weight: 700;
 }
 
 #menu_bar {

@@ -53,20 +53,33 @@
                     <!-- Here go the experiments list items -->
                 </div>
 
-                <div>
-                    <button type="button" onclick="clearDesk()">clear</button>
-                    <button type="button" onclick="exportDesk()">export</button>
-                </div>
-
                 <br />
 
                 <h1 id="drop_cartel" style="display: none;"><u>DROP!</u></h1>
 
             </div>
 
-            <div id="load_button_div">
+            <div id="data_buttons_div">
+
+                <button type="button" class="data_buttons" id="clear_button" onclick="clearDesk()">
+                    Clear all
+                </button>
+
+                <button type="button" class="data_buttons export_load_buttons" onclick="exportDesk()">
+                    <span class="data_button_spans">
+                        Export
+                    </span>
+                    <img src="assets/buttons/Icon-Export.svg" class="data_icons">
+                </button>
+
                 <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
-                <button type="button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">load</button>
+                <button type="button" class="data_buttons export_load_buttons" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">
+                    <span class="data_button_spans">
+                        Load
+                    </span>
+                    <img src="assets/buttons/Icon-Upload.svg" class="data_icons">
+                </button>
+            
             </div>
 
         </div>
