@@ -91,9 +91,30 @@
     </div>
 
     <script>
+
         const hexadecimal_dict = {"original_palette": [...colors_palette], "palette_to_consume": [...colors_palette]}
         const cached_runs = _.mapValues(localStorage, JSON.parse);       // because localStorage is the dict containing all the runs
-        saveAndShowFile(cached_runs);
+        
+        if (Object.keys(cached_runs).length != 0) {     /* if there are experiments in the cache */
+
+            saveAndShowFile(cached_runs);
+            
+        } else {
+
+            const graphs_area = document.getElementById("graphs_area");
+
+            graphs_area.style.height = `${window.innerHeight}px`;
+            graphs_area.style.backgroundImage = "url('assets/illustrations/3.png')";
+            graphs_area.style.backgroundRepeat = "no-repeat";
+            graphs_area.style.backgroundPosition = "center";
+            graphs_area.style.backgroundSize = "cover";
+
+            window.addEventListener("resize", adjustBackgroundImage);
+
+            adjustBackgroundImage();
+
+        }
+
     </script>
     
 </body>

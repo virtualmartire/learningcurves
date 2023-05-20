@@ -49,6 +49,7 @@
         width: 100%;
         padding-left: 30px;
         padding-right: 30px;
+        overflow-y: scroll; /* Enable vertical scrolling */
     }
 
         #experiments_list {
@@ -63,6 +64,11 @@
                 padding-bottom: var(--colored-div-vertical-padding);
                 padding-left: var(--colored-div-left-padding);
             }
+
+                .experiment_li_spans {
+                    width: 70%;
+                    overflow-x: scroll;
+                }
 
                 .hideshow_del_button_div {
                     display: flex;      /* ChatGPT */

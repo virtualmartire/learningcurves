@@ -58,6 +58,7 @@ function updateExperimentsListHTML(run_name) {
 
         run_name_span.innerHTML += " " + run_name;
         run_name_span.id = `${run_name}_experiment_li_span`;
+        run_name_span.classList.add("experiment_li_spans");
 
         buttons_div.classList.add("hideshow_del_button_div");
 

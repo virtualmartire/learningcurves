@@ -183,3 +183,13 @@ function dragOverHandler(ev) {
     // Mod the style
     document.getElementById("drop_cartel").style.display = 'block';
 }
+
+function adjustBackgroundImage() {
+    /* To re-center the background image after window-resizing. */
+
+    const graphs_area = document.getElementById("graphs_area");
+    const windowHeight = window.innerHeight;
+
+    graphs_area.style.height = windowHeight + "px";
+
+}
