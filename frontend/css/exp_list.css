@@ -107,9 +107,9 @@
     }
 
         .data_buttons {
-            width: 128px;
+            width: 100px;
             height: 32px;
-            margin: 1% 0;
+            padding: 3px 6px;
             font-weight: 600;
             font-size: 14px;
             box-shadow: none;
@@ -132,13 +132,24 @@
                 vertical-align: middle;
             }
 
-            #clear_button {                
-                border: 1px solid #F5F7FF;
-                background-color: transparent;
+            .clear_export_buttons_div {
+                display: flex;
+                flex-direction: row;
+                
             }
 
-            .export_load_buttons {
-                border: none;
+                #clear_button {                
+                    border: 1px solid #F5F7FF;
+                    background-color: transparent;
+                }
+
+                #export_button {
+                    border: 1px solid transparent;
+                    background-color: #218E81;         
+                }
+
+            #load_button {
+                border: 1px solid transparent;
                 background-color: #8ED2B6;         
             }
 

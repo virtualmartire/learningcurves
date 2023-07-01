@@ -3,41 +3,145 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
     <link rel="stylesheet" href="./css/general.css">
+    <link rel="stylesheet" href="./css/charts.css">
+    <link rel="stylesheet" href="./css/exp_list.css">
 
-    <title>LearningCurves - Home</title>
+    <script src="./scripts/features.js"></script>
+    <script src="./scripts/utils.js"></script>
+    <script src="./scripts/variables.js"></script>
+    <script src="./scripts/lodash.js"></script>
+
+    <script src="./scripts/chart_3_7_1.js"></script>
+    <script src="./scripts/hammer_2_0_7.js"></script>               <!-- for the zoom -->
+    <script src="./scripts/chart_plugin_zoom_2_0_1.js"></script>    <!-- for the zoom -->
+
+    <title>LearningCurves</title>
 
 </head>
 <body>
     
-    <h1 style="text-align: center;">
-        Welcome to LearningCurves
-    </h1>
+    <div id="menu_bar">
+        <button id="menu_button" type="button" onclick="openNav()">menu</button>
+    </div>
+    
+    <div id="desk">
 
-    <p class="text_wall">
-        <div class="text_wall">
-            LearningCurves is an ultralight, cross-platform, 100% privacy-preserving <b>experiments tracking app for machine learning</b>:
+        <div id="experiments_area" class="area" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+
+            <div>
+                <button id="close_menu_button" type="button" onclick="closeNav()">close</button>
+            </div>
+
+            <div id="logo_and_info_div">
+                <div id="logo_div">
+                    <img id="logo_img" src="assets/logos/Logo-Nero.svg">
+                </div>
+                <br />
+                <div id="info_div">
+                    <a href="data_format.html">Instructions</a>
+                    <a href="http://www.stefanomartire.it">Contacts</a>
+                </div>
+            </div>
+
+            <div id="experiments_div">
+
+                <h2 style="margin-top:35px; margin-bottom:35px;">Experiments</h2>
+                
+                <div id="experiments_list">
+                    <!-- Here go the experiments list items -->
+                </div>
+
+                <br />
+
+                <h1 id="drop_cartel" style="display: none;"><u>DROP!</u></h1>
+
+            </div>
+
+            <div id="data_buttons_div">
+
+                <div id="clear_export_buttons_div">
+                    <button type="button" class="data_buttons" id="clear_button" onclick="clearDesk()">
+                        <span>Clear all</span>
+                    </button>
+                    <button type="button" class="data_buttons" id="export_button" onclick="exportDesk()">
+                        <span class="data_button_spans">Export</span> <img src="assets/buttons/Icon-Export.svg" class="data_icons">
+                    </button>
+                </div>
+
+                <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
+                <button type="button" class="data_buttons" id="load_button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">
+                    <span class="data_button_spans">Load</span> <img src="assets/buttons/Icon-Upload.svg" class="data_icons">
+                </button>
+            
+            </div>
+
         </div>
-        <div class="text_wall">
-            <ul>
-                <li><b>no installation required</b>, runs in the browser in pure javascript;</li>
-                <li>accessible from every online device;</li>
-                <li>computation managed by the frontend only, <b>zero data sent to the cloud</b>.</li>
-            </ul>
+
+        <div id="graphs_area" class="area">
+
+            <!-- The landing message, hidden when the user loads the first run -->
+            <div class="text_wall" id="landing_message">
+                <div class="text_wall_message">
+                    <h1>
+                        Welcome to LearningCurves
+                    </h1>
+                    <p>
+                        <div>
+                            LearningCurves is an ultralight, cross-platform, 100% privacy-preserving <b>experiments tracking app for machine learning</b>:
+                        </div>
+                        <div>
+                            <ul>
+                                <li><b>no installation required</b>, runs in the browser in pure javascript;</li>
+                                <li>accessible from every online device;</li>
+                                <li>computation managed by the frontend only, <b>zero data sent to the cloud</b>.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            For requests and suggestions please contact the project manager <a href="http://www.stefanomartire.it">Stefano Martire</a>.
+                        </div>
+                    </p>
+                    <p>
+                        Just load a run to start using the app!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Here go the charts -->
+
         </div>
-        <div class="text_wall">
-            For requests and suggestions please contact the project manager <a href="http://www.stefanomartire.it">Stefano Martire</a>.
-        </div>
-    </p>
 
-    <p class="text_wall">Click below to start the app.</p>
+    </div>
 
-    <p>
-        <form action="app.html" style="text-align: center;">
-            <input type="submit" value="start"/>
-        </form>
-    </p>
+    <script>
 
+        // Load existing runs, if any
+        const hexadecimal_dict = {"original_palette": [...colors_palette], "palette_to_consume": [...colors_palette]}
+        const cached_runs = _.mapValues(localStorage, JSON.parse);       // because localStorage is the dict containing all the runs
+        saveAndShowFile(cached_runs);
+
+        // Set the background image of the landing page
+        const graphs_area = document.getElementById("graphs_area");
+        graphs_area.style.height = `${window.innerHeight}px`;
+        graphs_area.style.backgroundImage = `url('assets/backgrounds/${Math.floor(Math.random()*3) + 1}.png')`;
+        graphs_area.style.backgroundRepeat = "no-repeat";
+        graphs_area.style.backgroundPosition = "center";
+        graphs_area.style.backgroundSize = "cover";
+        window.addEventListener("resize", adjustBackgroundImage);
+        adjustBackgroundImage();
+        
+        if (Object.keys(cached_runs).length != 0) {     // if there are experiments in the cache
+
+            document.getElementById("landing_message").style.display = 'none';
+            
+        } else {
+
+            document.getElementById("landing_message").style.display = 'flex';
+
+        };
+
+    </script>
+    
 </body>
 </html>

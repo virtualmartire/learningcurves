@@ -21,6 +21,42 @@ function gotFiles(input) {
 
 }
 
+function saveAndShowFile(input_dict) {
+
+    document.getElementById("landing_message").style.display = 'none';
+
+    const runs_names_array = Object.keys(input_dict);
+
+    runs_names_array.forEach(run_name => {
+
+        const run_dict = input_dict[run_name];
+        const metrics_names_array = Object.keys(run_dict);
+
+        saveRunToLocalStorage(run_name, run_dict);      // data are stored per-run
+        assignColor(run_name);
+        metrics_names_array.forEach((metric_name) => {
+
+            const metric_data = run_dict[metric_name];
+
+            updateExperimentsListHTML(run_name);
+
+            addValuesToChart(metric_name, run_name, metric_data);     // it creates the chart object and the data-div HTML if needed
+            getChartObjectById(metric_name).update();
+
+            addStatisticsDivs(metric_name, run_name);
+            computeAndAddStatistics(metric_name, run_name);
+
+        });
+
+    });
+
+    setTimeout(() => {      // in order to catch the right dimensions
+        resetDataDivHeight();
+        resetDataDivBorders();
+    }, 200);
+
+}
+
 function deleteRun(run_name) {
     /* The action triggered by the del buttons. */
 
@@ -76,6 +112,7 @@ function clearDesk() {
     /* Delete all the saved data when the "clear" button is pressed. */
 
     Object.keys(localStorage).forEach(deleteRun);
+    document.getElementById("landing_message").style.display = 'flex';
 
 }
 

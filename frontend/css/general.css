@@ -16,7 +16,8 @@
 }
 
 body {
-    margin: 0px;
+    margin: 0;
+    padding: 0;
     width: 100%;
     height: 100%;
     font-family: "Inter";
@@ -47,17 +48,23 @@ h5 {        /* the titles of the statistics tables */
 }
 
 .text_wall {
-    text-align:justify;
-    padding-left: 300px;
-    padding-right: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    height: 100%;
+    width: 100%;
 }
+    
+    .text_wall_message {
+        text-align: left;
+    }
+
+        .text_wall_message h1 {
+            font-size: 48px;
+        }
 
 @media screen and (max-width: 650px) {
-
-    .text_wall {
-        padding-left: 3px;
-        padding-right: 3px;
-    }
 
     #menu_bar {
         text-align:center;
