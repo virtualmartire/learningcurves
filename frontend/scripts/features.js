@@ -24,6 +24,9 @@ function gotFiles(input) {
 function saveAndShowFile(input_dict) {
 
     document.getElementById("landing_message").style.display = 'none';
+    document.getElementById("clear_button").style.display = 'inline-block';
+    document.getElementById("export_button").style.display = 'inline-block';
+    document.getElementById("data_buttons_div").style.justifyContent = 'space-between';
 
     const runs_names_array = Object.keys(input_dict);
 
