@@ -94,16 +94,18 @@
                     }
 
     #data_buttons_div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 160px;
         border-top: var(--standard-black-border) solid #131514;
         box-sizing: border-box;
-        height: 160px;
         position: absolute;
         bottom: 0;
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         align-items: center;
+        padding-top: 7%;
+        padding-bottom: 7%;
     }
 
         .data_buttons {
@@ -122,35 +124,23 @@
             top: .08em;
         }
 
-            .data_button_spans {
-                vertical-align: middle;
+        .data_button span {
+            vertical-align: middle;
+        }
+
+            #clear_button {                
+                border: 1px solid #F5F7FF;
+                background-color: transparent;
             }
 
-            .data_icons {
-                height: 20px;
-                width: 20px;
-                vertical-align: middle;
+            #export_button {
+                border: 1px solid transparent;
+                background-color: var(--load-export-buttons-color);         
             }
-
-            .clear_export_buttons_div {
-                display: flex;
-                flex-direction: row;
-                
-            }
-
-                #clear_button {                
-                    border: 1px solid #F5F7FF;
-                    background-color: transparent;
-                }
-
-                #export_button {
-                    border: 1px solid transparent;
-                    background-color: #218E81;         
-                }
 
             #load_button {
                 border: 1px solid transparent;
-                background-color: #8ED2B6;         
+                background-color: var(--load-export-buttons-color);         
             }
 
 @media screen and (max-width: 650px) {

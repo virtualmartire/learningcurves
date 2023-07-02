@@ -61,18 +61,11 @@
 
             <div id="data_buttons_div">
 
-                <div id="clear_export_buttons_div">
-                    <button type="button" class="data_buttons" id="clear_button" onclick="clearDesk()">
-                        <span>Clear all</span>
-                    </button>
-                    <button type="button" class="data_buttons" id="export_button" onclick="exportDesk()">
-                        <span class="data_button_spans">Export</span> <img src="assets/buttons/Icon-Export.svg" class="data_icons">
-                    </button>
-                </div>
-
+                <button type="button" class="data_buttons" id="clear_button" onclick="clearDesk()"><span>Clear all</span></button>
+                <button type="button" class="data_buttons" id="export_button" onclick="exportDesk()"><span>Export</span></button>
                 <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
                 <button type="button" class="data_buttons" id="load_button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">
-                    <span class="data_button_spans">Load</span> <img src="assets/buttons/Icon-Upload.svg" class="data_icons">
+                    <span>Load</span>
                 </button>
             
             </div>
