@@ -59,6 +59,7 @@ h5 {        /* the titles of the statistics tables */
     
     .text_wall_message {
         text-align: left;
+        width: 70%;
     }
 
         .text_wall_message h1 {

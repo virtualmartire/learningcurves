@@ -181,8 +181,8 @@ async function loadExamples() {
         saveRunToLocalStorage(run_name, sample_data_json[run_name]);
     });
 
-    // Load app.html
-    window.location.href = "app.html";
+    // Relaunch the app
+    window.location.href = "index.html";
 
 }
 
@@ -231,5 +231,12 @@ function adjustBackgroundImage() {
     const windowHeight = window.innerHeight;
 
     graphs_area.style.height = windowHeight + "px";
+
+}
+
+function showDataFormatInfo() {
+
+    document.getElementById("landing_message").style.display = 'none';
+    document.getElementById("data_format_message").style.display = 'flex';
 
 }
