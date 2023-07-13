@@ -94,7 +94,7 @@ function getChartObjectById(chart_id) {
 
 function buildDataDiv(metric_name) {
 
-    const graphs_area = document.getElementById('graphs_area');
+    const data_zone = document.getElementById('data_zone');
 
     const new_data_div = document.createElement('div');
     new_data_div.className = "data_div";
@@ -112,7 +112,7 @@ function buildDataDiv(metric_name) {
     new_data_div.appendChild(new_graph_div);
     new_data_div.appendChild(new_hr);
     new_data_div.appendChild(new_statistics_and_options_div);
-    graphs_area.appendChild(new_data_div);
+    data_zone.appendChild(new_data_div);
 
     // Assign the background color based on the position on page
     const position = Array.from(document.querySelectorAll('.data_div'))
