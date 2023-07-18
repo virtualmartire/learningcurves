@@ -76,7 +76,7 @@
         <div id="graphs_area" class="area">
 
             <!-- The landing message, hidden when the user loads the first run -->
-            <div id="landing_message" class="text_wall">
+            <div id="landing_message" class="text_wall" style="display: none;">
                 <div class="text_wall_message">
                     <h1>
                         Welcome to LearningCurves
@@ -159,7 +159,7 @@
                                 <h2>Stefano Martire</h2>
                                 <div>
                                     Mathematician, AI/ML data scientist and project manager + web developer of LearningCurves. Author of these HTML, CSS and Javascript codes, he is
-                                    the one to contact in case of requests or suggestions. You can reach him at his <a href="http://www.stefanomartire.it">personal website</a>.
+                                    the one to contact in case of requests or suggestions. You can reach him at his <a href="http://www.stefanomartire.it" target="_blank">personal website</a>.
                                 </div>
                             </div>
                         </div>
@@ -172,7 +172,7 @@
                                 <h2>Stefano Cotelli</h2>
                                 <div>
                                     Graphic designer and art director, of LearningCurves and in life. He is the one who has decided where every pixel of this website is located.
-                                    You can see some of his work on his <a href="https://www.behance.net/stefanocotelli">behance</a>.
+                                    You can see some of his work on his <a href="https://www.behance.net/stefanocotelli" target="_blank">behance</a>.
                                 </div>
                             </div>
                         </div>
@@ -187,7 +187,7 @@
             </div>
 
             <!-- And here go the charts -->
-            <div id="data_zone">
+            <div id="data_zone" style="display: none;">
             </div>
 
         </div>
@@ -213,7 +213,7 @@
         
         if (Object.keys(cached_runs).length != 0) {     // if there are experiments in the cache
 
-            document.getElementById("landing_message").style.display = 'none';
+            document.getElementById("data_zone").style.display = 'flex';
             
         } else {
 
