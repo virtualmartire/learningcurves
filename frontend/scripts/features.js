@@ -25,6 +25,7 @@ function saveAndShowFile(input_dict) {
 
     document.getElementById("landing_message").style.display = 'none';
     document.getElementById("data_format_message").style.display = 'none';
+    document.getElementById("contacts_page").style.display = 'none';
     document.getElementById("data_zone").style.display = 'flex';
     
     document.getElementById("clear_button").style.display = 'inline-block';
@@ -236,16 +237,13 @@ function adjustBackgroundImage() {
 
 function showDataFormatInfo() {
 
-    /* Hide landing_message and data_zone divs */
+    /* Hide landing_message, contacts and data_zone divs */
     document.getElementById("landing_message").style.display = 'none';
+    document.getElementById("contacts_page").style.display = 'none';
     document.getElementById("data_zone").style.display = 'none';
 
     /* Show data_format_message div */
     document.getElementById("data_format_message").style.display = 'flex';
-
-    /* Set the new background image properties */
-    const graphs_area = document.getElementById("graphs_area");
-    graphs_area.style.backgroundImage = `url('assets/backgrounds/2.png')`;
 
 }
 
@@ -260,4 +258,29 @@ function hideDataFormatInfo() {
         document.getElementById("landing_message").style.display = 'flex';
     };
 
+}
+
+function showContactsPage() {
+    
+        /* Hide landing_message, data_format and data_zone divs */
+        document.getElementById("landing_message").style.display = 'none';
+        document.getElementById("data_format_message").style.display = 'none';
+        document.getElementById("data_zone").style.display = 'none';
+    
+        /* Show contacts_page div */
+        document.getElementById("contacts_page").style.display = 'flex';
+    
+}
+
+function hideContactsPage() {
+        
+        document.getElementById("contacts_page").style.display = 'none';
+    
+        const cached_runs = _.mapValues(localStorage, JSON.parse);
+        if (Object.keys(cached_runs).length != 0) {     // if there are experiments in the cache
+            document.getElementById("data_zone").style.display = 'flex';
+        } else {
+            document.getElementById("landing_message").style.display = 'flex';
+        };
+    
 }

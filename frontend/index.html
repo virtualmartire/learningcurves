@@ -42,7 +42,7 @@
                 <div id="info_div">
                     <a href="#" onclick="showDataFormatInfo()">Info</a>
                     <span>&nbsp;&nbsp;&nbsp;</span>
-                    <a href="http://www.stefanomartire.it">Contacts</a>
+                    <a href="#" onclick="showContactsPage()">Contacts</a>
                 </div>
             </div>
 
@@ -76,7 +76,7 @@
         <div id="graphs_area" class="area">
 
             <!-- The landing message, hidden when the user loads the first run -->
-            <div class="text_wall" id="landing_message">
+            <div id="landing_message" class="text_wall">
                 <div class="text_wall_message">
                     <h1>
                         Welcome to LearningCurves
@@ -103,7 +103,7 @@
             </div>
 
             <!-- The data-format instructions, to be shown when "Info" is pressed -->
-            <div class="text_wall" id="data_format_message" style="display: none;">
+            <div id="data_format_message" class="text_wall" style="display: none;">
                 <div class="text_wall_message">
                     <h1>
                         Instructions for the data format
@@ -139,7 +139,52 @@
                         <button type="button" onclick="hideDataFormatInfo()">back</button>
                     </p>
                 </div>
-            </div>        
+            </div>
+
+            <!-- The contacts page, to be shown when "Contacts" is pressed -->
+            <div id="contacts_page" class="text_wall" style="display: none;">
+                <div class="text_wall_message">
+
+                    <h1>
+                        Contacts
+                    </h1>
+
+                    <div class="contact_cards_container">
+
+                        <div class="contact_card" id="martire_contact_card">
+                            <div class="contact_card_image">
+                                <img src="assets/contacts/martire.png">
+                            </div>
+                            <div class="contact_card_text">
+                                <h2>Stefano Martire</h2>
+                                <div>
+                                    Mathematician, AI/ML data scientist and project manager + web developer of LearningCurves. Author of these HTML, CSS and Javascript codes, he is
+                                    the one to contact in case of requests or suggestions. You can reach him at his <a href="http://www.stefanomartire.it">personal website</a>.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact_card" id="cotelli_contact_card">
+                            <div class="contact_card_image">
+                                <img src="assets/contacts/shady.png">
+                            </div>
+                            <div class="contact_card_text">
+                                <h2>Stefano Cotelli</h2>
+                                <div>
+                                    Graphic designer and art director, of LearningCurves and in life. He is the one who has decided where every pixel of this website is located.
+                                    You can see some of his work on his <a href="https://www.behance.net/stefanocotelli">behance</a>.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <p style="text-align: center;">
+                        <button type="button" onclick="hideContactsPage()">back</button>
+                    </p>
+
+                </div>
+            </div>
 
             <!-- And here go the charts -->
             <div id="data_zone">
