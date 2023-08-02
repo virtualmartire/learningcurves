@@ -40,7 +40,7 @@
                 </div>
                 <br />
                 <div id="info_div">
-                    <a href="#" onclick="showDataFormatInfo()">Info</a>
+                    <a href="#" onclick="showDataFormatInfo()">How to</a>
                     <span>&nbsp;&nbsp;&nbsp;</span>
                     <a href="#" onclick="showContactsPage()">Contacts</a>
                 </div>
@@ -74,6 +74,9 @@
         </div>
 
         <div id="graphs_area" class="area">
+
+            <!-- In order to set an half-in, half-out backround-image -->
+            <div id="background_image"></div>
 
             <!-- The landing message, hidden when the user loads the first run -->
             <div id="landing_message" class="text_wall" style="display: none;">
@@ -202,15 +205,11 @@
         saveAndShowFile(cached_runs);
 
         // Set the background image of the landing page
-        const graphs_area = document.getElementById("graphs_area");
-        graphs_area.style.height = `${window.innerHeight}px`;
-        graphs_area.style.backgroundImage = `url('assets/backgrounds/${Math.floor(Math.random()*3) + 1}.png')`;
-        graphs_area.style.backgroundRepeat = "no-repeat";
-        graphs_area.style.backgroundPosition = "center";
-        graphs_area.style.backgroundSize = "cover";
+        const background_image = document.getElementById("background_image");
+        background_image.style.backgroundImage = `url('assets/backgrounds/${Math.floor(Math.random()*3) + 1}.png')`;
         window.addEventListener("resize", adjustBackgroundImage);
         adjustBackgroundImage();
-        
+
         if (Object.keys(cached_runs).length != 0) {     // if there are experiments in the cache
 
             document.getElementById("data_zone").style.display = 'flex';
