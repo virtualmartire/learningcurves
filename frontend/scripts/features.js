@@ -231,7 +231,7 @@ function dragOverHandler(ev) {
 function adjustBackgroundImage() {
     /* To re-center the background image after window-resizing. */
 
-    document.getElementById("background_image").style.backgroundPosition = `${window.innerWidth-900}px center`;
+    document.getElementById("background_image").style.backgroundPosition = `${window.innerWidth-852}px center`;
 
 }
 
