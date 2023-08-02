@@ -135,12 +135,12 @@
 
             #export_button {
                 border: 1px solid transparent;
-                background-color: var(--load-export-buttons-color);         
+                background-color: var(--load-export-buttons-color);
             }
 
             #load_button {
                 border: 1px solid transparent;
-                background-color: var(--load-export-buttons-color);         
+                background-color: var(--load-export-buttons-color);
             }
 
 @media screen and (max-width: 650px) {
