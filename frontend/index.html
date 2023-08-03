@@ -76,7 +76,7 @@
         <div id="graphs_area" class="area">
 
             <!-- In order to set an half-in, half-out backround-image -->
-            <div id="background_image"></div>
+            <div id="background_image" style="display: none;"></div>
 
             <!-- The landing message, hidden when the user loads the first run -->
             <div id="landing_message" class="text_wall" style="display: none;">
@@ -201,7 +201,6 @@
         // Load existing runs, if any
         const hexadecimal_dict = {"original_palette": [...colors_palette], "palette_to_consume": [...colors_palette]}
         const cached_runs = _.mapValues(localStorage, JSON.parse);       // because localStorage is the dict containing all the runs
-        saveAndShowFile(cached_runs);
 
         // Set the background image of the landing page
         const background_image = document.getElementById("background_image");
@@ -212,10 +211,12 @@
         if (Object.keys(cached_runs).length != 0) {     // if there are experiments in the cache
 
             document.getElementById("data_zone").style.display = 'flex';
+            saveAndShowFile(cached_runs);
             
         } else {
 
             document.getElementById("landing_message").style.display = 'flex';
+            background_image.style.display = 'block';
             document.getElementById("clear_button").style.display = 'none';
             document.getElementById("export_button").style.display = 'none';
             document.getElementById("data_buttons_div").style.justifyContent = 'center';

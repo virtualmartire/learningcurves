@@ -23,6 +23,7 @@ function gotFiles(input) {
 
 function saveAndShowFile(input_dict) {
 
+    document.getElementById("background_image").style.display = 'none';
     document.getElementById("landing_message").style.display = 'none';
     document.getElementById("data_format_message").style.display = 'none';
     document.getElementById("contacts_page").style.display = 'none';
@@ -120,6 +121,7 @@ function clearDesk() {
 
     Object.keys(localStorage).forEach(deleteRun);
     document.getElementById("landing_message").style.display = 'flex';
+    document.getElementById("background_image").style.display = 'block';
 
 }
 
