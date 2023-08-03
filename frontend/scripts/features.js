@@ -128,9 +128,9 @@ function clearDesk() {
 function exportDesk() {
     /* The action triggered by the export button. */
 
-    const visible_runs_names = Array.from(document.querySelectorAll('.hide_buttons'))
-                                .filter(node => node.innerHTML == 'hide')
-                                .map(node => node.id.slice(0, -12));
+    const visible_runs_names = Array.from(document.querySelectorAll('.exp_list_run_divs'))
+                                .filter(node => node.style.backgroundColor != 'rgba(0, 0, 0, 0)')
+                                .map(node => node.id.slice(0, -14));
     const visible_runs = _.pick(_.mapValues(localStorage, JSON.parse), visible_runs_names);
     const link = document.createElement('a');
     var date = new Date();
