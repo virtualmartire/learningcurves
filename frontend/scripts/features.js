@@ -23,16 +23,13 @@ function gotFiles(input) {
 
 function saveAndShowFile(input_dict) {
 
-    document.getElementById("background_image").style.display = 'none';
-    document.getElementById("landing_message").style.display = 'none';
-    document.getElementById("data_format_message").style.display = 'none';
-    document.getElementById("contacts_page").style.display = 'none';
-    document.getElementById("data_zone").style.display = 'flex';
-    
-    document.getElementById("clear_button").style.display = 'inline-block';
-    document.getElementById("export_button").style.display = 'inline-block';
-    document.getElementById("data_buttons_div").style.justifyContent = 'space-between';
+    // Prepare the view
+    hideAllDivs();
+    showDataZone();
+    buttonDivChartsMode();
 
+    // Save and show the data
+    
     const runs_names_array = Object.keys(input_dict);
 
     runs_names_array.forEach(run_name => {
@@ -122,6 +119,8 @@ function clearDesk() {
     Object.keys(localStorage).forEach(deleteRun);
     document.getElementById("landing_message").style.display = 'flex';
     document.getElementById("background_image").style.display = 'block';
+
+    buttonDivLoadMode();
 
 }
 
@@ -237,52 +236,15 @@ function adjustBackgroundImage() {
 
 }
 
-function showDataFormatInfo() {
+function visualizeTheVisualizable() {
 
-    /* Hide landing_message, contacts and data_zone divs */
-    document.getElementById("landing_message").style.display = 'none';
-    document.getElementById("contacts_page").style.display = 'none';
-    document.getElementById("data_zone").style.display = 'none';
-
-    /* Show data_format_message div */
-    document.getElementById("data_format_message").style.display = 'flex';
-
-}
-
-function hideDataFormatInfo() {
-    
-    document.getElementById("data_format_message").style.display = 'none';
-
-    const cached_runs = _.mapValues(localStorage, JSON.parse);
+    const cached_runs = _.mapValues(localStorage, JSON.parse);       // because localStorage is the dict containing all the runs
     if (Object.keys(cached_runs).length != 0) {     // if there are experiments in the cache
-        document.getElementById("data_zone").style.display = 'flex';
+        saveAndShowFile(cached_runs);
     } else {
-        document.getElementById("landing_message").style.display = 'flex';
+        showLandingMessage();
+        showBackgroundImage();
+        buttonDivLoadMode();
     };
 
-}
-
-function showContactsPage() {
-    
-        /* Hide landing_message, data_format and data_zone divs */
-        document.getElementById("landing_message").style.display = 'none';
-        document.getElementById("data_format_message").style.display = 'none';
-        document.getElementById("data_zone").style.display = 'none';
-    
-        /* Show contacts_page div */
-        document.getElementById("contacts_page").style.display = 'flex';
-    
-}
-
-function hideContactsPage() {
-        
-        document.getElementById("contacts_page").style.display = 'none';
-    
-        const cached_runs = _.mapValues(localStorage, JSON.parse);
-        if (Object.keys(cached_runs).length != 0) {     // if there are experiments in the cache
-            document.getElementById("data_zone").style.display = 'flex';
-        } else {
-            document.getElementById("landing_message").style.display = 'flex';
-        };
-    
 }

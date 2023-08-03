@@ -488,3 +488,63 @@ function resetDataDivBorders() {
     data_div_list[data_div_list.length-2].style.borderBottom = "none";
 
 }
+
+function showBackgroundImage() {
+    document.getElementById("background_image").style.display = 'block';
+}
+
+function hideBackgroundImage() {
+    document.getElementById("background_image").style.display = 'none';
+}
+
+function showLandingMessage() {
+    document.getElementById("landing_message").style.display = 'flex';
+}
+
+function hideLandingMessage() {
+    document.getElementById("landing_message").style.display = 'none';
+}
+
+function showDataFormatInfo() {
+    document.getElementById("data_format_message").style.display = 'flex';
+}
+
+function hideDataFormatInfo() {
+    document.getElementById("data_format_message").style.display = 'none';
+}
+
+function showContactsPage() {
+    document.getElementById("contacts_page").style.display = 'flex';
+}
+
+function hideContactsPage() {
+    document.getElementById("contacts_page").style.display = 'none';
+}
+
+function showDataZone() {
+    document.getElementById("data_zone").style.display = 'flex';
+}
+
+function hideDataZone() {
+    document.getElementById("data_zone").style.display = 'none';
+}
+
+function buttonDivLoadMode() {
+    document.getElementById("clear_button").style.display = 'none';
+    document.getElementById("export_button").style.display = 'none';
+    document.getElementById("data_buttons_div").style.justifyContent = 'center';
+}
+
+function buttonDivChartsMode() {
+    document.getElementById("clear_button").style.display = 'inline-block';
+    document.getElementById("export_button").style.display = 'inline-block';
+    document.getElementById("data_buttons_div").style.justifyContent = 'space-between';
+}
+
+function hideAllDivs() {
+    hideBackgroundImage();
+    hideLandingMessage();
+    hideDataFormatInfo();
+    hideContactsPage();
+    hideDataZone();
+}

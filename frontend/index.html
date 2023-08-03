@@ -40,9 +40,9 @@
                 </div>
                 <br />
                 <div id="info_div">
-                    <a href="#" onclick="showDataFormatInfo()">How to</a>
+                    <a href="#" onclick="hideAllDivs(); showBackgroundImage(); showDataFormatInfo()">How to</a>
                     <span>&nbsp;&nbsp;&nbsp;</span>
-                    <a href="#" onclick="showContactsPage()">Contacts</a>
+                    <a href="#" onclick="hideAllDivs(); showBackgroundImage(); showContactsPage()">Contacts</a>
                 </div>
             </div>
 
@@ -62,8 +62,12 @@
 
             <div id="data_buttons_div">
 
-                <button type="button" class="data_buttons" id="clear_button" onclick="clearDesk()"><span>Clear all</span></button>
-                <button type="button" class="data_buttons" id="export_button" onclick="exportDesk()"><span>Export</span></button>
+                <button type="button" class="data_buttons" id="clear_button" onclick="clearDesk()" style="display: none;">
+                    <span>Clear all</span>
+                </button>
+                <button type="button" class="data_buttons" id="export_button" onclick="exportDesk()" style="display: none;">
+                    <span>Export</span>
+                </button>
                 <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
                 <button type="button" class="data_buttons" id="load_button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">
                     <span>Load</span>
@@ -138,7 +142,9 @@
                     <br />
                     <p>
                         <button type="button" class="data_buttons" id="examples_button" onclick="loadExamples()"><span>Load examples</span></button>
-                        <button type="button" class="data_buttons back_buttons" onclick="hideDataFormatInfo()"><span>Back</span></button>
+                        <button type="button" class="data_buttons back_buttons" onclick="visualizeTheVisualizable()">
+                            <span>Back</span>
+                        </button>
                     </p>
                 </div>
             </div>
@@ -182,7 +188,9 @@
                     </div>
                     <br />
                     <p>
-                        <button type="button" class="data_buttons back_buttons" onclick="hideContactsPage()"><span>Back</span></button>
+                        <button type="button" class="data_buttons back_buttons" onclick="visualizeTheVisualizable()">
+                            <span>Back</span>
+                        </button>
                     </p>
 
                 </div>
@@ -200,28 +208,15 @@
 
         // Load existing runs, if any
         const hexadecimal_dict = {"original_palette": [...colors_palette], "palette_to_consume": [...colors_palette]}
-        const cached_runs = _.mapValues(localStorage, JSON.parse);       // because localStorage is the dict containing all the runs
-
+        
         // Set the background image of the landing page
         const background_image = document.getElementById("background_image");
         background_image.style.backgroundImage = `url('assets/backgrounds/${Math.floor(Math.random()*3) + 1}.png')`;
         window.addEventListener("resize", adjustBackgroundImage);
         adjustBackgroundImage();
 
-        if (Object.keys(cached_runs).length != 0) {     // if there are experiments in the cache
-
-            document.getElementById("data_zone").style.display = 'flex';
-            saveAndShowFile(cached_runs);
-            
-        } else {
-
-            document.getElementById("landing_message").style.display = 'flex';
-            background_image.style.display = 'block';
-            document.getElementById("clear_button").style.display = 'none';
-            document.getElementById("export_button").style.display = 'none';
-            document.getElementById("data_buttons_div").style.justifyContent = 'center';
-
-        };
+        // Visualize the visualizable
+        visualizeTheVisualizable();
 
     </script>
     
