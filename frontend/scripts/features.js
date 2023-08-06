@@ -9,7 +9,7 @@ function closeNav() {
 }
 
 function gotFiles(input) {
-    /* The function that fires when some files are loaded. */
+    /* The function that fires when some files are loaded with the Load button. */
 
     const file_list = Array.from(input.files);
 
@@ -18,6 +18,8 @@ function gotFiles(input) {
         reader.addEventListener("load", reader => saveAndShowFile(JSON.parse(reader.target.result)));      // because asynchrony
         reader.readAsText(file);
     });
+
+    delayedReformatting();
 
 }
 
@@ -41,11 +43,9 @@ function saveAndShowFile(input_dict) {
         assignColor(run_name);
         metrics_names_array.forEach((metric_name) => {
 
-            const metric_data = run_dict[metric_name];
-
             updateExperimentsListHTML(run_name);
 
-            addValuesToChart(metric_name, run_name, metric_data);     // it creates the chart object and the data-div HTML if needed
+            addValuesToChart(metric_name, run_name, run_dict[metric_name]);   // it creates the chart object and the data-div HTML if needed
             getChartObjectById(metric_name).update();
 
             addStatisticsDivs(metric_name, run_name);
@@ -54,11 +54,6 @@ function saveAndShowFile(input_dict) {
         });
 
     });
-
-    setTimeout(() => {      // in order to catch the right dimensions
-        resetDataDivHeight();
-        resetDataDivBorders();
-    }, 200);
 
 }
 
@@ -212,13 +207,14 @@ function dropHandler(ev) {
         // Use DataTransfer interface to access the file(s)
         [...ev.dataTransfer.files].forEach((file, i) => {
             const reader = new FileReader();
-            reader.addEventListener("load", reader => saveAndShowFile(JSON.parse(reader.target.result)));      // because asynchrony
+            reader.addEventListener("load", reader => saveAndShowFile(JSON.parse(reader.target.result)));
             reader.readAsText(file);
         });
     }
 
-    // Mod the style
+    // Reformat the style
     document.getElementById("drop_cartel").style.display = 'none';
+    delayedReformatting();
 
 }
 
@@ -247,4 +243,13 @@ function visualizeTheVisualizable() {
         buttonDivLoadMode();
     };
 
+    delayedReformatting();
+
+}
+
+function delayedReformatting() {
+    setTimeout(() => {      // in order to catch the right dimensions
+        resetDataDivHeight();
+        resetDataDivBorders();
+    }, 200);
 }
