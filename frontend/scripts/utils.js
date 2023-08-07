@@ -134,11 +134,10 @@ function buildDataDiv(metric_name) {
                                                         radius: 2
                                                     }
                                                 },
+                                                legend: {
+                                                    display: false
+                                                },
                                                 plugins: {
-                                                    legend: {
-                                                        onClick: null,
-                                                        display: false
-                                                    },
                                                     zoom: {
                                                         zoom: {
                                                             drag: {
@@ -165,13 +164,7 @@ function buildDataDiv(metric_name) {
                                                             },
                                                             color: "#131514",
                                                             padding: 10
-                                                        },
-                                                        grid: {
-                                                            borderDash: [0.25, 4],
-                                                            color: "#131514",
-                                                            tickLength: 0
-                                                        }
-                                                    },
+                                                        }                                                    },
                                                     y: {
                                                         ticks: {
                                                             font: {
@@ -185,8 +178,13 @@ function buildDataDiv(metric_name) {
                                                             color: "#131514",
                                                             tickLength: 0
                                                         }
+                                                    },
+                                                    gridLines: {
+                                                        borderDash: [0.25, 4],
+                                                        color: "#131514",
+                                                        tickMarkLength: 0
                                                     }
-                                                }
+                                                },
                                             }
                                         });
     
