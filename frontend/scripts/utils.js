@@ -65,26 +65,21 @@ function addValuesToChart(metric_name, run_name, metric_data) {
     const chart = getChartObjectById(metric_name) || buildDataDiv(metric_name);
     const values_array = metric_data;
     const epochs_array = _.range(1, metric_data.length+1);
-    const chart_datasets = chart.data.datasets;
     const color = hexadecimal_dict[run_name];
     
     // Remove the old datasets (in case this is an overwriting)
     removeRunDatasetsFromChartObj(metric_name, run_name);
     
-    // Update the x-axis
+    // Update (in case) the x-axis and add the new dataset
     if (chart.data.labels.slice(-1)[0] < epochs_array.slice(-1)[0]) {
         chart.data.labels = epochs_array;
-    }
-
-    // Add the two versions of the dataset
-    chart_datasets.push({
+    };
+    chart.data.datasets.push({
                             label: run_name,
                             data: values_array,
                             fill: false,
                             borderColor: color,
-                            backgroundColor: color,
-                            math_version: "values"
-                        });
+                            backgroundColor: color});
 
 }
 
@@ -137,54 +132,61 @@ function buildDataDiv(metric_name) {
                                                 legend: {
                                                     display: false
                                                 },
-                                                plugins: {
-                                                    zoom: {
-                                                        zoom: {
-                                                            drag: {
-                                                                enabled: true,
-                                                                backgroundColor: 'rgba(150,150,150,0.3)'
-                                                            },
-                                                            onZoomStart: () => {
-                                                                // Save the current zoom levels
-                                                                zoom_history[metric_name].push(extractChartRanges(getChartObjectById(metric_name)));
-                                                            }
-                                                        }
-                                                    }
-                                                },
                                                 layout: {
                                                     padding: {
                                                         bottom: 10
                                                     }
                                                 },
                                                 scales: {
-                                                    x: {
-                                                        ticks: {
-                                                            font: {
-                                                                family: "Inter"
-                                                            },
-                                                            color: "#131514",
-                                                            padding: 10
-                                                        }                                                    },
-                                                    y: {
-                                                        ticks: {
-                                                            font: {
-                                                                family: "Inter"
-                                                            },
-                                                            color: "#131514",
-                                                            padding: 10
-                                                        },
-                                                        grid: {
-                                                            borderDash: [0.25, 4],
-                                                            color: "#131514",
-                                                            tickLength: 0
-                                                        }
-                                                    },
-                                                    gridLines: {
-                                                        borderDash: [0.25, 4],
-                                                        color: "#131514",
-                                                        tickMarkLength: 0
-                                                    }
+                                                    xAxes: [{
+                                                                ticks: {
+                                                                    fontFamily: "Inter",
+                                                                    fontColor: "#131514",
+                                                                    padding: 10
+                                                                },
+                                                                gridLines: {
+                                                                    borderDash: [0.25, 4],
+                                                                    color: "#131514",
+                                                                    drawBorder: false,
+                                                                    zeroLineBorderDash: [0.25, 4],
+                                                                    zeroLineColor: "#131514",
+                                                                    drawTicks: false
+                                                                }
+                                                            }],
+                                                    yAxes: [{
+                                                                ticks: {
+                                                                    fontFamily: "Inter",
+                                                                    fontColor: "#131514",
+                                                                    padding: 10
+                                                                },
+                                                                gridLines: {
+                                                                    borderDash: [0.25, 4],
+                                                                    color: "#131514",
+                                                                    drawBorder: false,
+                                                                    zeroLineBorderDash: [0.25, 4],
+                                                                    zeroLineColor: "#131514",
+                                                                    drawTicks: false
+                                                                }
+                                                            }]
                                                 },
+                                                // plugins: {
+                                                //     zoom: {
+                                                //         zoom: {
+                                                //             enabled: true,
+                                                //             drag: true,
+                                                //             drag: {
+                                                //                 backgroundColor: 'rgba(150,150,150,0.3)'
+                                                //             },
+                                                //             threshold: 0,       // minimal zoom distance required before actually applying zoom
+                                                //             sensitivity: 0,     // on category scale, minimal zoom level before actually applying zoom
+                                                //             mode: 'xy',
+                                                //             onZoom: ({chart}) => {
+                                                //                 // Save the current zoom levels
+                                                //                 zoom_history[metric_name].push(extractChartRanges(getChartObjectById(metric_name)));
+                                                //             }
+                                                //         }
+                                                //     }
+                                                // }
                                             }
                                         });
     
