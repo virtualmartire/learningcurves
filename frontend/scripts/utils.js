@@ -410,8 +410,8 @@ function hideRun(run_name) {
     hide_icon.src = "assets/buttons/Icon-Eye-Off.svg";
     run_name_div.style.backgroundColor = 'rgba(0,0,0,0)';
 
-    // Hide all run statistics
-    document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.display = 'none');
+    // Shade all run statistics
+    document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.backgroundColor = 'transparent');
 
     // Hide the run from every chart
     Object.keys(run_dict).forEach(metric_name => {
@@ -439,7 +439,7 @@ function showRun(run_name) {
     hide_icon.src = "assets/buttons/Icon-Eye-On.svg";
     run_name_div.style.backgroundColor = hexadecimal_dict[run_name];
 
-    document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.display = 'block');
+    document.querySelectorAll(`.${run_name}_statistics`).forEach(node => node.style.backgroundColor = hexadecimal_dict[run_name]);
 
     Object.keys(run_dict).forEach(metric_name => {
 
