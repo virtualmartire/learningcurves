@@ -392,10 +392,10 @@ function makeTextFile(text) {
 function extractChartRanges(chart) {
 
     return {
-        "y_max": chart.scales.y._range.max,
-        "y_min": chart.scales.y._range.min,
-        "x_max": chart.scales.x._range.max,
-        "x_min": chart.scales.x._range.min
+        "y_max": chart.scales['y-axis-0'].max,
+        "y_min": chart.scales['y-axis-0'].min,
+        "x_max": chart.scales['x-axis-0'].max,
+        "x_min": chart.scales['x-axis-0'].min
     }
 
 }

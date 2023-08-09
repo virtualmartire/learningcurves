@@ -145,12 +145,14 @@ function exportDesk() {
 function halfYMax(metric_name) {
 
     const chart = getChartObjectById(metric_name);
+    const chart_ranges = extractChartRanges(chart);
 
     // Save the current zoom levels
-    zoom_history[metric_name].push(extractChartRanges(chart));
+    zoom_history[metric_name].push(chart_ranges);
 
     // Zoom
-    chart.options.scales.y.max = chart.scales.y._range.max / 2;
+    chart.options.scales.yAxes[0].ticks.max = chart_ranges['y_max'] / 2;
+
     chart.update();
 
 }
@@ -160,10 +162,10 @@ function zoomBack(metric_name) {
     const chart = getChartObjectById(metric_name);
     const zoom_levels = zoom_history[metric_name].pop();
 
-    chart.options.scales.y.max = zoom_levels['y_max'];
-    chart.options.scales.y.min = zoom_levels['y_min'];
-    chart.options.scales.x.max = zoom_levels['x_max'];
-    chart.options.scales.x.min = zoom_levels['x_min'];
+    chart.options.scales.yAxes[0].ticks.max = zoom_levels['y_max'];
+    chart.options.scales.yAxes[0].ticks.min = zoom_levels['y_min'];
+    chart.options.scales.xAxes[0].ticks.max = zoom_levels['x_max'];
+    chart.options.scales.xAxes[0].ticks.min = zoom_levels['x_min'];
 
     chart.update();
 
