@@ -168,25 +168,7 @@ function buildDataDiv(metric_name) {
                                                                     drawTicks: false
                                                                 }
                                                             }]
-                                                },
-                                                // plugins: {
-                                                //     zoom: {
-                                                //         zoom: {
-                                                //             enabled: true,
-                                                //             drag: true,
-                                                //             drag: {
-                                                //                 backgroundColor: 'rgba(150,150,150,0.3)'
-                                                //             },
-                                                //             threshold: 0,       // minimal zoom distance required before actually applying zoom
-                                                //             sensitivity: 0,     // on category scale, minimal zoom level before actually applying zoom
-                                                //             mode: 'xy',
-                                                //             onZoom: ({chart}) => {
-                                                //                 // Save the current zoom levels
-                                                //                 zoom_history[metric_name].push(extractChartRanges(getChartObjectById(metric_name)));
-                                                //             }
-                                                //         }
-                                                //     }
-                                                // }
+                                                }
                                             }
                                         });
     
