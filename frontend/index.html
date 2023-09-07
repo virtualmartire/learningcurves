@@ -49,6 +49,7 @@
                 <h2 style="margin-top:35px; margin-bottom:35px;">Experiments</h2>
                 
                 <div id="experiments_list">
+                    <div id="no_exp_message"> No experiments loaded yet...</div>
                     <!-- Here go the experiments list items -->
                 </div>
 
@@ -60,15 +61,15 @@
 
             <div id="data_buttons_div">
 
-                <button type="button" class="data_buttons" id="clear_button" onclick="clearDesk()" style="display: none;">
-                    <span>Clear all</span>
+                <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
+                <button type="button" class="data_buttons" id="load_button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">
+                    <span>Load</span>
                 </button>
                 <button type="button" class="data_buttons" id="export_button" onclick="exportDesk()" style="display: none;">
                     <span>Export</span>
                 </button>
-                <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
-                <button type="button" class="data_buttons" id="load_button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">
-                    <span>Load</span>
+                <button type="button" class="data_buttons" id="clear_button" onclick="clearDesk()" style="display: none;">
+                    <span>Clear all</span>
                 </button>
             
             </div>
@@ -98,11 +99,11 @@
                             </ul>
                         </div>
                         <div>
-                            For requests and suggestions please contact the project manager <a href="http://www.stefanomartire.it">Stefano Martire</a>.
+                            For requests and suggestions please contact the project manager <a href="https://www.stefanomartire.it" target="_blank"><u>Stefano Martire</u></a>.
                         </div>
                     </p>
                     <p>
-                        Just load a run to start using the app!
+                        Just load a run to start using the app or <a href="#" onclick="loadExamples()"><u>try with some examples</u></a>.
                     </p>
                 </div>
             </div>

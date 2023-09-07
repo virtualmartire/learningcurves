@@ -26,6 +26,7 @@ function gotFiles(input) {
 function saveAndShowFile(input_dict) {
 
     // Prepare the view
+    document.getElementById("no_exp_message").style.display = 'none';
     hideAllDivs();
     showDataZone();
     buttonDivChartsMode();
@@ -109,11 +110,12 @@ function showOnlyThisRun(run_name) {
 }
 
 function clearDesk() {
-    /* Delete all the saved data when the "clear" button is pressed. */
+    /* Delete all the saved data when the "clear all" button is pressed. */
 
     Object.keys(localStorage).forEach(deleteRun);
     document.getElementById("landing_message").style.display = 'flex';
     document.getElementById("background_image").style.display = 'block';
+    document.getElementById("no_exp_message").style.display = 'block';
 
     buttonDivLoadMode();
 

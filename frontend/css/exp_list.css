@@ -56,6 +56,10 @@
             text-align: left;
         }
 
+            #no_exp_message {
+                text-align: center;
+            }
+
             .exp_list_run_divs {
                 display: flex;
                 justify-content: space-between;
