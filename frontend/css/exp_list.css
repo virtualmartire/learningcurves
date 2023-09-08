@@ -147,13 +147,14 @@
                 background-color: var(--load-export-buttons-color);
             }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 420px) {
 
     #experiments_area {
         width: 0px;  /* change this with JavaScript */
         top: 0; /* Stay at the top */
         transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
         padding: 0px;   /* start with 0 padding in order to be invisible */
+        border-right: none;
     }
 
     #close_menu_button {

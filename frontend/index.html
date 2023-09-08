@@ -21,7 +21,22 @@
 <body>
     
     <div id="menu_bar">
-        <button id="menu_button" type="button" onclick="openNav()">menu</button>
+        <!-- <button id="menu_button" type="button" onclick="openNav()">menu</button> -->
+        <div id="menu_bar_container">
+            <div id="menu_buttons_container">
+
+                <button id="open_menu_button" class="menu_bar_buttons" type="button" title="open menu" onclick="openNav()">
+                    <img class="menu_bar_icons" src="assets/buttons/open_menu_bar.svg">
+                </button>
+                <div id="logo_div_menu_bar">
+                    <img id="logo_img_menu_bar" src="assets/logos/Logo-Nero.svg">
+                </div>
+                <button id="info_button" class="menu_bar_buttons" type="button" title="show info">
+                    <img class="menu_bar_icons" src="assets/buttons/show_info.png">
+                </button>
+
+            </div>
+        </div>
     </div>
     
     <div id="desk">
