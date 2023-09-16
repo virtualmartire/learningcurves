@@ -28,11 +28,13 @@
                 <button id="open_menu_button" class="menu_bar_buttons" type="button" title="open menu" onclick="openNav()">
                     <img class="menu_bar_icons" src="assets/buttons/open_menu_bar.svg">
                 </button>
+
                 <div id="logo_div_menu_bar">
                     <img id="logo_img_menu_bar" src="assets/logos/Logo-Nero.svg">
                 </div>
+
                 <button id="info_button" class="menu_bar_buttons" type="button" title="show info">
-                    <img class="menu_bar_icons" src="assets/buttons/show_info.png">
+                    <img class="menu_bar_icons" src="assets/buttons/open_menu_bar.svg">
                 </button>
 
             </div>
@@ -99,8 +101,8 @@
             <!-- The landing message, hidden when the user loads the first run -->
             <div id="landing_message" class="text_wall" style="display: none;">
                 <div class="text_wall_message">
-                    <h1>
-                        Welcome to LearningCurves
+                    <h1 id="landing_message_h1">
+                        <!-- Title determined programmatically -->
                     </h1>
                     <p>
                         <div>
@@ -118,8 +120,16 @@
                         </div>
                     </p>
                     <p>
-                        Just load a run to start using the app or <a href="#" onclick="loadExamples()"><u>try with some examples</u></a>.
+                        Just load an experiment to start using the app or try with some examples</a>.
                     </p>
+                    <p>
+                        <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
+                        <button type="button" class="data_buttons" id="landing_message_load_button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">
+                            <span>Load</span>
+                        </button>        
+                        <button type="button" class="data_buttons" id="examples_button" onclick="loadExamples()"><span>Examples</span></button>
+                    </p>
+
                 </div>
             </div>
 
@@ -155,8 +165,8 @@
                     </p>
                     <br />
                     <p>
-                        <button type="button" class="data_buttons" id="examples_button" onclick="loadExamples()"><span>Load examples</span></button>
-                        <button type="button" class="data_buttons back_buttons" onclick="visualizeTheVisualizable()">
+                        <button type="button" class="data_buttons" id="examples_button" onclick="loadExamples()"><span>Examples</span></button>
+                        <button type="button" class="data_buttons" id="back_button" onclick="visualizeTheVisualizable()">
                             <span>Back</span>
                         </button>
                     </p>
@@ -202,7 +212,7 @@
                     </div>
                     <br />
                     <p>
-                        <button type="button" class="data_buttons back_buttons" onclick="visualizeTheVisualizable()">
+                        <button type="button" class="data_buttons" id="back_button" onclick="visualizeTheVisualizable()">
                             <span>Back</span>
                         </button>
                     </p>
@@ -233,6 +243,23 @@
         visualizeTheVisualizable();
 
     </script>
+
+    <script>
+
+        function updateLandingMessageTitle() {
+            const h1 = document.getElementById('landing_message_h1');
+            if (window.innerWidth < 650) {
+                h1.innerHTML = 'Welcome to LC';
+            } else {
+                h1.innerHTML = 'Welcome to LearningCurves';
+            }
+        }
+
+        updateLandingMessageTitle();                        
+        window.addEventListener('resize', updateLandingMessageTitle);
+
+    </script>
+
     
 </body>
 </html>

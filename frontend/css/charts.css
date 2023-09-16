@@ -97,6 +97,62 @@
                     margin-left: calc(var(--zoom-buttons-spacing) / 2);
                 }
 
+.text_wall {
+    flex-direction: column;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    height: 100%;
+    width: 70%;
+}
+    
+    .text_wall_message {
+        text-align: left;
+        width: 70%;
+    }
+
+        .text_wall_message p {
+            line-height: 130%;
+        }
+
+            #landing_message_load_button {
+                border: 1px solid transparent;
+                background-color: var(--load-export-buttons-color);
+            }
+
+            #examples_button {                
+                border: 1px solid transparent;
+                background-color: #218E81;
+            }
+
+            #back_button {
+                border: 1px solid #FFF;
+                background-color: transparent;
+            }
+
+        .contact_cards_container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+        }
+
+            .contact_card {
+                width: 50%;
+            }
+
+                .contact_card a {
+                    color: #131514;
+                    font-weight: normal;
+                    text-decoration: underline;
+                }
+
+                #martire_contact_card {
+                    padding-right: 4%;
+                }
+
+                #cotelli_contact_card {
+                    padding-left: 4%;
+                }
+
 @media screen and (max-width: 650px) {
 
     .data_div {
@@ -107,4 +163,18 @@
         margin-left: 0px;
     }
 
+    .text_wall {
+        margin-top: var(--menu-bar-height);
+        height: auto;
+        width: 100%;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+        .text_wall_message {
+            width: 80%;
+            padding-top: var(--menu-bar-height);
+            padding-left: 10%;
+        }
+        
 }

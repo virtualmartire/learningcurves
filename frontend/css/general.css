@@ -7,7 +7,7 @@
     --colored-div-vertical-padding: 4px;
     --colored-div-left-padding: 12px;
     --load-export-buttons-color: #8ED2B6;
-    --menu-bar-height: 150px;
+    --menu-bar-height: 162px;
 }
 
 @font-face {
@@ -31,6 +31,7 @@ body {
     color: #131514;
     font-size: 14px;
     font-weight: 400;
+    overflow-x: hidden;     /* Hide horizontal scrollbar */
 }
 
 h1 {
@@ -79,60 +80,6 @@ h5 {        /* the titles of the statistics tables */
         background-color: #E9EBF8;
     }
 
-.text_wall {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    height: 100%;
-    width: 70%;
-}
-    
-    .text_wall_message {
-        text-align: left;
-        width: 70%;
-    }
-
-        .text_wall_message p {
-            line-height: 130%;
-        }
-
-        #examples_button {                
-            border: 1px solid transparent;
-            background-color: var(--load-export-buttons-color);
-            width: 150px;
-        }
-
-        .back_buttons {
-            border: 1px solid #FFF;
-            background-color: transparent;
-            width: 150px !important;
-        }
-
-        .contact_cards_container {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-        }
-
-            .contact_card {
-                width: 50%;
-            }
-
-                .contact_card a {
-                    color: #131514;
-                    font-weight: normal;
-                    text-decoration: underline;
-                }
-
-                #martire_contact_card {
-                    padding-right: 4%;
-                }
-
-                #cotelli_contact_card {
-                    padding-left: 4%;
-                }
-
 @media screen and (max-width: 420px) {
 
     #menu_bar {
@@ -140,13 +87,11 @@ h5 {        /* the titles of the statistics tables */
         width: 100%;
         text-align:center;
         overflow: hidden;
-        background-color: #A1B0C6;
         position: fixed; /* Set the navbar to fixed position */
         top: 0; /* Position the navbar at the top of the page */
         margin: 0px;
-        box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.15); /* https://www.cssmatic.com/box-shadow */
         display: block;
-        border-bottom: var(--standard-black-border) solid #131514;
+        border-bottom: calc(2*var(--standard-black-border)) solid #131514;
     }
 
         #menu_bar_container {
@@ -158,11 +103,13 @@ h5 {        /* the titles of the statistics tables */
         }
 
             #menu_buttons_container {
-                height: 50%;
-                width: 100%;
+                height: 30%;
+                width: 80%;
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
+                padding-bottom: 31px;
+                margin: 0 auto;
             }
 
                 .menu_bar_buttons {
@@ -183,10 +130,16 @@ h5 {        /* the titles of the statistics tables */
                     height: 100%;
                     width: 60%;
                 }
+
+                    #logo_img_menu_bar {
+                        height: 100%;
+                        width: 100%;
+                    }
     
-    #desk {
-        margin-top: var(--menu-bar-height);
-        border-top: var(--standard-black-border) solid #131514;
+    #background_image {
+        background-color: #A1B0C6;
+        background-position: center -550px !important;
+        position: fixed;
     }
 
 }
