@@ -21,12 +21,11 @@
 <body>
     
     <div id="menu_bar">
-        <!-- <button id="menu_button" type="button" onclick="openNav()">menu</button> -->
         <div id="menu_bar_container">
             <div id="menu_buttons_container">
 
                 <button id="open_menu_button" class="menu_bar_buttons" type="button" title="open menu" onclick="openNav()">
-                    <img class="menu_bar_icons" src="assets/buttons/open_menu_bar.svg">
+                    <img class="menu_bar_icons" id="open_menu_icon" src="assets/buttons/open_menu_bar.svg">
                 </button>
 
                 <div id="logo_div_menu_bar">
@@ -44,10 +43,6 @@
     <div id="desk">
 
         <div id="experiments_area" class="area" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
-
-            <div>
-                <button id="close_menu_button" type="button" onclick="closeNav()">close</button>
-            </div>
 
             <div id="logo_and_info_div">
                 <div id="logo_div">

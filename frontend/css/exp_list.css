@@ -1,161 +1,158 @@
-#experiments_area {
-    width: var(--exp-area-width);
-    background-color: #A1B0C6;
-    position: fixed; /* Stay in place */
-    height: 100%;
-    overflow: auto;
-    border-right: 4.5px solid #131514;
-    box-sizing: border-box; /* include borders in the element's width and height */
+#close_menu_button {
+    display: none;
 }
 
-    #close_menu_button {
-        display: none;
+#logo_and_info_div {
+    background-color: #F5F7FF;
+    border-bottom: calc(2*var(--standard-black-border)) solid #131514;
+    box-sizing: border-box;
+    display: flex;              /* display, flex-direction and justify-content properties to vertically center the content */
+    flex-direction: column;
+    justify-content: center;
+    height: 160px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+    #logo_div {
+        height: 50px;    /* to adjust the size of the logo */
     }
 
-    #logo_and_info_div {
-        background-color: #F5F7FF;
-        border-bottom: var(--standard-black-border) solid #131514;
-        box-sizing: border-box;
-        display: flex;              /* display, flex-direction and justify-content properties to vertically center the content */
-        flex-direction: column;
-        justify-content: center;
-        height: 160px;
-        position: absolute;
-        top: 0;
-        width: 100%;
+        #logo_img {
+            height: 100%;
+        }
+
+    a {
+        color: #131514;
+        font-weight: bold;
+        text-decoration: none;
     }
 
-        #logo_div {
-            height: 50px;    /* to adjust the size of the logo */
-        }
+#experiments_div {
+    border-bottom: var(--standard-black-border) solid #131514;
+    box-sizing: border-box;
+    position: absolute;
+    top: 160px;
+    bottom: 160px;
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+    overflow-y: scroll; /* Enable vertical scrolling */
+}
 
-            #logo_img {
-                height: 100%;
-            }
-
-        a {
-            color: #131514;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-    #experiments_div {
-        border-top: var(--standard-black-border) solid #131514;
-        border-bottom: var(--standard-black-border) solid #131514;
-        box-sizing: border-box;
-        position: absolute;
-        top: 160px;
-        bottom: 160px;
-        width: 100%;
-        padding-left: 30px;
-        padding-right: 30px;
-        overflow-y: scroll; /* Enable vertical scrolling */
+    #experiments_list {
+        text-align: left;
     }
 
-        #experiments_list {
-            text-align: left;
+        #no_exp_message {
+            text-align: center;
         }
 
-            #no_exp_message {
-                text-align: center;
+        .exp_list_run_divs {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--colored-div-vertical-padding);
+            padding-bottom: var(--colored-div-vertical-padding);
+            padding-left: var(--colored-div-left-padding);
+        }
+
+            .experiment_li_spans {
+                width: 70%;
+                overflow-x: scroll;
             }
 
-            .exp_list_run_divs {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding-top: var(--colored-div-vertical-padding);
-                padding-bottom: var(--colored-div-vertical-padding);
-                padding-left: var(--colored-div-left-padding);
+            .hideshow_del_button_div {
+                display: flex;      /* ChatGPT */
             }
 
-                .experiment_li_spans {
-                    width: 70%;
-                    overflow-x: scroll;
+                .hideshow_del_buttons {
+                    padding: 0px;
+                    border: 0px;
+                    background-color: transparent;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
                 }
 
-                .hideshow_del_button_div {
-                    display: flex;      /* ChatGPT */
+                    .hideshow_del_icons {
+                        height: 20px;
+                        width: 20px;
+                    }
+
+                .del_buttons {
+                    margin-left: 10px;    /* Add some spacing between the buttons */
+                    margin-right: 10px;
                 }
 
-                    .hideshow_del_buttons {
-                        padding: 0px;
-                        border: 0px;
-                        background-color: transparent;
-                        cursor: pointer;
-                        display: flex;
-                        align-items: center;
-                    }
+#data_buttons_div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 160px;
+    border-top: var(--standard-black-border) solid #131514;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-top: 7%;
+    padding-bottom: 7%;
+    align-items: center; /* Center vertically */
+}
 
-                        .hideshow_del_icons {
-                            height: 20px;
-                            width: 20px;
-                        }
-
-                    .del_buttons {
-                        margin-left: 10px;    /* Add some spacing between the buttons */
-                        margin-right: 10px;
-                    }
-
-    #data_buttons_div {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 160px;
-        border-top: var(--standard-black-border) solid #131514;
-        box-sizing: border-box;
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        padding-top: 7%;
-        padding-bottom: 7%;
-        align-items: center; /* Center vertically */
+    .data_buttons {
+        width: 100px;
+        height: 32px;
+        padding: 3px 6px;
+        font-weight: 600;
+        font-size: 14px;
+        box-shadow: none;
+        position: relative;
+        transition: background .3s;
+        cursor: pointer;
     }
 
-        .data_buttons {
-            width: 100px;
-            height: 32px;
-            padding: 3px 6px;
-            font-weight: 600;
-            font-size: 14px;
-            box-shadow: none;
-            position: relative;
-            transition: background .3s;
-            cursor: pointer;
+    .data_buttons:active {
+        top: .08em;
+    }
+
+    .data_button span {
+        vertical-align: middle;
+    }
+
+        #clear_button {                
+            border: 1px solid #F5F7FF;
+            background-color: transparent;
         }
 
-        .data_buttons:active {
-            top: .08em;
+        #export_button {
+            border: 1px solid transparent;
+            background-color: var(--load-export-buttons-color);
         }
 
-        .data_button span {
-            vertical-align: middle;
+        #load_button {
+            border: 1px solid transparent;
+            background-color: var(--load-export-buttons-color);
         }
-
-            #clear_button {                
-                border: 1px solid #F5F7FF;
-                background-color: transparent;
-            }
-
-            #export_button {
-                border: 1px solid transparent;
-                background-color: var(--load-export-buttons-color);
-            }
-
-            #load_button {
-                border: 1px solid transparent;
-                background-color: var(--load-export-buttons-color);
-            }
 
 @media screen and (max-width: 420px) {
 
     #experiments_area {
         width: 0px;  /* change this with JavaScript */
-        top: 0; /* Stay at the top */
+        top: calc( var(--menu-bar-height) + (2*var(--standard-black-border)) );
         transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
         padding: 0px;   /* start with 0 padding in order to be invisible */
         border-right: none;
     }
+
+        #logo_and_info_div {
+            display: none;
+        }
+
+        #experiments_div {
+            top: 0;
+        }
 
     #close_menu_button {
         display: inline;

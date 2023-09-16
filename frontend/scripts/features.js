@@ -1,11 +1,15 @@
 function openNav() {
     /* Open the side menu */
-    document.getElementById("experiments_area").style.width = "288px";
+    document.getElementById("experiments_area").style.width = "100%";
+    document.getElementById("open_menu_icon").src = "assets/buttons/Cancel.svg";
+    document.getElementById("open_menu_button").onclick = closeNav;
 }
 
 function closeNav() {
     /* Close the side menu */
     document.getElementById("experiments_area").style.width = "0px";
+    document.getElementById("open_menu_icon").src = "assets/buttons/open_menu_bar.svg";
+    document.getElementById("open_menu_button").onclick = openNav;
 }
 
 function gotFiles(input) {
