@@ -140,6 +140,7 @@
 
     #experiments_area {
         width: 100%;
+        height: calc( 100% - ( var(--menu-bar-height) + (2*var(--standard-black-border)) ) );
         left: -100%;    /* starts hidden */  
         top: calc( var(--menu-bar-height) + (2*var(--standard-black-border)) );
         transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -153,6 +154,11 @@
 
         #experiments_div {
             top: 0;
+            bottom: calc( var(--menu-bar-height) + (2*var(--standard-black-border)) );
+        }
+
+        #data_buttons_div {
+            height: calc( var(--menu-bar-height) + (2*var(--standard-black-border)) );
         }
 
     #close_menu_button {
