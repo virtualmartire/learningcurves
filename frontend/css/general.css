@@ -1,5 +1,5 @@
 :root {
-    --exp-area-width: 288px;            /* change this also in the js, openNav function */
+    --exp-area-width: 288px;
     --graph-div-side-padding: 4%;
     --zoom-buttons-side: 40px;
     --zoom-buttons-spacing: 8px;
@@ -90,7 +90,7 @@ h5 {        /* the titles of the statistics tables */
         background-color: #E9EBF8;
     }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 650px) {
 
     #menu_bar {
         height: var(--menu-bar-height);

@@ -136,10 +136,11 @@
             background-color: var(--load-export-buttons-color);
         }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 650px) {
 
     #experiments_area {
-        width: 0px;  /* change this with JavaScript */
+        width: 100%;
+        left: -100%;    /* starts hidden */  
         top: calc( var(--menu-bar-height) + (2*var(--standard-black-border)) );
         transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
         padding: 0px;   /* start with 0 padding in order to be invisible */
