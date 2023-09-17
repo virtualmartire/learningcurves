@@ -153,13 +153,18 @@ function exportDesk() {
 function halfYMax(metric_name) {
 
     const chart = getChartObjectById(metric_name);
-    const chart_ranges = extractChartRanges(chart);
+    const chart_ranges = {
+                            "y_max": chart.scales['y-axis-0'].max,
+                            "y_min": chart.scales['y-axis-0'].min,
+                            "x_max": chart.scales['x-axis-0'].max,
+                            "x_min": chart.scales['x-axis-0'].min
+                        }
 
     // Save the current zoom levels
     zoom_history[metric_name].push(chart_ranges);
 
     // Zoom
-    chart.options.scales.yAxes[0].ticks.max = chart_ranges['y_max'] / 2;
+    chart.options.scales.yAxes[0].ticks.max = (chart_ranges['y_max']+chart_ranges['y_min']) / 2;        // the new y_max is the middle point between the old y_max and y_min
 
     chart.update();
 
