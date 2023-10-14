@@ -136,7 +136,7 @@
             background-color: var(--load-export-buttons-color);
         }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 1324px) {
 
     #experiments_area {
         width: 100%;
