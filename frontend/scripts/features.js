@@ -268,3 +268,10 @@ function delayedReformatting() {
         resetDataDivBorders();
     }, 200);
 }
+
+function infoButtonAction() {
+    hideAllDivs();
+    showBackgroundImage();
+    showDataFormatInfo();
+    showContactsPage()
+}

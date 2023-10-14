@@ -32,7 +32,7 @@
                     <img id="logo_img_menu_bar" src="assets/logos/Logo-Nero.svg">
                 </div>
 
-                <button id="info_button" class="menu_bar_buttons" type="button" title="show info" onclick="hideAllDivs(); showBackgroundImage(); showDataFormatInfo(); showContactsPage()">
+                <button id="info_button" class="menu_bar_buttons" type="button" title="show info" onclick="infoButtonAction()">
                     <img class="menu_bar_icons" src="assets/buttons/Icon-Info.svg">
                 </button>
 
@@ -93,130 +93,134 @@
             <!-- In order to set an half-in, half-out backround-image -->
             <div id="background_image" style="display: none;"></div>
 
-            <!-- The landing message, hidden when the user loads the first run -->
-            <div id="landing_message" class="text_wall" style="display: none;">
-                <div class="text_wall_message">
-                    <h1 id="landing_message_h1">
-                        <!-- Title determined programmatically -->
-                    </h1>
-                    <p>
-                        <div>
-                            LearningCurves is an ultralight, cross-platform, 100% privacy-preserving <b>experiments tracking app for machine learning</b>:
-                        </div>
-                        <div>
-                            <ul>
-                                <li><b>no installation required</b>, runs in the browser in pure javascript;</li>
-                                <li>accessible from every online device;</li>
-                                <li>computation managed by the frontend only, <b>zero data sent to the cloud</b>.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            For requests and suggestions please contact the project manager <a href="https://www.stefanomartire.it" target="_blank"><u>Stefano Martire</u></a>.
-                        </div>
-                    </p>
-                    <p>
-                        Just load an experiment to start using the app or try with some examples</a>.
-                    </p>
-                    <p>
-                        <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
-                        <button type="button" class="data_buttons" id="landing_message_load_button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">
-                            <span>Load</span>
-                        </button>        
-                        <button type="button" class="data_buttons" id="examples_button" onclick="loadExamples()"><span>Examples</span></button>
-                    </p>
+            <div id="actual_graphs_area">   <!-- background_image has to remain outside this -->
 
-                </div>
-            </div>
-
-            <!-- The data-format instructions, to be shown when "Info" is pressed -->
-            <div id="data_format_message" class="text_wall" style="display: none;">
-                <div class="text_wall_message">
-                    <h1>
-                        Instructions for the data format
-                    </h1>
-                    <p>
-                        Experiments data have to be in the <b>json</b> format and collected in <b>an inner dictionary</b> having the <b>performances names 
-                        as keys</b> and the <b>performances values written in a list associated to the relative key</b>. This dictionary has then to be 
-                        wrapped in <b>an outer dictionary</b> that has the <b>runs names as keys</b> and the <b>aforesaid inner dictionaries as 
-                        corresponding values</b>.
-                    </p>
-                    <p>
-                        <b>Example:</b> for the recordings of a RUN_1 and a RUN_2 keeping track of a metric_a, a metric_b and a metric_c, the resulting 
-                        json file has to be
-                    </p>
-                    <p>
-                        {<br>
-                        &emsp;"RUN_1": {<br>
-                        &emsp;&emsp;"metric_a": [metric_a_of_run_1_at_epoch_1, metric_a_of_run_1_at_epoch_2, ...],<br>
-                        &emsp;&emsp;"metric_b": [metric_b_of_run_1_at_epoch_1, metric_b_of_run_1_at_epoch_2, ...],<br>
-                        &emsp;&emsp;"metric_c": [metric_c_of_run_1_at_epoch_1, metric_c_of_run_1_at_epoch_2, ...],<br>
-                        &emsp;},<br>
-                        &emsp;"RUN_2": {<br>
-                        &emsp;&emsp;"metric_a": [metric_a_of_run_2_at_epoch_1, metric_a_of_run_2_at_epoch_2, ...],<br>
-                        &emsp;&emsp;"metric_b": [metric_b_of_run_2_at_epoch_1, metric_b_of_run_2_at_epoch_2, ...],<br>
-                        &emsp;&emsp;"metric_c": [metric_c_of_run_2_at_epoch_1, metric_c_of_run_2_at_epoch_2, ...],<br>
-                        &emsp;},<br>
-                        }
-                    </p>
-                    <br />
-                    <p>
-                        <button type="button" class="data_buttons" id="examples_button" onclick="loadExamples()"><span>Examples</span></button>
-                        <button type="button" class="data_buttons" id="back_button" onclick="visualizeTheVisualizable()">
-                            <span>Back</span>
-                        </button>
-                    </p>
-                </div>
-            </div>
-
-            <!-- The contacts page, to be shown when "Contacts" is pressed -->
-            <div id="contacts_page" class="text_wall" style="display: none;">
-                <div class="text_wall_message">
-
-                    <h1>
-                        Contacts
-                    </h1>
-
-                    <div class="contact_cards_container">
-
-                        <div class="contact_card" id="martire_contact_card">
-                            <div class="contact_card_image">
-                                <img src="assets/contacts/martire.png">
+                <!-- The landing message, hidden when the user loads the first run -->
+                <div id="landing_message" class="text_wall" style="display: none;">
+                    <div class="text_wall_message">
+                        <h1 id="landing_message_h1">
+                            <!-- Title determined programmatically -->
+                        </h1>
+                        <p>
+                            <div>
+                                LearningCurves is an ultralight, cross-platform, 100% privacy-preserving <b>experiments tracking app for machine learning</b>:
                             </div>
-                            <div class="contact_card_text">
-                                <h2>Stefano Martire</h2>
-                                <div>
-                                    Mathematician, AI/ML data scientist and project manager + web developer of LearningCurves. Author of these HTML, CSS and Javascript codes, he is
-                                    the one to contact in case of requests or suggestions. You can reach him at his <a href="http://www.stefanomartire.it" target="_blank">personal website</a>.
-                                </div>
+                            <div>
+                                <ul>
+                                    <li><b>no installation required</b>, runs in the browser in pure javascript;</li>
+                                    <li>accessible from every online device;</li>
+                                    <li>computation managed by the frontend only, <b>zero data sent to the cloud</b>.</li>
+                                </ul>
                             </div>
-                        </div>
-
-                        <div class="contact_card" id="cotelli_contact_card">
-                            <div class="contact_card_image">
-                                <img src="assets/contacts/shady.png">
+                            <div>
+                                For requests and suggestions please contact the project manager <a href="https://www.stefanomartire.it" target="_blank"><u>Stefano Martire</u></a>.
                             </div>
-                            <div class="contact_card_text">
-                                <h2>Stefano Cotelli</h2>
-                                <div>
-                                    Graphic designer and art director, of LearningCurves and in life. He is the one who has decided where every pixel of this website is located.
-                                    You can see some of his work on his <a href="https://www.behance.net/stefanocotelli" target="_blank">behance</a>.
-                                </div>
-                            </div>
-                        </div>
+                        </p>
+                        <p>
+                            Just load an experiment to start using the app or try with some examples</a>.
+                        </p>
+                        <p>
+                            <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
+                            <button type="button" class="data_buttons" id="landing_message_load_button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">
+                                <span>Load</span>
+                            </button>        
+                            <button type="button" class="data_buttons" id="examples_button" onclick="loadExamples()"><span>Examples</span></button>
+                        </p>
 
                     </div>
-                    <br />
-                    <p>
-                        <button type="button" class="data_buttons" id="back_button" onclick="visualizeTheVisualizable()">
-                            <span>Back</span>
-                        </button>
-                    </p>
-
                 </div>
-            </div>
 
-            <!-- And here go the charts -->
-            <div id="data_zone" style="display: none;">
+                <!-- The data-format instructions, to be shown when "Info" is pressed -->
+                <div id="data_format_message" class="text_wall" style="display: none;">
+                    <div class="text_wall_message">
+                        <h1>
+                            Instructions for the data format
+                        </h1>
+                        <p>
+                            Experiments data have to be in the <b>json</b> format and collected in <b>an inner dictionary</b> having the <b>performances names 
+                            as keys</b> and the <b>performances values written in a list associated to the relative key</b>. This dictionary has then to be 
+                            wrapped in <b>an outer dictionary</b> that has the <b>runs names as keys</b> and the <b>aforesaid inner dictionaries as 
+                            corresponding values</b>.
+                        </p>
+                        <p>
+                            <b>Example:</b> for the recordings of a RUN_1 and a RUN_2 keeping track of a metric_a, a metric_b and a metric_c, the resulting 
+                            json file has to be
+                        </p>
+                        <p>
+                            {<br>
+                            &emsp;"RUN_1": {<br>
+                            &emsp;&emsp;"metric_a": [metric_a_of_run_1_at_epoch_1, metric_a_of_run_1_at_epoch_2, ...],<br>
+                            &emsp;&emsp;"metric_b": [metric_b_of_run_1_at_epoch_1, metric_b_of_run_1_at_epoch_2, ...],<br>
+                            &emsp;&emsp;"metric_c": [metric_c_of_run_1_at_epoch_1, metric_c_of_run_1_at_epoch_2, ...],<br>
+                            &emsp;},<br>
+                            &emsp;"RUN_2": {<br>
+                            &emsp;&emsp;"metric_a": [metric_a_of_run_2_at_epoch_1, metric_a_of_run_2_at_epoch_2, ...],<br>
+                            &emsp;&emsp;"metric_b": [metric_b_of_run_2_at_epoch_1, metric_b_of_run_2_at_epoch_2, ...],<br>
+                            &emsp;&emsp;"metric_c": [metric_c_of_run_2_at_epoch_1, metric_c_of_run_2_at_epoch_2, ...],<br>
+                            &emsp;},<br>
+                            }
+                        </p>
+                        <br />
+                        <p>
+                            <button type="button" class="data_buttons" id="examples_button" onclick="loadExamples()"><span>Examples</span></button>
+                            <button type="button" class="data_buttons" id="back_button" onclick="visualizeTheVisualizable()">
+                                <span>Back</span>
+                            </button>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- The contacts page, to be shown when "Contacts" is pressed -->
+                <div id="contacts_page" class="text_wall" style="display: none;">
+                    <div class="text_wall_message">
+
+                        <h1>
+                            Contacts
+                        </h1>
+
+                        <div class="contact_cards_container">
+
+                            <div class="contact_card" id="martire_contact_card">
+                                <div class="contact_card_image">
+                                    <img src="assets/contacts/martire.png">
+                                </div>
+                                <div class="contact_card_text">
+                                    <h2>Stefano Martire</h2>
+                                    <div>
+                                        Mathematician, AI/ML data scientist and project manager + web developer of LearningCurves. Author of these HTML, CSS and Javascript codes, he is
+                                        the one to contact in case of requests or suggestions. You can reach him at his <a href="http://www.stefanomartire.it" target="_blank">personal website</a>.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact_card" id="cotelli_contact_card">
+                                <div class="contact_card_image">
+                                    <img src="assets/contacts/shady.png">
+                                </div>
+                                <div class="contact_card_text">
+                                    <h2>Stefano Cotelli</h2>
+                                    <div>
+                                        Graphic designer and art director, of LearningCurves and in life. He is the one who has decided where every pixel of this website is located.
+                                        You can see some of his work on his <a href="https://www.behance.net/stefanocotelli" target="_blank">behance</a>.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <br />
+                        <p>
+                            <button type="button" class="data_buttons" id="back_button" onclick="visualizeTheVisualizable()">
+                                <span>Back</span>
+                            </button>
+                        </p>
+
+                    </div>
+                </div>
+
+                <!-- And here go the charts -->
+                <div id="data_zone" style="display: none;">
+                </div>
+
             </div>
 
         </div>
