@@ -253,8 +253,9 @@ function visualizeTheVisualizable() {
     if (Object.keys(cached_runs).length != 0) {     // if there are experiments in the cache
         saveAndShowFile(cached_runs);
     } else {
-        showLandingMessage();
+        hideAllDivs();
         showBackgroundImage();
+        showLandingMessage();
         buttonDivLoadMode();
     };
 
