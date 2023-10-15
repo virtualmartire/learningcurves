@@ -36,6 +36,8 @@ function saveAndShowFile(input_dict) {
     hideAllDivs();
     showDataZone();
     buttonDivChartsMode();
+    window.removeEventListener('scroll', changeBGColorOnScroll);
+    document.getElementById('menu_bar').style.backgroundColor = '#F5F7FF';
 
     // Save and show the data
     
@@ -275,4 +277,15 @@ function infoButtonAction() {
     showBackgroundImage();
     showDataFormatInfo();
     showContactsPage()
+}
+
+function changeBGColorOnScroll() {
+    if (
+        document.body.scrollTop > 0.25*menu_bar_height ||
+        document.documentElement.scrollTop > 0.25*menu_bar_height
+    ) {
+        menu_bar.classList.add('scrolled');
+    } else {
+        menu_bar.classList.remove('scrolled');
+    }
 }

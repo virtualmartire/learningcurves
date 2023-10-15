@@ -229,18 +229,23 @@
 
     <script>
 
-        // Load existing runs, if any
         const hexadecimal_dict = {"original_palette": [...colors_palette], "palette_to_consume": [...colors_palette]}
+        const menu_bar = document.getElementById('menu_bar');
+        const menu_bar_height = menu_bar.offsetHeight;
+        window.addEventListener('scroll', changeBGColorOnScroll);
         
+        visualizeTheVisualizable();
+
+    </script>
+
+    <script>
+
         // Set the background image of the landing page
         const background_image = document.getElementById("background_image");
         const number_of_backgrounds = 4;
         background_image.style.backgroundImage = `url('assets/backgrounds/${Math.floor(Math.random()*number_of_backgrounds) + 1}.png')`;
         window.addEventListener("resize", adjustBackgroundImage);
         adjustBackgroundImage();
-
-        // Visualize the visualizable
-        visualizeTheVisualizable();
 
     </script>
 
@@ -257,24 +262,6 @@
 
         updateLandingMessageTitle();                        
         window.addEventListener('resize', updateLandingMessageTitle);
-
-    </script>
-
-    <script>
-
-        const menu_bar = document.getElementById('menu_bar');
-        const menu_bar_height = menu_bar.offsetHeight;
-
-        window.addEventListener('scroll', () => {
-            if (
-                document.body.scrollTop > 0.25*menu_bar_height ||
-                document.documentElement.scrollTop > 0.25*menu_bar_height
-            ) {
-                menu_bar.classList.add('scrolled');
-            } else {
-                menu_bar.classList.remove('scrolled');
-            }
-        });
 
     </script>
     
