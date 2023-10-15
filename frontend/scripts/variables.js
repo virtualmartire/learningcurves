@@ -10,8 +10,8 @@ const colors_palette = ['#C9A3A4',
                         '#C49C6D'];
 
 const statistics_dict = {
-    "max": a => Math.max(...a),
-    "min": a => Math.min(...a)
+    "Max": a => Math.max(...a),
+    "Min": a => Math.min(...a)
 };
 
 const zoom_history = {};
