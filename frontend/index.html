@@ -260,6 +260,23 @@
 
     </script>
 
+    <script>
+
+        const menu_bar = document.getElementById('menu_bar');
+        const menu_bar_height = menu_bar.offsetHeight;
+
+        window.addEventListener('scroll', () => {
+            if (
+                document.body.scrollTop > 0.25*menu_bar_height ||
+                document.documentElement.scrollTop > 0.25*menu_bar_height
+            ) {
+                menu_bar.classList.add('scrolled');
+            } else {
+                menu_bar.classList.remove('scrolled');
+            }
+        });
+
+    </script>
     
 </body>
 </html>

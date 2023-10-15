@@ -97,13 +97,21 @@ h5 {        /* the titles of the statistics tables */
         width: 100%;
         text-align:center;
         overflow: hidden;
-        position: fixed; /* Set the navbar to fixed position */
+        position: fixed;
         top: 0; /* Position the navbar at the top of the page */
         margin: 0px;
         display: block;
         border-bottom: calc(2*var(--standard-black-border)) solid #131514;
         z-index: 777;       /* on top of everything else */
+        background-color: transparent;
+        transition: background-color 0.15s;
+
     }
+
+        #menu_bar.scrolled {
+            background-color: #A1B0C6;
+            transition: background-color 0.15s;
+        }
 
         #menu_bar_container {
             height: 100%;
