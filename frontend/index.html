@@ -234,7 +234,8 @@
         
         // Set the background image of the landing page
         const background_image = document.getElementById("background_image");
-        background_image.style.backgroundImage = `url('assets/backgrounds/${Math.floor(Math.random()*3) + 1}.png')`;
+        const number_of_backgrounds = 4;
+        background_image.style.backgroundImage = `url('assets/backgrounds/${Math.floor(Math.random()*number_of_backgrounds) + 1}.png')`;
         window.addEventListener("resize", adjustBackgroundImage);
         adjustBackgroundImage();
 
