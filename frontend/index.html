@@ -163,7 +163,7 @@
                         <br />
                         <p>
                             <button type="button" class="data_buttons" id="examples_button" onclick="loadExamples()"><span>Examples</span></button>
-                            <button type="button" class="data_buttons" id="back_button" onclick="visualizeTheVisualizable()">
+                            <button type="button" class="data_buttons" id="back_button" onclick="backButtonAction()">
                                 <span>Back</span>
                             </button>
                         </p>
@@ -209,7 +209,7 @@
                         </div>
                         <br />
                         <p>
-                            <button type="button" class="data_buttons" id="back_button" onclick="visualizeTheVisualizable()">
+                            <button type="button" class="data_buttons" id="back_button" onclick="backButtonAction()">
                                 <span>Back</span>
                             </button>
                         </p>
@@ -230,6 +230,7 @@
     <script>
 
         const hexadecimal_dict = {"original_palette": [...colors_palette], "palette_to_consume": [...colors_palette]}
+
         const menu_bar = document.getElementById('menu_bar');
         const menu_bar_height = menu_bar.offsetHeight;
         window.addEventListener('scroll', changeBGColorOnScroll);
@@ -253,7 +254,7 @@
 
         function updateLandingMessageTitle() {
             const h1 = document.getElementById('landing_message_h1');
-            if (window.innerWidth < 650) {
+            if (window.innerWidth <= 1324) {
                 h1.innerHTML = 'Welcome to LC';
             } else {
                 h1.innerHTML = 'Welcome to LearningCurves';

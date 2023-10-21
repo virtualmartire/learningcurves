@@ -1,8 +1,11 @@
 function openNav() {
     /* Open the side menu */
+
     document.getElementById("experiments_area").style.left = "0%";
     document.getElementById("open_menu_icon").src = "assets/buttons/Cancel.svg";
     document.getElementById("open_menu_button").onclick = closeNav;
+
+    //document.getElementById('menu_bar').classList.push( document.getElementById('menu_bar').classList.pop() );
     document.getElementById("graphs_area").style.overflowY = "hidden";
 }
 
@@ -11,7 +14,7 @@ function closeNav() {
     document.getElementById("experiments_area").style.left = "-100%";
     document.getElementById("open_menu_icon").src = "assets/buttons/open_menu_bar.svg";
     document.getElementById("open_menu_button").onclick = openNav;
-    document.getElementById("graphs_area").style.overflowY = "scroll";
+    document.getElementById("graphs_area").style.overflowY = "";
 }
 
 function gotFiles(input) {
@@ -244,9 +247,7 @@ function dragOverHandler(ev) {
 
 function adjustBackgroundImage() {
     /* To re-center the background image after window-resizing. */
-
     document.getElementById("background_image").style.backgroundPosition = `${window.innerWidth-852}px center`;
-
 }
 
 function visualizeTheVisualizable() {
@@ -266,20 +267,45 @@ function visualizeTheVisualizable() {
 }
 
 function delayedReformatting() {
-    setTimeout(() => {      // in order to catch the right dimensions
-        resetDataDivHeight();
-        resetDataDivBorders();
-    }, 200);
+    /* Reformat data_div heights and borders after a delay in order to catch the right dimensions. */
+
+    if (window.innerWidth >= 1324) {    // adjust height and borders in desktop mode
+        setTimeout(() => {
+            resetDataDivHeight();
+            resetDataDivBorders();
+        }, 200);
+    } else {    // adjust only borders in mobile mode
+        setTimeout(() => {
+            resetDataDivBorders();
+        }, 200);
+    }
+
 }
 
 function infoButtonAction() {
+
     hideAllDivs();
     showBackgroundImage();
     showDataFormatInfo();
-    showContactsPage()
+    showContactsPage();
+
+    window.addEventListener('scroll', changeBGColorOnScroll);
+    document.getElementById('menu_bar').style.backgroundColor = '';
+
+    window.scrollTo(0, 0);
+
+}
+
+function backButtonAction() {
+    visualizeTheVisualizable();
+    window.scrollTo(0, 0);
+    document.getElementById('menu_bar').classList.remove('scrolled');
 }
 
 function changeBGColorOnScroll() {
+
+    const menu_bar = document.getElementById('menu_bar');
+
     if (
         document.body.scrollTop > 0.25*menu_bar_height ||
         document.documentElement.scrollTop > 0.25*menu_bar_height
@@ -288,4 +314,5 @@ function changeBGColorOnScroll() {
     } else {
         menu_bar.classList.remove('scrolled');
     }
+
 }

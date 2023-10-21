@@ -56,6 +56,7 @@ h5 {        /* the titles of the statistics tables */
 #desk {
     display: flex;
     height: 100%;
+    width: 100%;
 }
 
 .area {
@@ -103,7 +104,6 @@ h5 {        /* the titles of the statistics tables */
         display: block;
         border-bottom: calc(2*var(--standard-black-border)) solid #131514;
         z-index: 777;       /* on top of everything else */
-        background-color: transparent;
         transition: background-color 0.15s;
 
     }

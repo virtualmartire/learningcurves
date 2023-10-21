@@ -109,11 +109,13 @@ function buildDataDiv(metric_name) {
     new_data_div.appendChild(new_statistics_and_options_div);
     data_zone.appendChild(new_data_div);
 
-    // Assign the background color based on the position on page
-    const position = Array.from(document.querySelectorAll('.data_div'))
-                    .map(node => node.id)
-                    .indexOf(`${metric_name}_data_div`);
-    new_data_div.style.backgroundColor = (Math.ceil(position/2) % 2) == 0 ? "#F5F7FF" : "#E9EBF7";
+    // In desktop mode, reassign the background color based on the position on page
+    if (window.innerWidth >= 1324) {
+        const position = Array.from(document.querySelectorAll('.data_div'))
+                        .map(node => node.id)
+                        .indexOf(`${metric_name}_data_div`);
+        new_data_div.style.backgroundColor = (Math.ceil(position/2) % 2) == 0 ? "#F5F7FF" : "#E9EBF7";
+    };
     
     // Create the chart object
     var chart = new Chart(metric_name, {
@@ -449,14 +451,23 @@ function resetDataDivBorders() {
 
     const data_div_list = document.querySelectorAll('.data_div');
 
-    // Reset the borders to their natural value
-    data_div_list.forEach(div => {div.style.border = "1.5px solid #131514";});
+    if (window.innerWidth >= 1324) {    // desktop mode
 
-    // Adjust the first two and the last two
-    data_div_list[0].style.borderTop = "none";
-    data_div_list[1].style.borderTop = "none";
-    data_div_list[data_div_list.length-1].style.borderBottom = "none";
-    data_div_list[data_div_list.length-2].style.borderBottom = "none";
+        // Set the borders to their default value
+        data_div_list.forEach(div => {div.style.border = "1.5px solid #131514";});
+
+        // Adjust the first two and the last two
+        data_div_list[0].style.borderTop = "none";
+        data_div_list[1].style.borderTop = "none";
+        data_div_list[data_div_list.length-1].style.borderBottom = "none";
+        data_div_list[data_div_list.length-2].style.borderBottom = "none";
+
+    } else {                            // mobile mode
+
+        data_div_list.forEach(div => {div.style.borderBottom = "1.5px solid #131514";});
+        data_div_list[data_div_list.length-1].style.borderBottom = "none";
+
+    }
 
 }
 

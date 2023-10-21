@@ -14,7 +14,7 @@
 .data_div {
     box-sizing: border-box;
     width: 50%;
-    border: var(--standard-black-border) solid #131514;
+    background-color: #F5F7FF;
 }
 
     .graph_div {
@@ -163,7 +163,12 @@
 
     .data_div {
         width: 100%;
+        border-bottom: var(--standard-black-border) solid #131514;
     }
+
+        hr {
+            border-width: 0;
+        }
 
     #graphs_area {
         margin-left: 0px;
