@@ -167,12 +167,15 @@ function clearDesk() {
     /* Delete all the saved data when the "clear all" button is pressed. */
 
     Object.keys(localStorage).forEach(deleteRun);
-    document.getElementById("landing_message").style.display = 'flex';
-    document.getElementById("background_image").style.display = 'block';
-    document.getElementById("no_exp_message").style.display = 'block';
-    document.getElementById('menu_bar').style.backgroundColor = '';
 
+    hideAllDivs();
+    showBackgroundImage();
+    showLandingMessage();
     buttonDivLoadMode();
+    document.getElementById("no_exp_message").style.display = 'block';
+
+    window.addEventListener('scroll', changeBGColorOnScroll);
+    document.getElementById('menu_bar').style.backgroundColor = '';
 
 }
 
@@ -271,14 +274,13 @@ function visualizeTheVisualizable() {
     const cached_runs = _.mapValues(localStorage, JSON.parse);       // because localStorage is the dict containing all the runs
     if (Object.keys(cached_runs).length != 0) {     // if there are experiments in the cache
         saveAndShowFile(cached_runs);
+        delayedReformatting();
     } else {
         hideAllDivs();
         showBackgroundImage();
         showLandingMessage();
         buttonDivLoadMode();
     };
-
-    delayedReformatting();
 
 }
 
