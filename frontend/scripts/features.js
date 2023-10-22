@@ -1,9 +1,11 @@
 function openNav() {
     /* Open the side menu */
 
-    // preserv the menu_bar background color (done here for timing reasons)
+    // preserv the menu_bar background color if data_zone is hidden (done here for timing reasons)
     const menu_bar = document.getElementById('menu_bar');
-    menu_bar.style.backgroundColor = menu_bar.classList.contains('scrolled') ? '#A1B0C6' : '';
+    if (document.getElementById("data_zone").style.display == 'none') {
+        menu_bar.style.backgroundColor = menu_bar.classList.contains('scrolled') ? '#A1B0C6' : '';
+    };
 
     // modify the rest of the layout
     document.getElementById("experiments_area").style.left = "0%";
@@ -15,7 +17,11 @@ function openNav() {
 
 function closeNav() {
     /* Close the side menu */
-    document.getElementById('menu_bar').style.backgroundColor = '';
+
+    if (document.getElementById("data_zone").style.display == 'none') {
+        document.getElementById('menu_bar').style.backgroundColor = '';
+    };
+    
     document.getElementById("experiments_area").style.left = "-100%";
     document.getElementById("open_menu_icon").src = "assets/buttons/open_menu_bar.svg";
     document.getElementById("open_menu_button").onclick = openNav;
@@ -74,8 +80,41 @@ function saveAndShowFile(input_dict) {
 
 }
 
+function switchHideShow(run_name) {
+    /* The action triggered by the hide buttons. */
+
+    if (document.getElementById("data_zone").style.display == 'none') {
+        backButtonAction();     // to avoid layout glitches
+    };
+
+    const run_name_div = document.getElementById(`${run_name}_experiment_li`);
+    if (run_name_div.style.backgroundColor != 'rgba(0, 0, 0, 0)') {
+        hideRun(run_name);
+    } else {    // if the run is already hidden
+        showRun(run_name);
+    };
+
+}
+
+function showOnlyThisRun(run_name) {
+    /* The action triggered when a hide button is double clicked. */
+
+    Object.keys(localStorage).forEach(general_run_name => {
+        if (general_run_name == run_name) {
+            showRun(general_run_name);
+        } else {
+            hideRun(general_run_name);
+        }
+    })
+
+}
+
 function deleteRun(run_name) {
     /* The action triggered by the del buttons. */
+
+    if (document.getElementById("data_zone").style.display == 'none') {
+        backButtonAction();     // to avoid layout glitches
+    };
 
     // Delete the item from the experiments list
     document.getElementById(`${run_name}_experiment_li`).remove();
@@ -89,58 +128,21 @@ function deleteRun(run_name) {
     // Delete the run from localStorage (this has to be the final step)
     localStorage.removeItem(run_name);
 
-    // Restore the now-free color and reset the height of all the statistics div
+    // Restore the now-free color
     hexadecimal_dict.palette_to_consume.push(hexadecimal_dict[run_name]);
     delete hexadecimal_dict[run_name];
-    resetDataDivHeight();
 
-}
-
-function switchHideShow(run_name) {
-    /* The action triggered by the hide buttons. */
-
-    const run_name_div = document.getElementById(`${run_name}_experiment_li`);
-    
-    if (run_name_div.style.backgroundColor != 'rgba(0, 0, 0, 0)') {
-
-        hideRun(run_name);
-
-    } else {    // if the run is already hidden
-
-        showRun(run_name);
-
-    };
-
-    resetDataDivHeight();
-
-}
-
-function showOnlyThisRun(run_name) {
-    /* The action triggered when a hide button is double clicked. */
-
-    Object.keys(localStorage).forEach(general_run_name => {
-        if (general_run_name == run_name) {showRun(general_run_name)}
-        else {hideRun(general_run_name)}
-    })
-
-}
-
-function clearDesk() {
-    /* Delete all the saved data when the "clear all" button is pressed. */
-
-    Object.keys(localStorage).forEach(deleteRun);
-    document.getElementById("landing_message").style.display = 'flex';
-    document.getElementById("background_image").style.display = 'block';
-    document.getElementById("no_exp_message").style.display = 'block';
-
-    buttonDivLoadMode();
+    // In desktop mode, reset the height of all the statistics div
+    if (window.innerWidth >= 1324) {
+        resetDataDivHeight();
+    }
 
 }
 
 function exportDesk() {
     /* The action triggered by the export button. */
 
-    const visible_runs_names = Array.from(document.querySelectorAll('.exp_list_run_divs'))
+    const visible_runs_names = Array.from(document.querySelectorAll('.exp_list_run_divs'))      // runs names have to be picked from the experiments list here, because charts may not be visible
                                 .filter(node => node.style.backgroundColor != 'rgba(0, 0, 0, 0)')
                                 .map(node => node.id.slice(0, -14));
     const visible_runs = _.pick(_.mapValues(localStorage, JSON.parse), visible_runs_names);
@@ -157,6 +159,18 @@ function exportDesk() {
         link.dispatchEvent(event);
         document.body.removeChild(link);
     });
+
+}
+
+function clearDesk() {
+    /* Delete all the saved data when the "clear all" button is pressed. */
+
+    Object.keys(localStorage).forEach(deleteRun);
+    document.getElementById("landing_message").style.display = 'flex';
+    document.getElementById("background_image").style.display = 'block';
+    document.getElementById("no_exp_message").style.display = 'block';
+
+    buttonDivLoadMode();
 
 }
 
