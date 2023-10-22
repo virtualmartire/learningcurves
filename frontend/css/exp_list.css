@@ -111,6 +111,7 @@
         position: relative;
         transition: background .3s;
         cursor: pointer;
+        color: #131514;
     }
 
     .data_buttons:active {
