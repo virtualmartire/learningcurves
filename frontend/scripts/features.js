@@ -170,6 +170,7 @@ function clearDesk() {
     document.getElementById("landing_message").style.display = 'flex';
     document.getElementById("background_image").style.display = 'block';
     document.getElementById("no_exp_message").style.display = 'block';
+    document.getElementById('menu_bar').style.backgroundColor = '';
 
     buttonDivLoadMode();
 
