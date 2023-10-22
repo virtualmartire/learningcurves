@@ -264,11 +264,6 @@ function dragOverHandler(ev) {
     document.getElementById("drop_cartel").style.display = 'block';
 }
 
-function adjustBackgroundImage() {
-    /* To re-center the background image after window-resizing. */
-    document.getElementById("background_image").style.backgroundPosition = `${window.innerWidth-852}px center`;
-}
-
 function visualizeTheVisualizable() {
 
     const cached_runs = _.mapValues(localStorage, JSON.parse);       // because localStorage is the dict containing all the runs
