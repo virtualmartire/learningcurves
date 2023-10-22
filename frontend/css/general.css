@@ -161,7 +161,6 @@ h5 {        /* the titles of the statistics tables */
     
     #background_image {
         background-color: #A1B0C6;
-        background-position: center -650px !important;
         position: fixed;
     }
 

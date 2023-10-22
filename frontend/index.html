@@ -243,6 +243,11 @@
         const background_image = document.getElementById("background_image");
         const number_of_backgrounds = 4;
         background_image.style.backgroundImage = `url('assets/backgrounds/${Math.floor(Math.random()*number_of_backgrounds) + 1}.png')`;
+        if (window.innerWidth >= 1324) {        // desktop mode
+            document.getElementById("background_image").style.backgroundPosition = `${window.innerWidth-852}px center`;
+        } else {                        // mobile mode
+            document.getElementById("background_image").style.backgroundPosition = `center -650px`;
+        };
 
     </script>
 
