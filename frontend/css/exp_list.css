@@ -143,7 +143,7 @@
         height: calc( 100% - ( var(--menu-bar-height) + (2*var(--standard-black-border)) ) );
         left: -100%;    /* starts hidden */  
         top: calc( var(--menu-bar-height) + (2*var(--standard-black-border)) );
-        transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+        transition: 0.25s; /* 0.5 second transition effect to slide in the sidenav */
         padding: 0px;   /* start with 0 padding in order to be invisible */
         border-right: none;
     }

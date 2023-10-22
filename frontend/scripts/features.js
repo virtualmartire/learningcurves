@@ -1,16 +1,21 @@
 function openNav() {
     /* Open the side menu */
 
+    // preserv the menu_bar background color (done here for timing reasons)
+    const menu_bar = document.getElementById('menu_bar');
+    menu_bar.style.backgroundColor = menu_bar.classList.contains('scrolled') ? '#A1B0C6' : '';
+
+    // modify the rest of the layout
     document.getElementById("experiments_area").style.left = "0%";
     document.getElementById("open_menu_icon").src = "assets/buttons/Cancel.svg";
     document.getElementById("open_menu_button").onclick = closeNav;
-
-    //document.getElementById('menu_bar').classList.push( document.getElementById('menu_bar').classList.pop() );
     document.getElementById("graphs_area").style.overflowY = "hidden";
+
 }
 
 function closeNav() {
     /* Close the side menu */
+    document.getElementById('menu_bar').style.backgroundColor = '';
     document.getElementById("experiments_area").style.left = "-100%";
     document.getElementById("open_menu_icon").src = "assets/buttons/open_menu_bar.svg";
     document.getElementById("open_menu_button").onclick = openNav;
@@ -305,11 +310,9 @@ function backButtonAction() {
 function changeBGColorOnScroll() {
 
     const menu_bar = document.getElementById('menu_bar');
+    const menu_bar_height = menu_bar.offsetHeight;
 
-    if (
-        document.body.scrollTop > 0.25*menu_bar_height ||
-        document.documentElement.scrollTop > 0.25*menu_bar_height
-    ) {
+    if (document.body.scrollTop > 0.25*menu_bar_height || document.documentElement.scrollTop > 0.25*menu_bar_height) {
         menu_bar.classList.add('scrolled');
     } else {
         menu_bar.classList.remove('scrolled');
