@@ -93,6 +93,10 @@ h5 {        /* the titles of the statistics tables */
 
 @media screen and (max-width: 1324px) {
 
+    body {
+        background-color: #F5F7FF;;
+    }
+
     #menu_bar {
         height: var(--menu-bar-height);
         width: 100%;
@@ -105,7 +109,6 @@ h5 {        /* the titles of the statistics tables */
         border-bottom: calc(2*var(--standard-black-border)) solid #131514;
         z-index: 777;       /* on top of everything else */
         transition: background-color 0.15s;
-
     }
 
         #menu_bar.scrolled {
