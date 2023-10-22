@@ -353,22 +353,6 @@ function computeAndAddStatistics(metric_name, run_name) {
 
 }
 
-function resetDataDivHeight() {
-
-    const data_div_list = document.querySelectorAll('.data_div');
-
-    // Reset the heights to their natural value
-    data_div_list.forEach(div => {div.style.height = "";});
-
-    // Compute and set the artificial ones
-    for (let i=0; i<(data_div_list.length-1); i=i+2) {
-        max_height = Math.max(data_div_list[i].offsetHeight, data_div_list[i+1].offsetHeight);
-        data_div_list[i].style.height = `${max_height}px`;
-        data_div_list[i+1].style.height = `${max_height}px`;
-    };
-
-}
-
 function deleteRunFromEveryChart(run_name) {
 
     const run_dict = JSON.parse( localStorage.getItem(run_name) );
@@ -455,6 +439,22 @@ function showRun(run_name) {
 
 }
 
+function resetDataDivHeight() {
+
+    const data_div_list = document.querySelectorAll('.data_div');
+
+    // Reset the heights to their natural value
+    data_div_list.forEach(div => {div.style.height = "";});
+
+    // Compute and set the artificial ones
+    for (let i=0; i<(data_div_list.length-1); i=i+2) {
+        max_height = Math.max(data_div_list[i].offsetHeight, data_div_list[i+1].offsetHeight);
+        data_div_list[i].style.height = `${max_height}px`;
+        data_div_list[i+1].style.height = `${max_height}px`;
+    };
+
+}
+
 function resetDataDivBorders() {
 
     const data_div_list = document.querySelectorAll('.data_div');
@@ -464,11 +464,18 @@ function resetDataDivBorders() {
         // Set the borders to their default value
         data_div_list.forEach(div => {div.style.border = "1.5px solid #131514";});
 
-        // Adjust the first two and the last two
+        // Remove the top and bottom border of the first and the last two
         data_div_list[0].style.borderTop = "none";
         data_div_list[1].style.borderTop = "none";
         data_div_list[data_div_list.length-1].style.borderBottom = "none";
         data_div_list[data_div_list.length-2].style.borderBottom = "none";
+
+        // Remove the right border of the odd ones
+        data_div_list.forEach((div, index) => {
+            if (index % 2 != 0) {
+                div.style.borderRight = "none";
+            }
+        });
 
     } else {                            // mobile mode
 
