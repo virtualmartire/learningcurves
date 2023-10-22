@@ -52,6 +52,7 @@ function saveAndShowFile(input_dict) {
     buttonDivChartsMode();
     window.removeEventListener('scroll', changeBGColorOnScroll);
     document.getElementById('menu_bar').style.backgroundColor = '#F5F7FF';
+    window.scrollTo(0, 0);
 
     // Save and show the data
     
