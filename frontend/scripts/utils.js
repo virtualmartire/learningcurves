@@ -234,12 +234,13 @@ function buildStatisticAndOptionsDiv(metric_name) {
     zoom_options_div.classList.add("zoom_options_div");
     //// Title
     const zoom_options_title = document.createElement('h5');
-    zoom_options_title.innerHTML = "Zoom options";
+    zoom_options_title.innerHTML = "Zoom";
     //// Buttons
     const buttons_div = document.createElement('div');
-    const [y_half_max_button, zoom_back_button] = buildZoomButtons(metric_name);
-    buttons_div.appendChild(y_half_max_button);
-    buttons_div.appendChild(zoom_back_button);
+    buttons_div.classList.add("zoom_buttons_container");
+    const [zoom_button_div_yhalf, zoom_button_div_back] = buildZoomButtons(metric_name);
+    buttons_div.appendChild(zoom_button_div_yhalf);
+    buttons_div.appendChild(zoom_button_div_back);
     ////
     zoom_options_div.appendChild(zoom_options_title);
     zoom_options_div.appendChild(buttons_div);
@@ -253,8 +254,10 @@ function buildStatisticAndOptionsDiv(metric_name) {
 
 function buildZoomButtons(metric_name) {
 
+    const zoom_button_div_yhalf = document.createElement('div');
     const y_half_max_button = document.createElement('button');
     const y_half_max_icon = document.createElement('img');
+    const zoom_button_div_back = document.createElement('div');
     const zoom_back_button = document.createElement('button');
     const zoom_back_icon = document.createElement('img');
 
@@ -276,7 +279,12 @@ function buildZoomButtons(metric_name) {
 
     zoom_history[metric_name] = [];
 
-    return [y_half_max_button, zoom_back_button]
+    zoom_button_div_yhalf.classList.add("zoom_button_div");
+    zoom_button_div_back.classList.add("zoom_button_div");
+    zoom_button_div_yhalf.appendChild(y_half_max_button);
+    zoom_button_div_back.appendChild(zoom_back_button);
+
+    return [zoom_button_div_yhalf, zoom_button_div_back]
 }
 
 function removeRunDatasetsFromChartObj(metric_name, run_name) {

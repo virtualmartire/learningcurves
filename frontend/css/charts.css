@@ -21,6 +21,8 @@
         height: 300px;
         padding-left: var(--graph-div-side-padding);
         padding-right: var(--graph-div-side-padding);
+        box-sizing: border-box;
+        width: 100%;
     }
 
     .statistics_and_options_div {
@@ -30,10 +32,12 @@
         padding-left: calc(var(--graph-div-side-padding) * 2);
         padding-right: calc(var(--graph-div-side-padding) * 2);
         padding-bottom: var(--graph-div-side-padding);
+        box-sizing: border-box;
+        width: 100%;
     }
 
         .statistics_table {
-            width: 70%;
+            width: 85%;     /* for some reason this property counts also the parent's padding */
             display: flex;
             flex-wrap: nowrap;
             flex-direction: row;
@@ -46,7 +50,7 @@
 
             .runs_names_column {
                 text-align: left;
-                width: 180px;
+                width: 50%;
             }
 
                 .runs_names_title {
@@ -59,7 +63,7 @@
                 }
 
             .statistics_columns_container {
-                width: 100%;
+                width: 50%;
                 display: flex;
                 flex-wrap: nowrap;
                 flex-direction: row;
@@ -75,32 +79,40 @@
                 }
 
         .zoom_options_div {
-            width: 30%;
+            width: 15%;     /* for some reason this property counts also the parent's padding */
         }
 
-            .zoom_options_buttons {
-                width: var(--zoom-buttons-side);
-                height: var(--zoom-buttons-side);
-                position: relative;
-                border: none;
-                padding: 4px;
-                background: #A1B0C6;
-                border-radius: 0px;
-                transition: background .3s;
-                cursor: pointer;
-            }
-                            
-            .zoom_options_buttons:active {
-                top: .08em;
+            .zoom_buttons_container {
+                display: block;
             }
 
-                .y_max_buttons {
-                    margin-right: calc(var(--zoom-buttons-spacing) / 2);
+                .zoom_button_div {
+                    width: 100%;
                 }
-                
-                .zoom_back_buttons {
-                    margin-left: calc(var(--zoom-buttons-spacing) / 2);
-                }
+
+                    .y_max_buttons {
+                        margin-bottom: calc(var(--zoom-buttons-spacing) / 2);
+                    }
+                    
+                    .zoom_back_buttons {
+                        margin-top: calc(var(--zoom-buttons-spacing) / 2);
+                    }
+
+                        .zoom_options_buttons {
+                            width: var(--zoom-buttons-side);
+                            height: var(--zoom-buttons-side);
+                            position: relative;
+                            border: none;
+                            padding: 4px;
+                            background: #A1B0C6;
+                            border-radius: 0px;
+                            transition: background .3s;
+                            cursor: pointer;
+                        }
+                                        
+                        .zoom_options_buttons:active {
+                            top: .08em;
+                        }
 
 .text_wall {
     flex-direction: column;
@@ -156,6 +168,10 @@
 
 @media screen and (max-width: 1324px) {
 
+    #graphs_area {
+        margin-left: 0px;
+    }
+
     #actual_graphs_area {
         margin-top: var(--menu-bar-height);
         height: auto;
@@ -170,9 +186,13 @@
             border-width: 0;
         }
 
-    #graphs_area {
-        margin-left: 0px;
-    }
+        .statistics_table {
+            width: 85%;
+        }
+
+        .zoom_options_div {
+            width: 15%;
+        }
 
     .text_wall {
         height: auto;
