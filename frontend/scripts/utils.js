@@ -109,13 +109,8 @@ function buildDataDiv(metric_name) {
     new_data_div.appendChild(new_statistics_and_options_div);
     data_zone.appendChild(new_data_div);
 
-    // In desktop mode, reassign the background color based on the position on page
-    if (window.innerWidth >= 1324) {
-        const position = Array.from(document.querySelectorAll('.data_div'))
-                        .map(node => node.id)
-                        .indexOf(`${metric_name}_data_div`);
-        new_data_div.style.backgroundColor = (Math.ceil(position/2) % 2) == 0 ? "#F5F7FF" : "#E9EBF7";
-    };
+    // Reassign the background color of the data_divs based on the position on page
+    reassignDataDivsBackgroundColor();
     
     // Create the chart object
     var chart = new Chart(metric_name, {
@@ -544,4 +539,27 @@ function hideAllDivs() {
     hideDataFormatInfo();
     hideContactsPage();
     hideDataZone();
+}
+
+function updateLandingMessageTitle() {
+    const h1 = document.getElementById('landing_message_h1');
+    if (window.innerWidth <= 1324) {
+        h1.innerHTML = 'Welcome to LC';
+    } else {
+        h1.innerHTML = 'Welcome to LearningCurves';
+    }
+}
+
+function reassignDataDivsBackgroundColor() {
+
+    if (window.innerWidth >= 1324) {        // desktop mode
+        document.querySelectorAll('.data_div').forEach((div, index) => {
+            div.style.backgroundColor = (Math.ceil(index/2) % 2) == 0 ? "#F5F7FF" : "#E9EBF7";
+        });
+    } else {                                // mobile mode
+        document.querySelectorAll('.data_div').forEach(div => {
+            div.style.backgroundColor = "#F5F7FF";
+        });
+    };
+
 }
