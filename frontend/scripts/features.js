@@ -143,10 +143,7 @@ function deleteRun(run_name) {
 function exportDesk() {
     /* The action triggered by the export button. */
 
-    const visible_runs_names = Array.from(document.querySelectorAll('.exp_list_run_divs'))      // runs names have to be picked from the experiments list here, because charts may not be visible
-                                .filter(node => node.style.backgroundColor != 'rgba(0, 0, 0, 0)')
-                                .map(node => node.id.slice(0, -14));
-    const visible_runs = _.pick(_.mapValues(localStorage, JSON.parse), visible_runs_names);
+    const visible_runs = getVisibleRuns();
     const link = document.createElement('a');
     var date = new Date();
 
@@ -269,21 +266,6 @@ function dragOverHandler(ev) {
     document.getElementById("drop_cartel").style.display = 'block';
 }
 
-function visualizeTheVisualizable() {
-
-    const cached_runs = _.mapValues(localStorage, JSON.parse);       // because localStorage is the dict containing all the runs
-    if (Object.keys(cached_runs).length != 0) {     // if there are experiments in the cache
-        saveAndShowFile(cached_runs);
-        delayedReformatting();
-    } else {
-        hideAllDivs();
-        showBackgroundImage();
-        showLandingMessage();
-        buttonDivLoadMode();
-    };
-
-}
-
 function delayedReformatting() {
     /* Reformat data_div heights and borders after a delay in order to catch the right dimensions. */
 
@@ -315,9 +297,23 @@ function infoButtonAction() {
 }
 
 function backButtonAction() {
-    visualizeTheVisualizable();
+
+    // In general
+    const visible_runs = getVisibleRuns();
+    if (Object.keys(visible_runs).length != 0) {     // if there are experiments in the cache
+        saveAndShowFile(visible_runs);
+        delayedReformatting();
+    } else {
+        hideAllDivs();
+        showBackgroundImage();
+        showLandingMessage();
+        buttonDivLoadMode();
+    };
+
+    // In mobile mode
     window.scrollTo(0, 0);
     document.getElementById('menu_bar').classList.remove('scrolled');
+
 }
 
 function changeBGColorOnScroll() {

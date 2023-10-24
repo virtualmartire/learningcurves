@@ -563,3 +563,14 @@ function reassignDataDivsBackgroundColor() {
     };
 
 }
+
+function getVisibleRuns() {
+
+    const visible_runs_names = Array.from(document.querySelectorAll('.exp_list_run_divs'))      // runs names have to be picked from the experiments list here, because charts may not be visible
+                                    .filter(node => node.style.backgroundColor != 'rgba(0, 0, 0, 0)')
+                                    .map(node => node.id.slice(0, -14));
+    const visible_runs = _.pick(_.mapValues(localStorage, JSON.parse), visible_runs_names);
+
+    return visible_runs
+    
+}

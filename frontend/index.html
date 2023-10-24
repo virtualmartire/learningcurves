@@ -231,8 +231,18 @@
 
         // Populate the desk
         const hexadecimal_dict = {"original_palette": [...colors_palette], "palette_to_consume": [...colors_palette]};
-        visualizeTheVisualizable();
         updateLandingMessageTitle();
+        
+        const cached_runs = _.mapValues(localStorage, JSON.parse);       // because localStorage is the dict containing all the runs
+        if (Object.keys(cached_runs).length != 0) {     // if there are experiments in the cache
+            saveAndShowFile(cached_runs);
+            delayedReformatting();
+        } else {
+            hideAllDivs();
+            showBackgroundImage();
+            showLandingMessage();
+            buttonDivLoadMode();
+        };
 
     </script>
 
