@@ -9,7 +9,7 @@ function openNav() {
 
     // modify the rest of the layout
     document.getElementById("experiments_area").style.left = "0%";
-    document.getElementById("open_menu_icon").src = "assets/buttons/Cancel.svg";
+    document.getElementById("open_menu_icon").src = "assets/buttons/Icon-Cancel.svg";
     document.getElementById("open_menu_button").onclick = closeNav;
     document.getElementById("graphs_area").style.overflowY = "hidden";
 
@@ -23,7 +23,7 @@ function closeNav() {
     };
     
     document.getElementById("experiments_area").style.left = "-100%";
-    document.getElementById("open_menu_icon").src = "assets/buttons/open_menu_bar.svg";
+    document.getElementById("open_menu_icon").src = "assets/buttons/Icon-Menu.svg";
     document.getElementById("open_menu_button").onclick = openNav;
     document.getElementById("graphs_area").style.overflowY = "";
 }

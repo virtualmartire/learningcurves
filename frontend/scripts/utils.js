@@ -45,7 +45,7 @@ function updateExperimentsListHTML(run_name) {
         del_button.setAttribute('onclick', `deleteRun('${run_name}')`);
         del_button.classList.add("del_buttons");
         del_button.classList.add("hideshow_del_buttons");
-        del_icon.src = "assets/buttons/Cancel.svg";
+        del_icon.src = "assets/buttons/Icon-Cancel.svg";
         del_icon.classList.add("hideshow_del_icons");
         del_button.appendChild(del_icon);
 
