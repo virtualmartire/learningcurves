@@ -574,3 +574,18 @@ function getVisibleRuns() {
     return visible_runs
     
 }
+
+function changeMenuBarBGColor(color) {
+
+    if (color == 'grey') {
+        document.getElementById('menu_bar').style.backgroundColor = '#A1B0C6';
+        document.body.style.backgroundColor = '#A1B0C6';
+    } else if (color == 'white') {
+        document.getElementById('menu_bar').style.backgroundColor = '#F5F7FF';
+        document.body.style.backgroundColor = '#F5F7FF';
+    } else {
+        document.getElementById('menu_bar').style.backgroundColor = 'blue';
+        document.body.style.backgroundColor = 'blue';
+    }
+
+}

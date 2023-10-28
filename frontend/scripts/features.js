@@ -1,12 +1,6 @@
 function openNav() {
     /* Open the side menu */
 
-    // preserv the menu_bar background color if data_zone is hidden (done here for timing reasons)
-    const menu_bar = document.getElementById('menu_bar');
-    if (document.getElementById("data_zone").style.display == 'none') {
-        menu_bar.style.backgroundColor = menu_bar.classList.contains('scrolled') ? '#A1B0C6' : '';
-    };
-
     // modify the rest of the layout
     document.getElementById("experiments_area").style.left = "0%";
     document.getElementById("open_menu_icon").src = "assets/buttons/Icon-Cancel.svg";
@@ -50,8 +44,7 @@ function saveAndShowFile(input_dict) {
     hideAllDivs();
     showDataZone();
     buttonDivChartsMode();
-    window.removeEventListener('scroll', changeBGColorOnScroll);
-    document.getElementById('menu_bar').style.backgroundColor = '#F5F7FF';
+    changeMenuBarBGColor('white');
     window.scrollTo(0, 0);
 
     // Save and show the data
@@ -171,8 +164,7 @@ function clearDesk() {
     buttonDivLoadMode();
     document.getElementById("no_exp_message").style.display = 'block';
 
-    window.addEventListener('scroll', changeBGColorOnScroll);
-    document.getElementById('menu_bar').style.backgroundColor = '';
+    changeMenuBarBGColor('grey');
 
 }
 
@@ -289,7 +281,6 @@ function infoButtonAction() {
     showDataFormatInfo();
     showContactsPage();
 
-    window.addEventListener('scroll', changeBGColorOnScroll);
     document.getElementById('menu_bar').style.backgroundColor = '';
 
     window.scrollTo(0, 0);
@@ -312,19 +303,5 @@ function backButtonAction() {
 
     // In mobile mode
     window.scrollTo(0, 0);
-    document.getElementById('menu_bar').classList.remove('scrolled');
-
-}
-
-function changeBGColorOnScroll() {
-
-    const menu_bar = document.getElementById('menu_bar');
-    const menu_bar_height = menu_bar.offsetHeight;
-
-    if (document.body.scrollTop > 0.25*menu_bar_height || document.documentElement.scrollTop > 0.25*menu_bar_height) {
-        menu_bar.classList.add('scrolled');
-    } else {
-        menu_bar.classList.remove('scrolled');
-    }
 
 }

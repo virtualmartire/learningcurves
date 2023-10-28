@@ -167,10 +167,6 @@
 
 @media screen and (max-width: 1170px) {
 
-    #graphs_area {
-        margin-left: 0px;
-    }
-
     #actual_graphs_area {
         margin-top: var(--menu-bar-height);
         height: auto;

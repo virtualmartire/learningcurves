@@ -104,7 +104,7 @@ h5 {        /* the titles of the statistics tables */
 @media screen and (max-width: 1170px) {
 
     body {
-        background-color: #F5F7FF;;
+        background-color: #A1B0C6;
     }
 
     #menu_bar {
@@ -118,13 +118,8 @@ h5 {        /* the titles of the statistics tables */
         display: block;
         border-bottom: calc(2*var(--standard-black-border)) solid #131514;
         z-index: 777;       /* on top of everything else */
-        transition: background-color 0.15s;
+        background-color: #A1B0C6;
     }
-
-        #menu_bar.scrolled {
-            background-color: #A1B0C6;
-            transition: background-color 0.15s;
-        }
 
         #menu_bar_container {
             height: 100%;
@@ -170,6 +165,11 @@ h5 {        /* the titles of the statistics tables */
     
     #experiments_area {
         z-index: 777;
+    }
+
+    #graphs_area {
+        margin-left: 0px;
+        background-color: #F5F7FF;
     }
     
     #background_image {
