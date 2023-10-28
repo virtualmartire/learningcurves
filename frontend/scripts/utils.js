@@ -580,9 +580,11 @@ function changeMenuBarBGColor(color) {
     if (color == 'grey') {
         document.getElementById('menu_bar').style.backgroundColor = '#A1B0C6';
         document.body.style.backgroundColor = '#A1B0C6';
+        document.getElementById('graphs_area').style.backgroundColor = 'transparent';   // put here because is a property that depends essentially on the menu_bar bgcolor
     } else if (color == 'white') {
         document.getElementById('menu_bar').style.backgroundColor = '#F5F7FF';
         document.body.style.backgroundColor = '#F5F7FF';
+        document.getElementById('graphs_area').style.backgroundColor = '#F5F7FF';
     } else {
         document.getElementById('menu_bar').style.backgroundColor = 'blue';
         document.body.style.backgroundColor = 'blue';

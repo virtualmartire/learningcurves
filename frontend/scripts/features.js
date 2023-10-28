@@ -281,7 +281,7 @@ function infoButtonAction() {
     showDataFormatInfo();
     showContactsPage();
 
-    document.getElementById('menu_bar').style.backgroundColor = '';
+    changeMenuBarBGColor('grey');
 
     window.scrollTo(0, 0);
 
