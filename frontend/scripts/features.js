@@ -134,7 +134,7 @@ function deleteRun(run_name) {
     delete hexadecimal_dict[run_name];
 
     // In desktop mode, reset the height of all the statistics div
-    if (window.innerWidth >= 1324) {
+    if (window.innerWidth >= desktop_width_limit) {
         resetDataDivHeight();
     }
 
@@ -269,7 +269,7 @@ function dragOverHandler(ev) {
 function delayedReformatting() {
     /* Reformat data_div heights and borders after a delay in order to catch the right dimensions. */
 
-    if (window.innerWidth >= 1324) {    // adjust height and borders in desktop mode
+    if (window.innerWidth >= desktop_width_limit) {    // adjust height and borders in desktop mode
         setTimeout(() => {
             resetDataDivHeight();
             resetDataDivBorders();

@@ -15,3 +15,5 @@ const statistics_dict = {
 };
 
 const zoom_history = {};
+
+const desktop_width_limit = 1170;   // 1180 is the logical pixels width of an iPad 10

@@ -454,7 +454,7 @@ function resetDataDivBorders() {
 
     const data_div_list = document.querySelectorAll('.data_div');
 
-    if (window.innerWidth >= 1324) {    // desktop mode
+    if (window.innerWidth >= desktop_width_limit) {    // desktop mode
 
         // Set the borders to their default value
         data_div_list.forEach(div => {div.style.border = "1.5px solid #131514";});
@@ -543,7 +543,7 @@ function hideAllDivs() {
 
 function updateLandingMessageTitle() {
     const h1 = document.getElementById('landing_message_h1');
-    if (window.innerWidth <= 1324) {
+    if (window.innerWidth <= desktop_width_limit) {
         h1.innerHTML = 'Welcome to LC';
     } else {
         h1.innerHTML = 'Welcome to LearningCurves';
@@ -552,7 +552,7 @@ function updateLandingMessageTitle() {
 
 function reassignDataDivsBackgroundColor() {
 
-    if (window.innerWidth >= 1324) {        // desktop mode
+    if (window.innerWidth >= desktop_width_limit) {        // desktop mode
         document.querySelectorAll('.data_div').forEach((div, index) => {
             div.style.backgroundColor = (Math.ceil(index/2) % 2) == 0 ? "#F5F7FF" : "#E9EBF7";
         });
