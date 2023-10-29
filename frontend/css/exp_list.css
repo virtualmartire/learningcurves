@@ -96,8 +96,8 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding-top: 7%;
-    padding-bottom: 7%;
+    padding-top: 20px;
+    padding-bottom: 20px;
     align-items: center; /* Center vertically */
 }
 
@@ -155,11 +155,6 @@
 
         #experiments_div {
             top: 0;
-        }
-
-        #data_buttons_div {
-            padding-top: 5%;
-            padding-bottom: 5%;
         }
 
     #close_menu_button {
