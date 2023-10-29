@@ -155,11 +155,11 @@
 
         #experiments_div {
             top: 0;
-            bottom: calc( var(--menu-bar-height) + (2*var(--standard-black-border)) );
         }
 
         #data_buttons_div {
-            height: calc( var(--menu-bar-height) + (2*var(--standard-black-border)) );
+            padding-top: 5%;
+            padding-bottom: 5%;
         }
 
     #close_menu_button {
