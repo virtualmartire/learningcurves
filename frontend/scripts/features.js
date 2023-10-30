@@ -1,7 +1,6 @@
 function openNav() {
     /* Open the side menu */
 
-    // modify the rest of the layout
     document.getElementById("experiments_area").style.left = "0%";
     document.getElementById("open_menu_icon").src = "assets/buttons/Icon-Cancel.svg";
     document.getElementById("open_menu_button").onclick = closeNav;
@@ -20,6 +19,7 @@ function closeNav() {
     document.getElementById("open_menu_icon").src = "assets/buttons/Icon-Menu.svg";
     document.getElementById("open_menu_button").onclick = openNav;
     document.getElementById("graphs_area").style.overflowY = "";
+    
 }
 
 function gotFiles(input) {
