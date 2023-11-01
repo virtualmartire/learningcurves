@@ -70,6 +70,8 @@ function saveAndShowFile(input_dict) {
 
         });
 
+        showRun(run_name);   // show the new data if the run was hidden before the upload
+
     });
 
 }
