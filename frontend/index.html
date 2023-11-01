@@ -84,7 +84,7 @@
                 <button type="button" class="data_buttons" id="export_button" onclick="exportDesk()" style="display: none;">
                     <span>Export</span>
                 </button>
-                <button type="button" class="data_buttons" id="clear_button" onclick="clearDesk()" style="display: none;">
+                <button type="button" class="data_buttons" id="clear_button" onclick="if (confirm('Do you really want to delete all the experiments?')) {clearDesk()}" style="display: none;">
                     <span>Clear all</span>
                 </button>
             
