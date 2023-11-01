@@ -89,21 +89,28 @@
 #data_buttons_div {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     height: 160px;
     border-top: var(--standard-black-border) solid #131514;
     box-sizing: border-box;
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    align-items: center; /* Center vertically */
+    align-items: center;            /* Center vertically */
+    justify-content: center;        /* Center horizontally */
 }
 
+    #load_exp_div {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #clear_div {
+        display: flex;
+    }
+
     .data_buttons {
-        width: 100px;
-        height: 32px;
+        width: var(--data-buttons-width);
+        height: var(--data-buttons-height);
         padding: 3px 6px;
         font-weight: 600;
         font-size: 14px;
@@ -122,9 +129,9 @@
         vertical-align: middle;
     }
 
-        #clear_button {                
-            border: 1px solid #F5F7FF;
-            background-color: transparent;
+        #load_button {
+            border: 1px solid transparent;
+            background-color: var(--load-export-buttons-color);
         }
 
         #export_button {
@@ -132,9 +139,14 @@
             background-color: var(--load-export-buttons-color);
         }
 
-        #load_button {
-            border: 1px solid transparent;
-            background-color: var(--load-export-buttons-color);
+            #export_button_div {
+                padding-left: var(--exp-list-side-padding);
+                padding-bottom: calc(0.85 * var(--exp-list-side-padding));
+            }
+
+        #clear_button {                
+            border: 1px solid #F5F7FF;
+            background-color: transparent;
         }
 
 @media screen and (max-width: 1170px) {
@@ -156,10 +168,9 @@
             top: 0;
         }
 
-    #close_menu_button {
-        display: inline;
-        margin-top: 10px;
-        padding-top: 3px;
-    }
+        #export_button_div {
+            padding-left: var(--data-buttons-height);
+            padding-bottom: calc(0.85 * var(--data-buttons-height));
+        }
 
 }

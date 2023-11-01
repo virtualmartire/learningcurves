@@ -530,7 +530,6 @@ function buttonDivLoadMode() {
 function buttonDivChartsMode() {
     document.getElementById("clear_button").style.display = 'inline-block';
     document.getElementById("export_button").style.display = 'inline-block';
-    document.getElementById("data_buttons_div").style.justifyContent = 'space-between';
 }
 
 function hideAllDivs() {

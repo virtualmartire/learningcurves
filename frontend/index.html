@@ -77,16 +77,25 @@
 
             <div id="data_buttons_div">
 
-                <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
-                <button type="button" class="data_buttons" id="load_button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">
-                    <span>Load</span>
-                </button>
-                <button type="button" class="data_buttons" id="export_button" onclick="exportDesk()" style="display: none;">
-                    <span>Export</span>
-                </button>
-                <button type="button" class="data_buttons" id="clear_button" onclick="if (confirm('Do you really want to delete all the experiments?')) {clearDesk()}" style="display: none;">
-                    <span>Clear all</span>
-                </button>
+                <div id="load_exp_div">
+                    <div id="load_button_div">
+                        <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
+                        <button type="button" class="data_buttons" id="load_button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">
+                            <span>Load</span>
+                        </button>
+                    </div>
+                    <div id="export_button_div">
+                        <button type="button" class="data_buttons" id="export_button" onclick="exportDesk()" style="display: none;">
+                            <span>Export</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="clear_button_div">
+                    <button type="button" class="data_buttons" id="clear_button" onclick="if (confirm('Do you really want to delete all the experiments?')) {clearDesk()}" style="display: none;">
+                        <span>Clear all</span>
+                    </button>
+                </div>
             
             </div>
 

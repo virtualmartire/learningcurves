@@ -9,6 +9,8 @@
     --load-export-buttons-color: #8ED2B6;
     --menu-bar-height: 100px;
     --exp-list-side-padding: 6%;
+    --data-buttons-height: 37px;
+    --data-buttons-width: 120px;
 }
 
 /* Hide scrollbar for Chrome, Safari and Edge */
