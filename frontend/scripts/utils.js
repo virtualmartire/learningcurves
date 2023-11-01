@@ -522,14 +522,30 @@ function hideDataZone() {
 }
 
 function buttonDivLoadMode() {
-    document.getElementById("clear_button").style.display = 'none';
-    document.getElementById("export_button").style.display = 'none';
+
     document.getElementById("data_buttons_div").style.justifyContent = 'center';
+
+    document.getElementById("export_button").style.display = 'none';
+    document.getElementById("export_button_div").style.paddingLeft = '0';
+    document.getElementById("export_button_div").style.paddingBottom = '0';
+
+    document.getElementById("clear_button").style.display = 'none';
+
 }
 
 function buttonDivChartsMode() {
-    document.getElementById("clear_button").style.display = 'inline-block';
+
     document.getElementById("export_button").style.display = 'inline-block';
+
+    if (window.innerWidth >= desktop_width_limit) {        // desktop mode
+        document.getElementById("export_button_div").style.paddingLeft = 'var(--exp-list-side-padding)';
+        document.getElementById("export_button_div").style.paddingBottom = 'calc(0.85 * var(--exp-list-side-padding))';    
+    } else {                                // mobile mode
+        document.getElementById("export_button_div").style.paddingLeft = 'var(--data-buttons-height)';
+        document.getElementById("export_button_div").style.paddingBottom = 'calc(0.85 * var(--data-buttons-height))';    
+    };
+
+    document.getElementById("clear_button").style.display = 'inline-block';
 }
 
 function hideAllDivs() {

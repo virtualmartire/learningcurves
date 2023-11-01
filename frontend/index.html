@@ -133,11 +133,18 @@
                             Just load an experiment to start using the app or try with some examples</a>.
                         </p>
                         <p>
+
                             <input type="file" id="fileLoader" style="display: none;" accept="json" multiple oninput="gotFiles(this)">
                             <button type="button" class="data_buttons" id="landing_message_load_button" onclick="document.getElementById('fileLoader').value = ''; document.getElementById('fileLoader').click()">
                                 <span>Load</span>
-                            </button>        
-                            <button type="button" class="data_buttons" id="examples_button" onclick="loadExamples()"><span>Examples</span></button>
+                            </button>
+
+                            <span>&nbsp;&nbsp;&nbsp;</span>
+
+                            <button type="button" class="data_buttons" id="examples_button" onclick="loadExamples()">
+                                <span>Examples</span>
+                            </button>
+
                         </p>
 
                     </div>
@@ -175,7 +182,10 @@
                         </p>
                         <br />
                         <p>
-                            <button type="button" class="data_buttons" id="examples_button" onclick="loadExamples()"><span>Examples</span></button>
+                            <button type="button" class="data_buttons" id="examples_button" onclick="loadExamples()">
+                                <span>Examples</span>
+                            </button>
+                            <span>&nbsp;&nbsp;&nbsp;</span>
                             <button type="button" class="data_buttons" id="back_button" onclick="backButtonAction()">
                                 <span>Back</span>
                             </button>
