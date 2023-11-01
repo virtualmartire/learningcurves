@@ -11,15 +11,11 @@ function openNav() {
 function closeNav() {
     /* Close the side menu */
 
-    if (document.getElementById("data_zone").style.display == 'none') {
-        document.getElementById('menu_bar').style.backgroundColor = '';
-    };
-    
     document.getElementById("experiments_area").style.left = "-100%";
     document.getElementById("open_menu_icon").src = "assets/buttons/Icon-Menu.svg";
     document.getElementById("open_menu_button").onclick = openNav;
     document.getElementById("graphs_area").style.overflowY = "";
-    
+
 }
 
 function gotFiles(input) {
@@ -45,7 +41,6 @@ function saveAndShowFile(input_dict) {
     showDataZone();
     buttonDivChartsMode();
     changeMenuBarBGColor('white');
-    window.scrollTo(0, 0);
 
     // Save and show the data
     
@@ -284,6 +279,8 @@ function infoButtonAction() {
     showContactsPage();
 
     changeMenuBarBGColor('grey');
+
+    closeNav();
 
     window.scrollTo(0, 0);
 
