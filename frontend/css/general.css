@@ -47,12 +47,13 @@ body {
     overflow-x: hidden;     /* Hide horizontal scrollbar */
 }
 
-h1 {
+h1 {            /* homepage titles and drop cartel */
     font-size: 48px;
     font-weight: 700;
+    line-height: 100%;
 }
 
-h2 {
+h2 {            /* exp_list title and authors name in the contacts page */
     font-size: 24px;
     font-weight: 600;
 }
