@@ -558,10 +558,10 @@ function hideAllDivs() {
 
 function updateLandingMessageTitle() {
     const h1 = document.getElementById('landing_message_h1');
-    if (window.innerWidth <= desktop_width_limit) {
-        h1.innerHTML = 'Welcome to LC';
-    } else {
-        h1.innerHTML = 'Welcome to LearningCurves';
+    if (window.innerWidth <= desktop_width_limit) {     // desktop mode
+        h1.innerHTML = 'LC: your free ML metrics vizualizing web-app';
+    } else {                                            // mobile mode
+        h1.innerHTML = 'LearningCurves: your free ML metrics vizualizing web-app';
     }
 }
 
