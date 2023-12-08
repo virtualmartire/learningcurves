@@ -271,7 +271,8 @@ function delayedReformatting() {
 
 }
 
-function infoButtonAction() {
+function mobileInfoButtonAction() {
+    /* The action triggered by the info button in the menu bar, mobile mode. */
 
     hideAllDivs();
     showBackgroundImage();
@@ -288,7 +289,6 @@ function infoButtonAction() {
 
 function backButtonAction() {
 
-    // In general
     const visible_runs = getVisibleRuns();
     if (Object.keys(visible_runs).length != 0) {     // if there are experiments in the cache
         saveAndShowFile(visible_runs);
@@ -300,7 +300,7 @@ function backButtonAction() {
         buttonDivLoadMode();
     };
 
-    // In mobile mode
+    // For mobile mode
     window.scrollTo(0, 0);
 
 }

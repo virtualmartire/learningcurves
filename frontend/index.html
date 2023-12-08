@@ -48,7 +48,7 @@
                     </a>
                 </div>
 
-                <button id="info_button" class="menu_bar_buttons" type="button" title="show info" onclick="infoButtonAction()">
+                <button id="info_button" class="menu_bar_buttons" type="button" title="show info" onclick="mobileInfoButtonAction()">
                     <img class="menu_bar_icons" src="assets/buttons/Icon-Info.svg">
                 </button>
 
@@ -68,9 +68,9 @@
                 </div>
                 <br />
                 <div id="info_div">
-                    <a href="#" onclick="hideAllDivs(); showBackgroundImage(); showDataFormatInfo()">How to</a>
+                    <a href="#" onclick="hideAllDivs(); showBackgroundImage(); showDataFormatInfo(); changeMenuBarBGColor('grey')">How to</a>
                     <span>&nbsp;&nbsp;&nbsp;</span>
-                    <a href="#" onclick="hideAllDivs(); showBackgroundImage(); showContactsPage()">Contacts</a>
+                    <a href="#" onclick="hideAllDivs(); showBackgroundImage(); showContactsPage(); changeMenuBarBGColor('grey')">Contacts</a>
                 </div>
             </div>
 
