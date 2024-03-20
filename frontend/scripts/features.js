@@ -163,6 +163,8 @@ function clearDesk() {
 
     changeMenuBarBGColor('grey');
 
+    localStorage.clear();  // to clear what remains
+
 }
 
 function halfYMax(metric_name) {
