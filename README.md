@@ -1,7 +1,7 @@
-# learningcurves
-A privacy preserving, ultralight ML visualization tool.
+# LearningCurves
+A privacy preserving, ultralight, visualization tool for machine-learning. Served for free at [learningcurves.xyz](https://learningcurves.xyz).
 
 ## todos
 - experiments reordering
 - x-axis zoom
-- boards (i.e. excel sheets)
+- multiple boards ("Excel sheets")
